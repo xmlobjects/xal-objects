@@ -7,11 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PostalRoute extends XALObject {
+public class MailStop extends XALObject {
     private List<AddressLine> addressLines;
-    private List<PostalRouteName> postalRouteNames;
-    private PostalRouteNumber postalRouteNumber;
-    private PostBox postBox;
+    private MailStopName mailStopName;
+    private MailStopNumber mailStopNumber;
     private List<GenericElement> genericElements;
     private String type;
     private Map<QName, String> otherAttributes;
@@ -27,41 +26,20 @@ public class PostalRoute extends XALObject {
         this.addressLines = asChild(addressLines);
     }
 
-    public List<PostalRouteName> getPostalRouteNames() {
-        if (postalRouteNames == null)
-            postalRouteNames = new ChildList<>(this);
-
-        return postalRouteNames;
+    public MailStopName getMailStopName() {
+        return mailStopName;
     }
 
-    public boolean isSetPostalRouteNames() {
-        return postalRouteNames != null && !postalRouteNames.isEmpty();
+    public void setMailStopName(MailStopName mailStopName) {
+        this.mailStopName = asChild(mailStopName);
     }
 
-    public void setPostalRouteNames(List<PostalRouteName> postalRouteNames) {
-        clearChoice();
-        this.postalRouteNames = asChild(postalRouteNames);
+    public MailStopNumber getMailStopNumber() {
+        return mailStopNumber;
     }
 
-    public PostalRouteNumber getPostalRouteNumber() {
-        return postalRouteNumber;
-    }
-
-    public boolean isSetPostalRouteNumber() {
-        return postalRouteNumber != null;
-    }
-
-    public void setPostalRouteNumber(PostalRouteNumber postalRouteNumber) {
-        clearChoice();
-        this.postalRouteNumber = asChild(postalRouteNumber);
-    }
-
-    public PostBox getPostBox() {
-        return postBox;
-    }
-
-    public void setPostBox(PostBox postBox) {
-        this.postBox = asChild(postBox);
+    public void setMailStopNumber(MailStopNumber mailStopNumber) {
+        this.mailStopNumber = asChild(mailStopNumber);
     }
 
     public List<GenericElement> getGenericElements() {
@@ -92,10 +70,5 @@ public class PostalRoute extends XALObject {
 
     public void setOtherAttributes(Map<QName, String> otherAttributes) {
         this.otherAttributes = otherAttributes;
-    }
-
-    private void clearChoice() {
-        postalRouteNames = null;
-        postalRouteNumber = null;
     }
 }
