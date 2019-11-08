@@ -4,9 +4,10 @@ import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CountryName extends XALObject implements GrPostal {
+public class PostOfficeNumber extends XALObject implements GrPostal {
     private String content;
-    private String type;
+    private String indicator;
+    private IndicatorOccurrence indicatorOccurrence;
     private String code;
     private Map<QName, String> otherAttributes;
 
@@ -18,12 +19,20 @@ public class CountryName extends XALObject implements GrPostal {
         this.content = content;
     }
 
-    public String getType() {
-        return type;
+    public String getIndicator() {
+        return indicator;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setIndicator(String indicator) {
+        this.indicator = indicator;
+    }
+
+    public IndicatorOccurrence getIndicatorOccurrence() {
+        return indicatorOccurrence;
+    }
+
+    public void setIndicatorOccurrence(IndicatorOccurrence indicatorOccurrence) {
+        this.indicatorOccurrence = indicatorOccurrence;
     }
 
     @Override

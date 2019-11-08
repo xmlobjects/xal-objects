@@ -1,29 +1,26 @@
 package org.xmlobjects.xal.model;
 
+import org.xmlobjects.model.ChildList;
+
 import javax.xml.namespace.QName;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class CountryName extends XALObject implements GrPostal {
-    private String content;
-    private String type;
+public class ThoroughfareNumberFrom extends XALObject implements GrPostal {
+    private List<ThoroughfareNumberContent> contents;
     private String code;
     private Map<QName, String> otherAttributes;
 
-    public String getContent() {
-        return content;
+    public List<ThoroughfareNumberContent> getContents() {
+        if (contents == null)
+            contents = new ChildList<>(this);
+
+        return contents;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+    public void setContents(List<ThoroughfareNumberContent> contents) {
+        this.contents = asChild(contents);
     }
 
     @Override

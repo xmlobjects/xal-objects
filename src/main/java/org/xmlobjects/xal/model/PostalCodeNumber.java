@@ -4,7 +4,7 @@ import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CountryName extends XALObject implements GrPostal {
+public class PostalCodeNumber extends XALObject implements GrPostal {
     private String content;
     private String type;
     private String code;

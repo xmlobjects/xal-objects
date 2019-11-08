@@ -7,16 +7,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PostBox extends XALObject {
+public class SubAdministrativeArea extends XALObject {
     private List<AddressLine> addressLines;
-    private PostBoxNumber postBoxNumber;
-    private PostBoxNumberPrefix postBoxNumberPrefix;
-    private PostBoxNumberSuffix postBoxNumberSuffix;
-    private PostBoxNumberExtension postBoxNumberExtension;
-    private Firm firm;
+    private List<SubAdministrativeAreaName> subAdministrativeAreaNames;
+    private Locality locality;
+    private PostOffice postOffice;
     private PostalCode postalCode;
     private List<GenericElement> genericElements;
     private String type;
+    private String usageType;
     private String indicator;
     private Map<QName, String> otherAttributes;
 
@@ -31,51 +30,53 @@ public class PostBox extends XALObject {
         this.addressLines = asChild(addressLines);
     }
 
-    public PostBoxNumber getPostBoxNumber() {
-        return postBoxNumber;
+    public List<SubAdministrativeAreaName> getSubAdministrativeAreaNames() {
+        if (subAdministrativeAreaNames == null)
+            subAdministrativeAreaNames = new ChildList<>(this);
+
+        return subAdministrativeAreaNames;
     }
 
-    public void setPostBoxNumber(PostBoxNumber postBoxNumber) {
-        this.postBoxNumber = asChild(postBoxNumber);
+    public void setSubAdministrativeAreaNames(List<SubAdministrativeAreaName> subAdministrativeAreaNames) {
+        this.subAdministrativeAreaNames = asChild(subAdministrativeAreaNames);
     }
 
-    public PostBoxNumberPrefix getPostBoxNumberPrefix() {
-        return postBoxNumberPrefix;
+    public Locality getLocality() {
+        return locality;
     }
 
-    public void setPostBoxNumberPrefix(PostBoxNumberPrefix postBoxNumberPrefix) {
-        this.postBoxNumberPrefix = asChild(postBoxNumberPrefix);
+    public boolean isSetLocality() {
+        return locality != null;
     }
 
-    public PostBoxNumberSuffix getPostBoxNumberSuffix() {
-        return postBoxNumberSuffix;
+    public void setLocality(Locality locality) {
+        clearChoice();
+        this.locality = asChild(locality);
     }
 
-    public void setPostBoxNumberSuffix(PostBoxNumberSuffix postBoxNumberSuffix) {
-        this.postBoxNumberSuffix = asChild(postBoxNumberSuffix);
+    public PostOffice getPostOffice() {
+        return postOffice;
     }
 
-    public PostBoxNumberExtension getPostBoxNumberExtension() {
-        return postBoxNumberExtension;
+    public boolean isSetPostOffice() {
+        return postOffice != null;
     }
 
-    public void setPostBoxNumberExtension(PostBoxNumberExtension postBoxNumberExtension) {
-        this.postBoxNumberExtension = asChild(postBoxNumberExtension);
-    }
-
-    public Firm getFirm() {
-        return firm;
-    }
-
-    public void setFirm(Firm firm) {
-        this.firm = asChild(firm);
+    public void setPostOffice(PostOffice postOffice) {
+        clearChoice();
+        this.postOffice = asChild(postOffice);
     }
 
     public PostalCode getPostalCode() {
         return postalCode;
     }
 
+    public boolean isSetPostalCode() {
+        return postalCode != null;
+    }
+
     public void setPostalCode(PostalCode postalCode) {
+        clearChoice();
         this.postalCode = asChild(postalCode);
     }
 
@@ -98,6 +99,14 @@ public class PostBox extends XALObject {
         this.type = type;
     }
 
+    public String getUsageType() {
+        return usageType;
+    }
+
+    public void setUsageType(String usageType) {
+        this.usageType = usageType;
+    }
+
     public String getIndicator() {
         return indicator;
     }
@@ -115,5 +124,11 @@ public class PostBox extends XALObject {
 
     public void setOtherAttributes(Map<QName, String> otherAttributes) {
         this.otherAttributes = otherAttributes;
+    }
+
+    private void clearChoice() {
+        locality = null;
+        postOffice = null;
+        postalCode = null;
     }
 }

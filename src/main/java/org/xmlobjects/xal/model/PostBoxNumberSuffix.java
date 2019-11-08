@@ -4,9 +4,9 @@ import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CountryName extends XALObject implements GrPostal {
+public class PostBoxNumberSuffix extends XALObject implements GrPostal {
     private String content;
-    private String type;
+    private String numberSuffixSeparator;
     private String code;
     private Map<QName, String> otherAttributes;
 
@@ -18,12 +18,12 @@ public class CountryName extends XALObject implements GrPostal {
         this.content = content;
     }
 
-    public String getType() {
-        return type;
+    public String getNumberSuffixSeparator() {
+        return numberSuffixSeparator;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setNumberSuffixSeparator(String numberSuffixSeparator) {
+        this.numberSuffixSeparator = numberSuffixSeparator;
     }
 
     @Override

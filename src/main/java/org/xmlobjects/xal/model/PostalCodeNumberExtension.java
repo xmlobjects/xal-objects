@@ -4,9 +4,10 @@ import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CountryName extends XALObject implements GrPostal {
+public class PostalCodeNumberExtension extends XALObject implements GrPostal {
     private String content;
     private String type;
+    private String numberExtensionSeparator;
     private String code;
     private Map<QName, String> otherAttributes;
 
@@ -24,6 +25,14 @@ public class CountryName extends XALObject implements GrPostal {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getNumberExtensionSeparator() {
+        return numberExtensionSeparator;
+    }
+
+    public void setNumberExtensionSeparator(String numberExtensionSeparator) {
+        this.numberExtensionSeparator = numberExtensionSeparator;
     }
 
     @Override

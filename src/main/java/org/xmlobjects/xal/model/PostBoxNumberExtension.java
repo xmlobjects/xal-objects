@@ -4,10 +4,9 @@ import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CountryName extends XALObject implements GrPostal {
+public class PostBoxNumberExtension extends XALObject {
     private String content;
-    private String type;
-    private String code;
+    private String numberExtensionSeparator;
     private Map<QName, String> otherAttributes;
 
     public String getContent() {
@@ -18,22 +17,12 @@ public class CountryName extends XALObject implements GrPostal {
         this.content = content;
     }
 
-    public String getType() {
-        return type;
+    public String getNumberExtensionSeparator() {
+        return numberExtensionSeparator;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    @Override
-    public String getCode() {
-        return code;
-    }
-
-    @Override
-    public void setCode(String code) {
-        this.code = code;
+    public void setNumberExtensionSeparator(String numberExtensionSeparator) {
+        this.numberExtensionSeparator = numberExtensionSeparator;
     }
 
     public Map<QName, String> getOtherAttributes() {

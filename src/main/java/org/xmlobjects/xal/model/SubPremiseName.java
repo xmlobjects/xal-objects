@@ -4,9 +4,10 @@ import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CountryName extends XALObject implements GrPostal {
+public class SubPremiseName extends XALObject implements GrPostal {
     private String content;
     private String type;
+    private TypeOccurrence typeOccurrence;
     private String code;
     private Map<QName, String> otherAttributes;
 
@@ -24,6 +25,14 @@ public class CountryName extends XALObject implements GrPostal {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public TypeOccurrence getTypeOccurrence() {
+        return typeOccurrence;
+    }
+
+    public void setTypeOccurrence(TypeOccurrence typeOccurrence) {
+        this.typeOccurrence = typeOccurrence;
     }
 
     @Override
