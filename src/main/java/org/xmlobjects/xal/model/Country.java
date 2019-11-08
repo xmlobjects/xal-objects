@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Country extends XALObject {
     private List<AddressLine> addressLines;
-    private List<CountryNameCode> countryNameCode;
+    private List<CountryNameCode> countryNameCodes;
     private List<CountryName> countryNames;
     private AdministrativeArea administrativeArea;
     private Locality locality;
@@ -28,20 +28,20 @@ public class Country extends XALObject {
         this.addressLines = asChild(addressLines);
     }
 
-    public List<CountryNameCode> getCountryNameCode() {
-        if (countryNameCode == null)
-            countryNameCode = new ChildList<>(this);
+    public List<CountryNameCode> getCountryNameCodes() {
+        if (countryNameCodes == null)
+            countryNameCodes = new ChildList<>(this);
 
-        return countryNameCode;
+        return countryNameCodes;
     }
 
-    public void setCountryNameCode(List<CountryNameCode> countryNameCode) {
-        this.countryNameCode = asChild(countryNameCode);
+    public void setCountryNameCodes(List<CountryNameCode> countryNameCodes) {
+        this.countryNameCodes = asChild(countryNameCodes);
     }
 
     public List<CountryName> getCountryNames() {
-        if (countryNameCode == null)
-            countryNameCode = new ChildList<>(this);
+        if (countryNameCodes == null)
+            countryNameCodes = new ChildList<>(this);
 
         return countryNames;
     }

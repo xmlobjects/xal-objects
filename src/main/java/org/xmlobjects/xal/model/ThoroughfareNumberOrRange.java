@@ -4,6 +4,17 @@ public class ThoroughfareNumberOrRange extends XALObject {
     private ThoroughfareNumber thoroughfareNumber;
     private ThoroughfareNumberRange thoroughfareNumberRange;
 
+    public ThoroughfareNumberOrRange() {
+    }
+
+    public ThoroughfareNumberOrRange(ThoroughfareNumber thoroughfareNumber) {
+        setThoroughfareNumber(thoroughfareNumber);
+    }
+
+    public ThoroughfareNumberOrRange(ThoroughfareNumberRange thoroughfareNumberRange) {
+        setThoroughfareNumberRange(thoroughfareNumberRange);
+    }
+
     public ThoroughfareNumber getThoroughfareNumber() {
         return thoroughfareNumber;
     }

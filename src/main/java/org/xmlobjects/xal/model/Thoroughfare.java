@@ -10,8 +10,8 @@ import java.util.Map;
 public class Thoroughfare extends XALObject {
     private List<AddressLine> addressLines;
     private List<ThoroughfareNumberOrRange> thoroughfareNumberOrRanges;
-    private List<ThoroughfareNumberPrefix> thoroughfareNumberPrefix;
-    private List<ThoroughfareNumberSuffix> thoroughfareNumberSuffix;
+    private List<ThoroughfareNumberPrefix> thoroughfareNumberPrefixes;
+    private List<ThoroughfareNumberSuffix> thoroughfareNumberSuffixes;
     private ThoroughfarePreDirection thoroughfarePreDirection;
     private ThoroughfareLeadingType thoroughfareLeadingType;
     private List<ThoroughfareName> thoroughfareNames;
@@ -55,26 +55,26 @@ public class Thoroughfare extends XALObject {
         this.thoroughfareNumberOrRanges = asChild(thoroughfareNumberOrRanges);
     }
 
-    public List<ThoroughfareNumberPrefix> getThoroughfareNumberPrefix() {
-        if (thoroughfareNumberPrefix == null)
-            thoroughfareNumberPrefix = new ChildList<>(this);
+    public List<ThoroughfareNumberPrefix> getThoroughfareNumberPrefixes() {
+        if (thoroughfareNumberPrefixes == null)
+            thoroughfareNumberPrefixes = new ChildList<>(this);
 
-        return thoroughfareNumberPrefix;
+        return thoroughfareNumberPrefixes;
     }
 
-    public void setThoroughfareNumberPrefix(List<ThoroughfareNumberPrefix> thoroughfareNumberPrefix) {
-        this.thoroughfareNumberPrefix = asChild(thoroughfareNumberPrefix);
+    public void setThoroughfareNumberPrefixes(List<ThoroughfareNumberPrefix> thoroughfareNumberPrefixes) {
+        this.thoroughfareNumberPrefixes = asChild(thoroughfareNumberPrefixes);
     }
 
-    public List<ThoroughfareNumberSuffix> getThoroughfareNumberSuffix() {
-        if (thoroughfareNumberSuffix == null)
-            thoroughfareNumberSuffix = new ChildList<>(this);
+    public List<ThoroughfareNumberSuffix> getThoroughfareNumberSuffixes() {
+        if (thoroughfareNumberSuffixes == null)
+            thoroughfareNumberSuffixes = new ChildList<>(this);
 
-        return thoroughfareNumberSuffix;
+        return thoroughfareNumberSuffixes;
     }
 
-    public void setThoroughfareNumberSuffix(List<ThoroughfareNumberSuffix> thoroughfareNumberSuffix) {
-        this.thoroughfareNumberSuffix = asChild(thoroughfareNumberSuffix);
+    public void setThoroughfareNumberSuffixes(List<ThoroughfareNumberSuffix> thoroughfareNumberSuffixes) {
+        this.thoroughfareNumberSuffixes = asChild(thoroughfareNumberSuffixes);
     }
 
     public ThoroughfarePreDirection getThoroughfarePreDirection() {
@@ -94,6 +94,9 @@ public class Thoroughfare extends XALObject {
     }
 
     public List<ThoroughfareName> getThoroughfareNames() {
+        if (thoroughfareNames == null)
+            thoroughfareNames = new ChildList<>(this);
+
         return thoroughfareNames;
     }
 

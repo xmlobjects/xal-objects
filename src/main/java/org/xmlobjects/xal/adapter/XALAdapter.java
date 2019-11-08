@@ -10,7 +10,6 @@ import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xal.model.AddressDetails;
-import org.xmlobjects.xal.model.GenericElement;
 import org.xmlobjects.xal.model.XAL;
 import org.xmlobjects.xal.util.XALConstants;
 import org.xmlobjects.xml.Attributes;

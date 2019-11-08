@@ -1,6 +1,5 @@
 package org.xmlobjects.xal.adapter;
 
-import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -10,8 +9,8 @@ import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xal.model.AddressLine;
-import org.xmlobjects.xal.model.Locality;
-import org.xmlobjects.xal.model.LocalityName;
+import org.xmlobjects.xal.model.DependentLocality;
+import org.xmlobjects.xal.model.DependentLocalityName;
 import org.xmlobjects.xal.util.XALConstants;
 import org.xmlobjects.xml.Attributes;
 import org.xmlobjects.xml.Element;
@@ -19,31 +18,34 @@ import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-@XMLElement(name = "Locality", namespaceURI = XALConstants.XAL_2_0_NAMESPACE)
-public class LocalityAdapter implements ObjectBuilder<Locality>, ObjectSerializer<Locality> {
+public class DependentLocalityAdapter implements ObjectBuilder<DependentLocality>, ObjectSerializer<DependentLocality> {
 
     @Override
-    public Locality createObject(QName name) throws ObjectBuildException {
-        return new Locality();
+    public DependentLocality createObject(QName name) throws ObjectBuildException {
+        return new DependentLocality();
     }
 
     @Override
-    public void initializeObject(Locality object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
+    public void initializeObject(DependentLocality object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         attributes.getValue("Type").ifPresent(object::setType);
         attributes.getValue("UsageType").ifPresent(object::setUsageType);
+        attributes.getValue("Connector").ifPresent(object::setConnector);
         attributes.getValue("Indicator").ifPresent(object::setIndicator);
         XALBuilderHelper.buildOtherAttributes(object.getOtherAttributes(), attributes);
     }
 
     @Override
-    public void buildChildObject(Locality object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
+    public void buildChildObject(DependentLocality object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "AddressLine":
                     object.getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     break;
-                case "LocalityName":
-                    object.getLocalityNames().add(reader.getObjectUsingBuilder(LocalityNameAdapter.class));
+                case "DependentLocalityName":
+                    object.getDependentLocalityNames().add(reader.getObjectUsingBuilder(DependentLocalityNameAdapter.class));
+                    break;
+                case "DependentLocalityNumber":
+                    object.setDependentLocalityNumber(reader.getObjectUsingBuilder(DependentLocalityNumberAdapter.class));
                     break;
                 case "PostBox":
                     object.setPostBox(reader.getObjectUsingBuilder(PostBoxAdapter.class));
@@ -75,25 +77,29 @@ public class LocalityAdapter implements ObjectBuilder<Locality>, ObjectSerialize
     }
 
     @Override
-    public Element createElement(Locality object, Namespaces namespaces) throws ObjectSerializeException {
-        return Element.of(XALConstants.XAL_2_0_NAMESPACE, "Locality");
+    public Element createElement(DependentLocality object, Namespaces namespaces) throws ObjectSerializeException {
+        return Element.of(XALConstants.XAL_2_0_NAMESPACE, "DependentLocality");
     }
 
     @Override
-    public void initializeElement(Element element, Locality object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+    public void initializeElement(Element element, DependentLocality object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         element.addAttribute("Type", object.getType());
         element.addAttribute("UsageType", object.getUsageType());
+        element.addAttribute("Connector", object.getConnector());
         element.addAttribute("Indicator", object.getIndicator());
         XALSerializerHelper.serializeOtherAttributes(element, object.getOtherAttributes());
     }
 
     @Override
-    public void writeChildElements(Locality object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+    public void writeChildElements(DependentLocality object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         for (AddressLine addressLine : object.getAddressLines())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "AddressLine"), addressLine, AddressLineAdapter.class, namespaces);
 
-        for (LocalityName localityName : object.getLocalityNames())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "LocalityName"), localityName, LocalityNameAdapter.class, namespaces);
+        for (DependentLocalityName dependentLocalityName : object.getDependentLocalityNames())
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "DependentLocalityName"), dependentLocalityName, DependentLocalityNameAdapter.class, namespaces);
+
+        if (object.getDependentLocalityNumber() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "DependentLocalityNumber"), object.getDependentLocalityNumber(), DependentLocalityNumberAdapter.class, namespaces);
 
         if (object.isSetPostBox())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostBox"), object.getPostBox(), PostBoxAdapter.class, namespaces);

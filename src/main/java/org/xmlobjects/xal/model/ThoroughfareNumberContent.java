@@ -7,11 +7,34 @@ public class ThoroughfareNumberContent extends XALObject {
     private ThoroughfareNumberSuffix thoroughfareNumberSuffix;
     private String string;
 
+    public ThoroughfareNumberContent() {
+    }
+
+    public ThoroughfareNumberContent(AddressLine addressLine) {
+        setAddressLine(addressLine);
+    }
+
+    public ThoroughfareNumberContent(ThoroughfareNumber thoroughfareNumber) {
+        setThoroughfareNumber(thoroughfareNumber);
+    }
+
+    public ThoroughfareNumberContent(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
+        setThoroughfareNumberPrefix(thoroughfareNumberPrefix);
+    }
+
+    public ThoroughfareNumberContent(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
+        setThoroughfareNumberSuffix(thoroughfareNumberSuffix);
+    }
+
+    public ThoroughfareNumberContent(String string) {
+        this.string = string;
+    }
+
     public AddressLine getAddressLine() {
         return addressLine;
     }
 
-    public boolean isSettAddressLine() {
+    public boolean isSetAddressLine() {
         return addressLine != null;
     }
 
