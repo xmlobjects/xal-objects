@@ -9,7 +9,10 @@ import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
+import org.xmlobjects.xal.model.AddressLine;
 import org.xmlobjects.xal.model.PostalCode;
+import org.xmlobjects.xal.model.PostalCodeNumber;
+import org.xmlobjects.xal.model.PostalCodeNumberExtension;
 import org.xmlobjects.xal.util.XALConstants;
 import org.xmlobjects.xml.Attributes;
 import org.xmlobjects.xml.Element;
@@ -27,12 +30,29 @@ public class PostalCodeAdapter implements ObjectBuilder<PostalCode>, ObjectSeria
 
     @Override
     public void initializeObject(PostalCode object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-
+        attributes.getValue("Type").ifPresent(object::setType);
+        XALBuilderHelper.buildOtherAttributes(object.getOtherAttributes(), attributes);
     }
 
     @Override
     public void buildChildObject(PostalCode object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-
+        if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
+            switch (name.getLocalPart()) {
+                case "AddressLine":
+                    object.getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
+                    break;
+                case "PostalCodeNumber":
+                    object.getPostalCodeNumbers().add(reader.getObjectUsingBuilder(PostalCodeNumberAdapter.class));
+                    break;
+                case "PostalCodeNumberExtension":
+                    object.getPostalCodeNumberExtensions().add(reader.getObjectUsingBuilder(PostalCodeNumberExtensionAdapter.class));
+                    break;
+                case "PostTown":
+                    object.setPostTown(reader.getObjectUsingBuilder(PostTownAdapter.class));
+                    break;
+            }
+        } else
+            XALBuilderHelper.buildGenericElements(object.getGenericElements(), reader);
     }
 
     @Override
@@ -42,11 +62,24 @@ public class PostalCodeAdapter implements ObjectBuilder<PostalCode>, ObjectSeria
 
     @Override
     public void initializeElement(Element element, PostalCode object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-
+        element.addAttribute("Type", object.getType());
+        XALSerializerHelper.serializeOtherAttributes(element, object.getOtherAttributes());
     }
 
     @Override
     public void writeChildElements(PostalCode object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        for (AddressLine addressLine : object.getAddressLines())
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "AddressLine"), addressLine, AddressLineAdapter.class, namespaces);
 
+        for (PostalCodeNumber postalCodeNumber : object.getPostalCodeNumbers())
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCodeNumber"), postalCodeNumber, PostalCodeNumberAdapter.class, namespaces);
+
+        for (PostalCodeNumberExtension postalCodeNumberExtension : object.getPostalCodeNumberExtensions())
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCodeNumberExtension"), postalCodeNumberExtension, PostalCodeNumberExtensionAdapter.class, namespaces);
+
+        if (object.getPostTown() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostTown"), object.getPostTown(), PostTownAdapter.class, namespaces);
+
+        XALSerializerHelper.serializeGenericElements(object.getGenericElements(), writer);
     }
 }

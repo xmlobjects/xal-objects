@@ -9,7 +9,7 @@ import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
-import org.xmlobjects.xal.model.ThoroughfareNumberPrefix;
+import org.xmlobjects.xal.model.PremiseNumberPrefix;
 import org.xmlobjects.xal.util.XALConstants;
 import org.xmlobjects.xml.Attributes;
 import org.xmlobjects.xml.Element;
@@ -17,16 +17,16 @@ import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-@XMLElement(name = "ThoroughfareNumberPrefix", namespaceURI = XALConstants.XAL_2_0_NAMESPACE)
-public class ThoroughfareNumberPrefixAdapter implements ObjectBuilder<ThoroughfareNumberPrefix>, ObjectSerializer<ThoroughfareNumberPrefix> {
+@XMLElement(name = "PremiseNumberPrefix", namespaceURI = XALConstants.XAL_2_0_NAMESPACE)
+public class PremiseNumberPrefixAdapter implements ObjectBuilder<PremiseNumberPrefix>, ObjectSerializer<PremiseNumberPrefix> {
 
     @Override
-    public ThoroughfareNumberPrefix createObject(QName name) throws ObjectBuildException {
-        return new ThoroughfareNumberPrefix();
+    public PremiseNumberPrefix createObject(QName name) throws ObjectBuildException {
+        return new PremiseNumberPrefix();
     }
 
     @Override
-    public void initializeObject(ThoroughfareNumberPrefix object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
+    public void initializeObject(PremiseNumberPrefix object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         reader.getTextContent().ifPresent(object::setContent);
         attributes.getValue("NumberPrefixSeparator").ifPresent(object::setNumberPrefixSeparator);
         attributes.getValue("Type").ifPresent(object::setType);
@@ -35,12 +35,12 @@ public class ThoroughfareNumberPrefixAdapter implements ObjectBuilder<Thoroughfa
     }
 
     @Override
-    public Element createElement(ThoroughfareNumberPrefix object, Namespaces namespaces) throws ObjectSerializeException {
-        return Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfareNumberPrefix");
+    public Element createElement(PremiseNumberPrefix object, Namespaces namespaces) throws ObjectSerializeException {
+        return Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumberPrefix");
     }
 
     @Override
-    public void initializeElement(Element element, ThoroughfareNumberPrefix object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+    public void initializeElement(Element element, PremiseNumberPrefix object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         element.addTextContent(object.getContent());
         element.addAttribute("NumberPrefixSeparator", object.getNumberPrefixSeparator());
         element.addAttribute("Type", object.getType());
