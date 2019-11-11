@@ -40,8 +40,8 @@ public class Country extends XALObject {
     }
 
     public List<CountryName> getCountryNames() {
-        if (countryNameCodes == null)
-            countryNameCodes = new ChildList<>(this);
+        if (countryNames == null)
+            countryNames = new ChildList<>(this);
 
         return countryNames;
     }
