@@ -6,7 +6,7 @@ import org.xmlobjects.util.copy.Copyable;
 
 import java.util.List;
 
-public class XALObject implements Child, Copyable {
+public abstract class XALObject implements Child, Copyable {
     private Child parent;
 
     protected final <T extends Child> T asChild(T child) {
