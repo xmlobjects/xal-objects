@@ -1,6 +1,7 @@
 package org.xmlobjects.xal.model;
 
 import org.xmlobjects.model.ChildList;
+import org.xmlobjects.xal.visitor.XALVisitor;
 
 import javax.xml.namespace.QName;
 import java.util.HashMap;
@@ -130,5 +131,10 @@ public class SubAdministrativeArea extends XALObject {
         locality = null;
         postOffice = null;
         postalCode = null;
+    }
+
+    @Override
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
     }
 }

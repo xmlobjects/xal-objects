@@ -1,5 +1,7 @@
 package org.xmlobjects.xal.model;
 
+import org.xmlobjects.xal.visitor.XALVisitor;
+
 public class PremiseNumberRange extends XALObject {
     private PremiseNumberRangeFrom premiseNumberRangeFrom;
     private PremiseNumberRangeTo premiseNumberRangeTo;
@@ -72,5 +74,10 @@ public class PremiseNumberRange extends XALObject {
 
     public void setNumberRangeOccurrence(NumberRangeOccurrence numberRangeOccurrence) {
         this.numberRangeOccurrence = numberRangeOccurrence;
+    }
+
+    @Override
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
     }
 }

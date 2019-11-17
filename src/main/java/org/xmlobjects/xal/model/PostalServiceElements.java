@@ -1,6 +1,7 @@
 package org.xmlobjects.xal.model;
 
 import org.xmlobjects.model.ChildList;
+import org.xmlobjects.xal.visitor.XALVisitor;
 
 import javax.xml.namespace.QName;
 import java.util.HashMap;
@@ -136,5 +137,10 @@ public class PostalServiceElements extends XALObject {
 
     public void setOtherAttributes(Map<QName, String> otherAttributes) {
         this.otherAttributes = otherAttributes;
+    }
+
+    @Override
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
     }
 }

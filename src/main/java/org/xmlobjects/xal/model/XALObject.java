@@ -3,11 +3,14 @@ package org.xmlobjects.xal.model;
 import org.xmlobjects.model.Child;
 import org.xmlobjects.model.ChildList;
 import org.xmlobjects.util.copy.Copyable;
+import org.xmlobjects.xal.visitor.XALVisitor;
 
 import java.util.List;
 
 public abstract class XALObject implements Child, Copyable {
     private Child parent;
+
+    public abstract void accept(XALVisitor visitor);
 
     protected final <T extends Child> T asChild(T child) {
         if (child != null)

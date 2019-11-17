@@ -1,5 +1,7 @@
 package org.xmlobjects.xal.model;
 
+import org.xmlobjects.xal.visitor.XALVisitor;
+
 public class ThoroughfareNumberOrRange extends XALObject {
     private ThoroughfareNumber thoroughfareNumber;
     private ThoroughfareNumberRange thoroughfareNumberRange;
@@ -44,5 +46,10 @@ public class ThoroughfareNumberOrRange extends XALObject {
     private void clearChoice() {
         thoroughfareNumber = null;
         thoroughfareNumberRange = null;
+    }
+
+    @Override
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
     }
 }

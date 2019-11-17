@@ -1,5 +1,7 @@
 package org.xmlobjects.xal.model;
 
+import org.xmlobjects.xal.visitor.XALVisitor;
+
 public class SubPremiseLocation extends XALObject implements GrPostal {
     private String content;
     private String code;
@@ -19,5 +21,10 @@ public class SubPremiseLocation extends XALObject implements GrPostal {
     @Override
     public void setCode(String code) {
         this.code = code;
+    }
+
+    @Override
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
     }
 }

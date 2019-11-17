@@ -1,6 +1,7 @@
 package org.xmlobjects.xal.model;
 
 import org.xmlobjects.model.ChildList;
+import org.xmlobjects.xal.visitor.XALVisitor;
 
 import javax.xml.namespace.QName;
 import java.util.HashMap;
@@ -241,5 +242,10 @@ public class Premise extends XALObject {
     private void clearSubPremiseChoice() {
         subPremises = null;
         firm = null;
+    }
+
+    @Override
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
     }
 }

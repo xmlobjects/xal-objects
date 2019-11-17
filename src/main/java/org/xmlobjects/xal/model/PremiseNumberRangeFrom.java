@@ -1,6 +1,7 @@
 package org.xmlobjects.xal.model;
 
 import org.xmlobjects.model.ChildList;
+import org.xmlobjects.xal.visitor.XALVisitor;
 
 import java.util.List;
 
@@ -52,5 +53,10 @@ public class PremiseNumberRangeFrom extends XALObject {
 
     public void setPremiseNumberSuffixes(List<PremiseNumberSuffix> premiseNumberSuffixes) {
         this.premiseNumberSuffixes = asChild(premiseNumberSuffixes);
+    }
+
+    @Override
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
     }
 }

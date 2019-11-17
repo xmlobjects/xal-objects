@@ -1,6 +1,7 @@
 package org.xmlobjects.xal.model;
 
 import org.xmlobjects.model.ChildList;
+import org.xmlobjects.xal.visitor.XALVisitor;
 
 import javax.xml.namespace.QName;
 import java.util.HashMap;
@@ -198,5 +199,10 @@ public class AddressDetails extends XALObject implements GrPostal {
         administrativeArea = null;
         locality = null;
         thoroughfare = null;
+    }
+
+    @Override
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
     }
 }

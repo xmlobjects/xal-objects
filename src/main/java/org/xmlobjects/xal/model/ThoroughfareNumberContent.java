@@ -1,5 +1,7 @@
 package org.xmlobjects.xal.model;
 
+import org.xmlobjects.xal.visitor.XALVisitor;
+
 public class ThoroughfareNumberContent extends XALObject {
     private AddressLine addressLine;
     private ThoroughfareNumber thoroughfareNumber;
@@ -101,5 +103,10 @@ public class ThoroughfareNumberContent extends XALObject {
         thoroughfareNumberPrefix = null;
         thoroughfareNumberSuffix = null;
         string = null;
+    }
+
+    @Override
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
     }
 }

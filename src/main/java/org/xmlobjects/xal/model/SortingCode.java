@@ -1,5 +1,7 @@
 package org.xmlobjects.xal.model;
 
+import org.xmlobjects.xal.visitor.XALVisitor;
+
 public class SortingCode extends XALObject implements GrPostal {
     private String content;
     private String type;
@@ -29,5 +31,10 @@ public class SortingCode extends XALObject implements GrPostal {
     @Override
     public void setCode(String code) {
         this.code = code;
+    }
+
+    @Override
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
     }
 }
