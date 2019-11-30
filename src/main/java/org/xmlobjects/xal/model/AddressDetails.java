@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AddressDetails extends XALObject implements GrPostal {
+public class AddressDetails extends XALObject implements AddressObject, GrPostal {
     private PostalServiceElements postalServiceElements;
     private Address address;
     private AddressLines addressLines;

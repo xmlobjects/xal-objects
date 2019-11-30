@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ThoroughfareNumberFrom extends XALObject implements GrPostal {
+public class ThoroughfareNumberFrom extends XALObject implements AddressObject, GrPostal {
     private List<ThoroughfareNumberContent> contents;
     private String code;
     private Map<QName, String> otherAttributes;

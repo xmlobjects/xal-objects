@@ -2,7 +2,7 @@ package org.xmlobjects.xal.model;
 
 import org.xmlobjects.xal.visitor.XALVisitor;
 
-public class SortingCode extends XALObject implements GrPostal {
+public class SortingCode extends XALObject implements AddressObject, GrPostal {
     private String content;
     private String type;
     private String code;

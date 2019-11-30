@@ -6,7 +6,7 @@ import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ThoroughfareNumberSuffix extends XALObject implements GrPostal {
+public class ThoroughfareNumberSuffix extends XALObject implements AddressObject, GrPostal {
     private String content;
     private String numberSuffixSeparator;
     private String type;

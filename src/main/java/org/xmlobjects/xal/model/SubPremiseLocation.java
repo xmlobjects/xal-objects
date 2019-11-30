@@ -2,7 +2,7 @@ package org.xmlobjects.xal.model;
 
 import org.xmlobjects.xal.visitor.XALVisitor;
 
-public class SubPremiseLocation extends XALObject implements GrPostal {
+public class SubPremiseLocation extends XALObject implements AddressObject, GrPostal {
     private String content;
     private String code;
 

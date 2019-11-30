@@ -6,7 +6,7 @@ import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BuildingName extends XALObject implements GrPostal {
+public class BuildingName extends XALObject implements AddressObject, GrPostal {
     private String content;
     private String type;
     private TypeOccurrence typeOccurrence;

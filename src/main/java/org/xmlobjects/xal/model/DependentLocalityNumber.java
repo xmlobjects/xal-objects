@@ -6,7 +6,7 @@ import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DependentLocalityNumber extends XALObject implements GrPostal {
+public class DependentLocalityNumber extends XALObject implements AddressObject, GrPostal {
     private String content;
     private NameNumberOccurrence nameNumberOccurrence;
     private String code;

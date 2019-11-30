@@ -6,7 +6,7 @@ import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PostBoxNumberPrefix extends XALObject implements GrPostal {
+public class PostBoxNumberPrefix extends XALObject implements AddressObject, GrPostal {
     private String content;
     private String numberPrefixSeparator;
     private String code;

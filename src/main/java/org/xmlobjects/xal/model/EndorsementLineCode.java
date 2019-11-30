@@ -6,7 +6,7 @@ import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EndorsementLineCode extends XALObject implements GrPostal {
+public class EndorsementLineCode extends XALObject implements AddressObject, GrPostal {
     private String content;
     private String type;
     private String code;

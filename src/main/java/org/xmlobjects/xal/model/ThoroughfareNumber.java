@@ -6,7 +6,7 @@ import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ThoroughfareNumber extends XALObject implements GrPostal {
+public class ThoroughfareNumber extends XALObject implements AddressObject, GrPostal {
     private String content;
     private NumberType numberType;
     private String type;
