@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LargeMailUser extends XALObject {
+public class LargeMailUser extends XALObject implements AddressObject {
     private List<AddressLine> addressLines;
     private List<LargeMailUserName> largeMailUserNames;
     private LargeMailUserIdentifier largeMailUserIdentifier;

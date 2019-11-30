@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Department extends XALObject {
+public class Department extends XALObject implements AddressObject {
     private List<AddressLine> addressLines;
     private List<DepartmentName> departmentNames;
     private MailStop mailStop;

@@ -7,7 +7,7 @@ import org.xmlobjects.xal.visitor.XALVisitor;
 
 import java.util.Objects;
 
-public class GenericElement extends XALObject {
+public class GenericElement extends XALObject implements AddressObject {
     private Element content;
 
     private GenericElement() {

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Premise extends XALObject {
+public class Premise extends XALObject implements AddressObject {
     private List<AddressLine> addressLines;
     private List<PremiseName> premiseNames;
     private PremiseLocation premiseLocation;

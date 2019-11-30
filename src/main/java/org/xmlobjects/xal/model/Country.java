@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Country extends XALObject {
+public class Country extends XALObject implements AddressObject {
     private List<AddressLine> addressLines;
     private List<CountryNameCode> countryNameCodes;
     private List<CountryName> countryNames;

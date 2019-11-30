@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AdministrativeArea extends XALObject {
+public class AdministrativeArea extends XALObject implements AddressObject {
     private List<AddressLine> addressLines;
     private List<AdministrativeAreaName> administrativeAreaNames;
     private SubAdministrativeArea subAdministrativeArea;

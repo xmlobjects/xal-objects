@@ -6,7 +6,7 @@ import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PostBoxNumberExtension extends XALObject {
+public class PostBoxNumberExtension extends XALObject implements AddressObject {
     private String content;
     private String numberExtensionSeparator;
     private Map<QName, String> otherAttributes;

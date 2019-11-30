@@ -6,7 +6,7 @@ import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LargeMailUserName extends XALObject {
+public class LargeMailUserName extends XALObject implements AddressObject {
     private String content;
     private String type;
     private String code;

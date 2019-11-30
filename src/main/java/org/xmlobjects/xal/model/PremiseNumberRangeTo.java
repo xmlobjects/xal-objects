@@ -5,7 +5,7 @@ import org.xmlobjects.xal.visitor.XALVisitor;
 
 import java.util.List;
 
-public class PremiseNumberRangeTo extends XALObject {
+public class PremiseNumberRangeTo extends XALObject implements AddressObject {
     private List<AddressLine> addressLines;
     private List<PremiseNumberPrefix> premiseNumberPrefixes;
     private List<PremiseNumber> premiseNumbers;

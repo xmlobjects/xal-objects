@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PostalRoute extends XALObject {
+public class PostalRoute extends XALObject implements AddressObject {
     private List<AddressLine> addressLines;
     private List<PostalRouteName> postalRouteNames;
     private PostalRouteNumber postalRouteNumber;

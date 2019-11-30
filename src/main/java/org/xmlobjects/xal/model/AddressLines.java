@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AddressLines extends XALObject {
+public class AddressLines extends XALObject implements AddressObject {
     private List<AddressLine> addressLines;
     private List<GenericElement> genericElements;
     private Map<QName, String> otherAttributes;

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PostBox extends XALObject {
+public class PostBox extends XALObject implements AddressObject {
     private List<AddressLine> addressLines;
     private PostBoxNumber postBoxNumber;
     private PostBoxNumberPrefix postBoxNumberPrefix;

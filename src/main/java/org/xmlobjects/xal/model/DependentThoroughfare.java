@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DependentThoroughfare extends XALObject {
+public class DependentThoroughfare extends XALObject implements AddressObject {
     private List<AddressLine> addressLines;
     private ThoroughfarePreDirection thoroughfarePreDirection;
     private ThoroughfareLeadingType thoroughfareLeadingType;

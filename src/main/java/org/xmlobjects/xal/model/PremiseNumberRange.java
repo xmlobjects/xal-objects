@@ -2,7 +2,7 @@ package org.xmlobjects.xal.model;
 
 import org.xmlobjects.xal.visitor.XALVisitor;
 
-public class PremiseNumberRange extends XALObject {
+public class PremiseNumberRange extends XALObject implements AddressObject {
     private PremiseNumberRangeFrom premiseNumberRangeFrom;
     private PremiseNumberRangeTo premiseNumberRangeTo;
     private String rangeType;
