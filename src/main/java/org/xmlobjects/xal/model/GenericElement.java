@@ -3,11 +3,10 @@ package org.xmlobjects.xal.model;
 import org.w3c.dom.Element;
 import org.xmlobjects.util.copy.CopyBuilder;
 import org.xmlobjects.util.copy.Copyable;
-import org.xmlobjects.xal.visitor.XALVisitor;
 
 import java.util.Objects;
 
-public class GenericElement extends XALObject implements AddressObject {
+public class GenericElement extends XALObject {
     private Element content;
 
     private GenericElement() {
@@ -31,11 +30,6 @@ public class GenericElement extends XALObject implements AddressObject {
 
     public String getNamespaceURI() {
         return content.getNamespaceURI();
-    }
-
-    @Override
-    public void accept(XALVisitor visitor) {
-        visitor.visit(this);
     }
 
     @Override

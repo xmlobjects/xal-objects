@@ -25,7 +25,6 @@ import org.xmlobjects.xal.model.DependentThoroughfare;
 import org.xmlobjects.xal.model.EndorsementLineCode;
 import org.xmlobjects.xal.model.Firm;
 import org.xmlobjects.xal.model.FirmName;
-import org.xmlobjects.xal.model.GenericElement;
 import org.xmlobjects.xal.model.KeyLineCode;
 import org.xmlobjects.xal.model.LargeMailUser;
 import org.xmlobjects.xal.model.LargeMailUserIdentifier;
@@ -112,7 +111,6 @@ public interface XALVisitor {
     void visit(EndorsementLineCode endorsementLineCode);
     void visit(Firm firm);
     void visit(FirmName firmName);
-    void visit(GenericElement genericElement);
     void visit(KeyLineCode keyLineCode);
     void visit(LargeMailUser largeMailUser);
     void visit(LargeMailUserIdentifier largeMailUserIdentifier);
