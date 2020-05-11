@@ -107,7 +107,7 @@ publishing {
                 }
                 scm {
                     url = 'https://github.com/xmlobjects/xal-objects'
-                    connection = 'https://github.com/xmlobjects/xal-objects.git'
+                    connection = 'scm:git:https://github.com/xmlobjects/xal-objects.git'
                 }
             }
         }
