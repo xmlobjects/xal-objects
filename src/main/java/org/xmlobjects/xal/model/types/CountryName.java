@@ -19,23 +19,5 @@
 
 package org.xmlobjects.xal.model.types;
 
-public class CountryName extends Name<CountryNameType> {
-    private String nameCode;
-    private String nameCodeType;
-
-    public String getNameCode() {
-        return nameCode;
-    }
-
-    public void setNameCode(String nameCode) {
-        this.nameCode = nameCode;
-    }
-
-    public String getNameCodeType() {
-        return nameCodeType;
-    }
-
-    public void setNameCodeType(String nameCodeType) {
-        this.nameCodeType = nameCodeType;
-    }
+public class CountryName extends NameWithCode<CountryNameType> {
 }

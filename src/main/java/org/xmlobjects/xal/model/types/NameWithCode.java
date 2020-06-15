@@ -19,5 +19,23 @@
 
 package org.xmlobjects.xal.model.types;
 
-public class LocalityName extends NameWithCode<LocalityNameType> {
+public abstract class NameWithCode<T extends Enum<?>> extends Name<T> {
+    private String nameCode;
+    private String nameCodeType;
+
+    public String getNameCode() {
+        return nameCode;
+    }
+
+    public void setNameCode(String nameCode) {
+        this.nameCode = nameCode;
+    }
+
+    public String getNameCodeType() {
+        return nameCodeType;
+    }
+
+    public void setNameCodeType(String nameCodeType) {
+        this.nameCodeType = nameCodeType;
+    }
 }
