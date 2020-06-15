@@ -23,7 +23,7 @@ import org.xmlobjects.model.ChildList;
 import org.xmlobjects.xal.model.types.DataQuality;
 import org.xmlobjects.xal.model.types.DataQualityType;
 import org.xmlobjects.xal.model.types.SubLocalityName;
-import org.xmlobjects.xal.model.types.SubLocalityNameType;
+import org.xmlobjects.xal.model.types.SubLocalityType;
 
 import javax.xml.namespace.QName;
 import java.time.OffsetDateTime;
@@ -33,7 +33,7 @@ import java.util.Map;
 
 public class SubLocality extends XALObject implements DataQuality {
     private List<SubLocalityName> nameElements;
-    private SubLocalityNameType type;
+    private SubLocalityType type;
     private DataQualityType dataQualityType;
     private OffsetDateTime validFrom;
     private OffsetDateTime validTo;
@@ -50,11 +50,11 @@ public class SubLocality extends XALObject implements DataQuality {
         this.nameElements = asChild(nameElements);
     }
 
-    public SubLocalityNameType getType() {
+    public SubLocalityType getType() {
         return type;
     }
 
-    public void setType(SubLocalityNameType type) {
+    public void setType(SubLocalityType type) {
         this.type = type;
     }
 

@@ -19,26 +19,22 @@
 
 package org.xmlobjects.xal.model.types;
 
-public class SubAdministrativeAreaName extends Name<SubAdministrativeAreaNameType> implements NameCode {
+public class SubAdministrativeAreaName extends Name<SubAdministrativeAreaNameType> {
     private String nameCode;
     private String nameCodeType;
 
-    @Override
     public String getNameCode() {
         return nameCode;
     }
 
-    @Override
     public void setNameCode(String nameCode) {
         this.nameCode = nameCode;
     }
 
-    @Override
     public String getNameCodeType() {
         return nameCodeType;
     }
 
-    @Override
     public void setNameCodeType(String nameCodeType) {
         this.nameCodeType = nameCodeType;
     }
