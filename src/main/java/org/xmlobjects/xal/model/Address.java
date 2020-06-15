@@ -26,11 +26,9 @@ import org.xmlobjects.xal.model.types.DataQualityType;
 import org.xmlobjects.xal.model.types.LanguageCode;
 import org.xmlobjects.xal.model.types.ValidityDate;
 
-import javax.xml.namespace.QName;
 import java.time.OffsetDateTime;
-import java.util.Map;
 
-public class Address extends XALObject implements DataQuality, ValidityDate, LanguageCode {
+public class Address extends AddressObject implements DataQuality, ValidityDate, LanguageCode {
     private FreeTextAddress freeTextAddress;
     private Country country;
     private AdministrativeArea administrativeArea;
@@ -61,7 +59,6 @@ public class Address extends XALObject implements DataQuality, ValidityDate, Lan
     private OffsetDateTime dateValidFrom;
     private OffsetDateTime dateValidTo;
     private String languageCode;
-    private Map<QName, String> otherAttributes;
 
     public FreeTextAddress getFreeTextAddress() {
         return freeTextAddress;
@@ -313,13 +310,5 @@ public class Address extends XALObject implements DataQuality, ValidityDate, Lan
     @Override
     public void setLanguageCode(String languageCode) {
         this.languageCode = languageCode;
-    }
-
-    public Map<QName, String> getOtherAttributes() {
-        return otherAttributes;
-    }
-
-    public void setOtherAttributes(Map<QName, String> otherAttributes) {
-        this.otherAttributes = otherAttributes;
     }
 }

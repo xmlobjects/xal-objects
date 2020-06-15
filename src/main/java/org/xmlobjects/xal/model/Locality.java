@@ -25,20 +25,16 @@ import org.xmlobjects.xal.model.types.DataQualityType;
 import org.xmlobjects.xal.model.types.LocalityName;
 import org.xmlobjects.xal.model.types.LocalityType;
 
-import javax.xml.namespace.QName;
 import java.time.OffsetDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class Locality extends XALObject implements DataQuality {
+public class Locality extends AddressObject implements DataQuality {
     private List<LocalityName> nameElements;
     private SubLocality subLocality;
     private LocalityType type;
     private DataQualityType dataQualityType;
     private OffsetDateTime validFrom;
     private OffsetDateTime validTo;
-    private Map<QName, String> otherAttributes;
 
     public List<LocalityName> getNameElements() {
         if (nameElements == null)
@@ -95,16 +91,5 @@ public class Locality extends XALObject implements DataQuality {
     @Override
     public void setValidTo(OffsetDateTime validTo) {
         this.validTo = validTo;
-    }
-
-    public Map<QName, String> getOtherAttributes() {
-        if (otherAttributes == null)
-            otherAttributes = new HashMap<>();
-
-        return otherAttributes;
-    }
-
-    public void setOtherAttributes(Map<QName, String> otherAttributes) {
-        this.otherAttributes = otherAttributes;
     }
 }

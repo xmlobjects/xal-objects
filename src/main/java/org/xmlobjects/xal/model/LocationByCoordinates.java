@@ -24,12 +24,9 @@ import org.xmlobjects.xal.model.types.DataQualityType;
 import org.xmlobjects.xal.model.types.Latitude;
 import org.xmlobjects.xal.model.types.Longitude;
 
-import javax.xml.namespace.QName;
 import java.time.OffsetDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
-public class LocationByCoordinates extends XALObject implements DataQuality {
+public class LocationByCoordinates extends AddressObject implements DataQuality {
     private Latitude latitude;
     private Longitude longitude;
     private String meridian;
@@ -41,7 +38,6 @@ public class LocationByCoordinates extends XALObject implements DataQuality {
     private DataQualityType dataQualityType;
     private OffsetDateTime validFrom;
     private OffsetDateTime validTo;
-    private Map<QName, String> otherAttributes;
 
     public Latitude getLatitude() {
         return latitude;
@@ -135,16 +131,5 @@ public class LocationByCoordinates extends XALObject implements DataQuality {
     @Override
     public void setValidTo(OffsetDateTime validTo) {
         this.validTo = validTo;
-    }
-
-    public Map<QName, String> getOtherAttributes() {
-        if (otherAttributes == null)
-            otherAttributes = new HashMap<>();
-
-        return otherAttributes;
-    }
-
-    public void setOtherAttributes(Map<QName, String> otherAttributes) {
-        this.otherAttributes = otherAttributes;
     }
 }

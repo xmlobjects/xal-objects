@@ -22,14 +22,10 @@ package org.xmlobjects.xal.model;
 import org.xmlobjects.model.ChildList;
 import org.xmlobjects.xal.model.types.CountryName;
 
-import javax.xml.namespace.QName;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class Country extends XALObject {
+public class Country extends AddressObject {
     private List<CountryName> nameElements;
-    private Map<QName, String> otherAttributes;
 
     public List<CountryName> getNameElements() {
         if (nameElements == null)
@@ -40,16 +36,5 @@ public class Country extends XALObject {
 
     public void setNameElements(List<CountryName> nameElements) {
         this.nameElements = asChild(nameElements);
-    }
-
-    public Map<QName, String> getOtherAttributes() {
-        if (otherAttributes == null)
-            otherAttributes = new HashMap<>();
-
-        return otherAttributes;
-    }
-
-    public void setOtherAttributes(Map<QName, String> otherAttributes) {
-        this.otherAttributes = otherAttributes;
     }
 }

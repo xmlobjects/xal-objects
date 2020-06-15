@@ -25,19 +25,15 @@ import org.xmlobjects.xal.model.types.DataQualityType;
 import org.xmlobjects.xal.model.types.Identifier;
 import org.xmlobjects.xal.model.types.PostalDeliveryPointType;
 
-import javax.xml.namespace.QName;
 import java.time.OffsetDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class PostalDeliveryPoint extends XALObject implements DataQuality {
+public class PostalDeliveryPoint extends AddressObject implements DataQuality {
     private List<Identifier> identifiers;
     private PostalDeliveryPointType type;
     private DataQualityType dataQualityType;
     private OffsetDateTime validFrom;
     private OffsetDateTime validTo;
-    private Map<QName, String> otherAttributes;
 
     public List<Identifier> getIdentifiers() {
         if (identifiers == null)
@@ -86,16 +82,5 @@ public class PostalDeliveryPoint extends XALObject implements DataQuality {
     @Override
     public void setValidTo(OffsetDateTime validTo) {
         this.validTo = validTo;
-    }
-
-    public Map<QName, String> getOtherAttributes() {
-        if (otherAttributes == null)
-            otherAttributes = new HashMap<>();
-
-        return otherAttributes;
-    }
-
-    public void setOtherAttributes(Map<QName, String> otherAttributes) {
-        this.otherAttributes = otherAttributes;
     }
 }

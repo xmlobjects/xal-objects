@@ -19,21 +19,21 @@
 
 package org.xmlobjects.xal.model;
 
-import org.xmlobjects.model.ChildList;
+import javax.xml.namespace.QName;
+import java.util.HashMap;
+import java.util.Map;
 
-import java.util.List;
+public abstract class AddressObject extends XALObject {
+    private Map<QName, String> otherAttributes;
 
-public class GeoRSS extends AddressObject {
-    private List<GenericElement> genericElements;
-
-    public List<GenericElement> getGenericElements() {
-        if (genericElements == null)
-            genericElements = new ChildList<>(this);
-
-        return genericElements;
+    public Map<QName, String> getOtherAttributes() {
+        return otherAttributes;
     }
 
-    public void setGenericElements(List<GenericElement> genericElements) {
-        this.genericElements = asChild(genericElements);
+    public void setOtherAttributes(Map<QName, String> otherAttributes) {
+        if (otherAttributes == null)
+            otherAttributes = new HashMap<>();
+
+        this.otherAttributes = otherAttributes;
     }
 }

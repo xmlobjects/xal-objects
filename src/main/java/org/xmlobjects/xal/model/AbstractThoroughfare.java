@@ -24,20 +24,16 @@ import org.xmlobjects.xal.model.types.DataQuality;
 import org.xmlobjects.xal.model.types.DataQualityType;
 import org.xmlobjects.xal.model.types.ThoroughfareNameOrNumber;
 
-import javax.xml.namespace.QName;
 import java.time.OffsetDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public abstract class AbstractThoroughfare extends XALObject implements DataQuality {
+public abstract class AbstractThoroughfare extends AddressObject implements DataQuality {
     private List<ThoroughfareNameOrNumber> thoroughfareNameOrNumber;
     private String type;
     private String typeCode;
     private DataQualityType dataQualityType;
     private OffsetDateTime validFrom;
     private OffsetDateTime validTo;
-    private Map<QName, String> otherAttributes;
 
     public List<ThoroughfareNameOrNumber> getThoroughfareNameOrNumber() {
         if (thoroughfareNameOrNumber == null)
@@ -94,16 +90,5 @@ public abstract class AbstractThoroughfare extends XALObject implements DataQual
     @Override
     public void setValidTo(OffsetDateTime validTo) {
         this.validTo = validTo;
-    }
-
-    public Map<QName, String> getOtherAttributes() {
-        return otherAttributes;
-    }
-
-    public void setOtherAttributes(Map<QName, String> otherAttributes) {
-        if (otherAttributes == null)
-            otherAttributes = new HashMap<>();
-
-        this.otherAttributes = otherAttributes;
     }
 }

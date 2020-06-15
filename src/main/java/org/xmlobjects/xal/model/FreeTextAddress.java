@@ -24,18 +24,14 @@ import org.xmlobjects.xal.model.types.AddressLine;
 import org.xmlobjects.xal.model.types.DataQuality;
 import org.xmlobjects.xal.model.types.DataQualityType;
 
-import javax.xml.namespace.QName;
 import java.time.OffsetDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class FreeTextAddress extends XALObject implements DataQuality {
+public class FreeTextAddress extends AddressObject implements DataQuality {
     private List<AddressLine> addressLines;
     private DataQualityType dataQualityType;
     private OffsetDateTime validFrom;
     private OffsetDateTime validTo;
-    private Map<QName, String> otherAttributes;
 
     public List<AddressLine> getAddressLines() {
         if (addressLines == null)
@@ -76,16 +72,5 @@ public class FreeTextAddress extends XALObject implements DataQuality {
     @Override
     public void setValidTo(OffsetDateTime validTo) {
         this.validTo = validTo;
-    }
-
-    public Map<QName, String> getOtherAttributes() {
-        if (otherAttributes == null)
-            otherAttributes = new HashMap<>();
-
-        return otherAttributes;
-    }
-
-    public void setOtherAttributes(Map<QName, String> otherAttributes) {
-        this.otherAttributes = otherAttributes;
     }
 }

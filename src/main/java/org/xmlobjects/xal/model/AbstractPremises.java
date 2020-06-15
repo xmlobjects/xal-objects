@@ -22,15 +22,11 @@ package org.xmlobjects.xal.model;
 import org.xmlobjects.model.ChildList;
 import org.xmlobjects.xal.model.types.PremiseNameOrNumber;
 
-import javax.xml.namespace.QName;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public abstract class AbstractPremises extends XALObject {
+public abstract class AbstractPremises extends AddressObject {
     private List<PremiseNameOrNumber> premiseNameElementOrNumber;
     private String typeCode;
-    private Map<QName, String> otherAttributes;
 
     public List<PremiseNameOrNumber> getPremiseNameElementOrNumber() {
         if (premiseNameElementOrNumber == null)
@@ -49,16 +45,5 @@ public abstract class AbstractPremises extends XALObject {
 
     public void setTypeCode(String typeCode) {
         this.typeCode = typeCode;
-    }
-
-    public Map<QName, String> getOtherAttributes() {
-        return otherAttributes;
-    }
-
-    public void setOtherAttributes(Map<QName, String> otherAttributes) {
-        if (otherAttributes == null)
-            otherAttributes = new HashMap<>();
-
-        this.otherAttributes = otherAttributes;
     }
 }
