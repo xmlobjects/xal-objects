@@ -25,6 +25,7 @@ import org.xmlobjects.xal.model.types.DataQuality;
 import org.xmlobjects.xal.model.types.DataQualityType;
 import org.xmlobjects.xal.model.types.LanguageCode;
 import org.xmlobjects.xal.model.types.ValidityDate;
+import org.xmlobjects.xal.visitor.XALVisitor;
 
 import java.time.OffsetDateTime;
 
@@ -310,5 +311,10 @@ public class Address extends AddressObject implements DataQuality, ValidityDate,
     @Override
     public void setLanguageCode(String languageCode) {
         this.languageCode = languageCode;
+    }
+
+    @Override
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
     }
 }

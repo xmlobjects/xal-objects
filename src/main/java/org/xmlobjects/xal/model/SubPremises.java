@@ -20,6 +20,7 @@
 package org.xmlobjects.xal.model;
 
 import org.xmlobjects.xal.model.types.SubPremisesType;
+import org.xmlobjects.xal.visitor.XALVisitor;
 
 public class SubPremises extends AbstractPremises {
     private SubPremisesType type;
@@ -30,5 +31,10 @@ public class SubPremises extends AbstractPremises {
 
     public void setType(SubPremisesType type) {
         this.type = type;
+    }
+
+    @Override
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
     }
 }

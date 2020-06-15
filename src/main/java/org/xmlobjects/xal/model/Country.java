@@ -21,6 +21,7 @@ package org.xmlobjects.xal.model;
 
 import org.xmlobjects.model.ChildList;
 import org.xmlobjects.xal.model.types.CountryName;
+import org.xmlobjects.xal.visitor.XALVisitor;
 
 import java.util.List;
 
@@ -36,5 +37,10 @@ public class Country extends AddressObject {
 
     public void setNameElements(List<CountryName> nameElements) {
         this.nameElements = asChild(nameElements);
+    }
+
+    @Override
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
     }
 }

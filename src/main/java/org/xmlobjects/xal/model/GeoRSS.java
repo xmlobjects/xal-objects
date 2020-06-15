@@ -20,6 +20,7 @@
 package org.xmlobjects.xal.model;
 
 import org.xmlobjects.model.ChildList;
+import org.xmlobjects.xal.visitor.XALVisitor;
 
 import java.util.List;
 
@@ -35,5 +36,10 @@ public class GeoRSS extends AddressObject {
 
     public void setGenericElements(List<GenericElement> genericElements) {
         this.genericElements = asChild(genericElements);
+    }
+
+    @Override
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
     }
 }

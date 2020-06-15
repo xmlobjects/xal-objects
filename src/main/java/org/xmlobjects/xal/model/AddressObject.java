@@ -19,12 +19,16 @@
 
 package org.xmlobjects.xal.model;
 
+import org.xmlobjects.xal.visitor.XALVisitor;
+
 import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class AddressObject extends XALObject {
     private Map<QName, String> otherAttributes;
+
+    public abstract void accept(XALVisitor visitor);
 
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;

@@ -20,6 +20,7 @@
 package org.xmlobjects.xal.model;
 
 import org.xmlobjects.model.ChildList;
+import org.xmlobjects.xal.visitor.XALVisitor;
 
 import java.util.List;
 
@@ -35,5 +36,10 @@ public class Thoroughfare extends AbstractThoroughfare {
 
     public void setSubThoroughfares(List<SubThoroughfare> subThoroughfares) {
         this.subThoroughfares = asChild(subThoroughfares);
+    }
+
+    @Override
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
     }
 }

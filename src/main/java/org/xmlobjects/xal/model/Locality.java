@@ -24,6 +24,7 @@ import org.xmlobjects.xal.model.types.DataQuality;
 import org.xmlobjects.xal.model.types.DataQualityType;
 import org.xmlobjects.xal.model.types.LocalityName;
 import org.xmlobjects.xal.model.types.LocalityType;
+import org.xmlobjects.xal.visitor.XALVisitor;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -91,5 +92,10 @@ public class Locality extends AddressObject implements DataQuality {
     @Override
     public void setValidTo(OffsetDateTime validTo) {
         this.validTo = validTo;
+    }
+
+    @Override
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
     }
 }

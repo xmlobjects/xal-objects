@@ -23,6 +23,7 @@ import org.xmlobjects.model.ChildList;
 import org.xmlobjects.xal.model.types.DataQuality;
 import org.xmlobjects.xal.model.types.DataQualityType;
 import org.xmlobjects.xal.model.types.Identifier;
+import org.xmlobjects.xal.visitor.XALVisitor;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -72,5 +73,10 @@ public class PostCode extends AddressObject implements DataQuality {
     @Override
     public void setValidTo(OffsetDateTime validTo) {
         this.validTo = validTo;
+    }
+
+    @Override
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
     }
 }

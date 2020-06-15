@@ -21,6 +21,7 @@ package org.xmlobjects.xal.model;
 
 import org.xmlobjects.model.ChildList;
 import org.xmlobjects.xal.model.types.PremisesType;
+import org.xmlobjects.xal.visitor.XALVisitor;
 
 import java.util.List;
 
@@ -45,5 +46,10 @@ public class Premises extends AbstractPremises {
 
     public void setType(PremisesType type) {
         this.type = type;
+    }
+
+    @Override
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
     }
 }
