@@ -28,22 +28,22 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 public abstract class AbstractThoroughfare extends AddressObject implements DataQuality {
-    private List<ThoroughfareNameOrNumber> thoroughfareNameOrNumber;
+    private List<ThoroughfareNameOrNumber> nameElementOrNumber;
     private String type;
     private String typeCode;
     private DataQualityType dataQualityType;
     private OffsetDateTime validFrom;
     private OffsetDateTime validTo;
 
-    public List<ThoroughfareNameOrNumber> getThoroughfareNameOrNumber() {
-        if (thoroughfareNameOrNumber == null)
-            thoroughfareNameOrNumber = new ChildList<>(this);
+    public List<ThoroughfareNameOrNumber> getNameElementOrNumber() {
+        if (nameElementOrNumber == null)
+            nameElementOrNumber = new ChildList<>(this);
 
-        return thoroughfareNameOrNumber;
+        return nameElementOrNumber;
     }
 
-    public void setThoroughfareNameOrNumber(List<ThoroughfareNameOrNumber> thoroughfareNameOrNumber) {
-        this.thoroughfareNameOrNumber = asChild(thoroughfareNameOrNumber);
+    public void setNameElementOrNumber(List<ThoroughfareNameOrNumber> nameElementOrNumber) {
+        this.nameElementOrNumber = asChild(nameElementOrNumber);
     }
 
     public String getType() {

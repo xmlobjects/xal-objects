@@ -21,4 +21,8 @@ package org.xmlobjects.xal.util;
 
 public class XALConstants {
     public static final String XAL_3_0_NAMESPACE = "urn:oasis:names:tc:ciq:xal:3";
+    public static final String CT_3_0_NAMESPACE = "urn:oasis:names:tc:ciq:ct:3";
+    public static final String XAL_2_0_NAMESPACE = "urn:oasis:names:tc:ciq:xsdschema:xAL:2.0";
+    public static final String GEORSS_1_1_NAMESPACE = "http://www.georss.org/georss";
+    public static final String XLINK_NAMESPACE = "http://www.w3.org/1999/xlink";
 }

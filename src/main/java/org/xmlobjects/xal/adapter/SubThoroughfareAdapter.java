@@ -17,37 +17,17 @@
  * limitations under the License.
  */
 
-package org.xmlobjects.xal.model.types;
+package org.xmlobjects.xal.adapter;
 
-import org.xmlobjects.xal.model.XALObject;
+import org.xmlobjects.builder.ObjectBuildException;
+import org.xmlobjects.xal.model.SubThoroughfare;
 
-public class PremiseNameOrNumber extends XALObject {
-    private PremisesName nameElement;
-    private Identifier number;
+import javax.xml.namespace.QName;
 
-    public PremisesName getNameElement() {
-        return nameElement;
-    }
+public class SubThoroughfareAdapter extends AbstractThoroughfareAdapter<SubThoroughfare> {
 
-    public boolean isSetNameElement() {
-        return nameElement != null;
-    }
-
-    public void setNameElement(PremisesName nameElement) {
-        this.nameElement = asChild(nameElement);
-        number = null;
-    }
-
-    public Identifier getNumber() {
-        return number;
-    }
-
-    public boolean isSetNumber() {
-        return number != null;
-    }
-
-    public void setNumber(Identifier number) {
-        this.number = asChild(number);
-        nameElement = null;
+    @Override
+    public SubThoroughfare createObject(QName name, Object parent) throws ObjectBuildException {
+        return new SubThoroughfare();
     }
 }

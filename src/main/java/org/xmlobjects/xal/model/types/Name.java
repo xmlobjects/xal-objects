@@ -25,7 +25,7 @@ import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Name<T extends Enum<?>> extends XALObject implements Abbreviation {
+public abstract class Name<T extends NameType> extends XALObject implements Abbreviation {
     private String content;
     private Boolean abbreviation;
     private T nameType;

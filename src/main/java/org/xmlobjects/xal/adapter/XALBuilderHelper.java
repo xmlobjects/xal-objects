@@ -19,32 +19,32 @@
 
 package org.xmlobjects.xal.adapter;
 
-import org.xmlobjects.stream.XMLReadException;
-import org.xmlobjects.stream.XMLReader;
-import org.xmlobjects.xal.model.GenericElement;
+import org.xmlobjects.xal.model.types.DataQuality;
+import org.xmlobjects.xal.model.types.DataQualityType;
+import org.xmlobjects.xal.util.XALConstants;
 import org.xmlobjects.xml.Attribute;
 import org.xmlobjects.xml.Attributes;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
-import java.util.List;
 import java.util.Map;
 
 public class XALBuilderHelper {
 
-    public static void buildOtherAttributes(Map<QName, String> otherAttributes, Attributes attributes) {
-        for (Attribute attribute : attributes.toList()) {
-            if (!XMLConstants.NULL_NS_URI.equals(attribute.getNamespaceURI())
-                    && !XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI.equals(attribute.getNamespaceURI())
-                    && !XMLConstants.XML_NS_URI.equals(attribute.getNamespaceURI())
-                    && !XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals(attribute.getNamespaceURI())
-                    && !XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(attribute.getNamespaceURI()))
-                otherAttributes.put(new QName(attribute.getNamespaceURI(), attribute.getLocalName()), attribute.getValue().get());
-        }
+    public static void buildDataQualityAttributes(DataQuality object, Attributes attributes) {
+        attributes.getValue(XALConstants.CT_3_0_NAMESPACE, "DataQualityType").ifPresent(v -> object.setDataQualityType(DataQualityType.fromValue(v)));
+        attributes.getValue(XALConstants.CT_3_0_NAMESPACE, "ValidFrom").ifDateTime(object::setValidFrom);
+        attributes.getValue(XALConstants.CT_3_0_NAMESPACE, "ValidTo").ifDateTime(object::setValidTo);
     }
 
-    public static void buildGenericElements(List<GenericElement> genericElements, XMLReader reader) throws XMLReadException {
-        if (reader.isCreateDOMAsFallback())
-            genericElements.add(GenericElement.of(reader.getDOMElement()));
+    public static void buildOtherAttributes(Map<QName, String> otherAttributes, Attributes attributes) {
+        for (Attribute attribute : attributes.toList()) {
+            if (!XALConstants.XAL_3_0_NAMESPACE.equals(attribute.getNamespaceURI())
+                    && !XALConstants.CT_3_0_NAMESPACE.equals(attribute.getNamespaceURI())
+                    && !XALConstants.XAL_2_0_NAMESPACE.equals(attribute.getNamespaceURI())
+                    && !XMLConstants.XML_NS_URI.equals(attribute.getNamespaceURI())
+                    && !XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI.equals(attribute.getNamespaceURI()))
+                otherAttributes.put(new QName(attribute.getNamespaceURI(), attribute.getLocalName()), attribute.getValue().get());
+        }
     }
 }

@@ -25,7 +25,7 @@ import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Identifier extends XALObject implements Abbreviation {
+public class Identifier extends XALObject implements Abbreviation {
     private String content;
     private IdentifierElementType type;
     private Boolean abbreviation;

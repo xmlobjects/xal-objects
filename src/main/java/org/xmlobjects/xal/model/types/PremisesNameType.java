@@ -19,7 +19,7 @@
 
 package org.xmlobjects.xal.model.types;
 
-public enum PremisesNameType {
+public enum PremisesNameType implements NameType {
     NAME("Name"),
     LOCATION("Location"),
     SUB_PREMISES_CONNECTOR("SubPremisesConnector"),
@@ -33,6 +33,7 @@ public enum PremisesNameType {
         this.value = value;
     }
 
+    @Override
     public String toValue() {
         return value;
     }

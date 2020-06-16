@@ -19,7 +19,7 @@
 
 package org.xmlobjects.xal.model.types;
 
-public enum CountryNameType {
+public enum CountryNameType implements NameType {
     NAME("Name"),
     TYPE("Type");
 
@@ -29,6 +29,7 @@ public enum CountryNameType {
         this.value = value;
     }
 
+    @Override
     public String toValue() {
         return value;
     }

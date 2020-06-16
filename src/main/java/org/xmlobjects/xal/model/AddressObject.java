@@ -31,13 +31,13 @@ public abstract class AddressObject extends XALObject {
     public abstract void accept(XALVisitor visitor);
 
     public Map<QName, String> getOtherAttributes() {
+        if (otherAttributes == null)
+            otherAttributes = new HashMap<>();
+
         return otherAttributes;
     }
 
     public void setOtherAttributes(Map<QName, String> otherAttributes) {
-        if (otherAttributes == null)
-            otherAttributes = new HashMap<>();
-
         this.otherAttributes = otherAttributes;
     }
 }

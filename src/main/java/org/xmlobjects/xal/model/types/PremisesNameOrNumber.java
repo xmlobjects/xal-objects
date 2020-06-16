@@ -21,22 +21,22 @@ package org.xmlobjects.xal.model.types;
 
 import org.xmlobjects.xal.model.XALObject;
 
-public class ThoroughfareNameOrNumber extends XALObject {
-    private ThoroughfareName nameElement;
+public class PremisesNameOrNumber extends XALObject {
+    private PremisesName nameElement;
     private Identifier number;
 
-    public ThoroughfareNameOrNumber() {
+    public PremisesNameOrNumber() {
     }
 
-    public ThoroughfareNameOrNumber(ThoroughfareName nameElement) {
+    public PremisesNameOrNumber(PremisesName nameElement) {
         setNameElement(nameElement);
     }
 
-    public ThoroughfareNameOrNumber(Identifier number) {
+    public PremisesNameOrNumber(Identifier number) {
         setNumber(number);
     }
 
-    public ThoroughfareName getNameElement() {
+    public PremisesName getNameElement() {
         return nameElement;
     }
 
@@ -44,7 +44,7 @@ public class ThoroughfareNameOrNumber extends XALObject {
         return nameElement != null;
     }
 
-    public void setNameElement(ThoroughfareName nameElement) {
+    public void setNameElement(PremisesName nameElement) {
         this.nameElement = asChild(nameElement);
         number = null;
     }

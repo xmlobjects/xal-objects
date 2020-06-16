@@ -19,7 +19,7 @@
 
 package org.xmlobjects.xal.model.types;
 
-public enum LocalityNameType {
+public enum LocalityNameType implements NameType {
     NAME("Name"),
     NUMBER("Number"),
     REFERENCE_LOCATION("ReferenceLocation"),
@@ -31,6 +31,7 @@ public enum LocalityNameType {
         this.value = value;
     }
 
+    @Override
     public String toValue() {
         return value;
     }

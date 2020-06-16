@@ -19,7 +19,7 @@
 
 package org.xmlobjects.xal.model.types;
 
-public enum ThoroughfareNameType {
+public enum ThoroughfareNameType implements NameType {
     NAME_ONLY("NameOnly"),
     PRE_DIRECTION("PreDirection"),
     POST_DIRECTION("PostDirection"),
@@ -37,6 +37,7 @@ public enum ThoroughfareNameType {
         this.value = value;
     }
 
+    @Override
     public String toValue() {
         return value;
     }

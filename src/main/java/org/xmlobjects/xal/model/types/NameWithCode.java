@@ -19,7 +19,7 @@
 
 package org.xmlobjects.xal.model.types;
 
-public abstract class NameWithCode<T extends Enum<?>> extends Name<T> {
+public abstract class NameWithCode<T extends NameType> extends Name<T> {
     private String nameCode;
     private String nameCodeType;
 

@@ -20,23 +20,23 @@
 package org.xmlobjects.xal.model;
 
 import org.xmlobjects.model.ChildList;
-import org.xmlobjects.xal.model.types.PremiseNameOrNumber;
+import org.xmlobjects.xal.model.types.PremisesNameOrNumber;
 
 import java.util.List;
 
 public abstract class AbstractPremises extends AddressObject {
-    private List<PremiseNameOrNumber> premiseNameElementOrNumber;
+    private List<PremisesNameOrNumber> nameElementOrNumber;
     private String typeCode;
 
-    public List<PremiseNameOrNumber> getPremiseNameElementOrNumber() {
-        if (premiseNameElementOrNumber == null)
-            premiseNameElementOrNumber = new ChildList<>(this);
+    public List<PremisesNameOrNumber> getNameElementOrNumber() {
+        if (nameElementOrNumber == null)
+            nameElementOrNumber = new ChildList<>(this);
 
-        return premiseNameElementOrNumber;
+        return nameElementOrNumber;
     }
 
-    public void setPremiseNameElementOrNumber(List<PremiseNameOrNumber> premiseNameElementOrNumber) {
-        this.premiseNameElementOrNumber = asChild(premiseNameElementOrNumber);
+    public void setNameElementOrNumber(List<PremisesNameOrNumber> nameElementOrNumber) {
+        this.nameElementOrNumber = asChild(nameElementOrNumber);
     }
 
     public String getTypeCode() {
