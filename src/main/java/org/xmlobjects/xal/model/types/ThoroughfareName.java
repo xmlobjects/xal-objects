@@ -20,4 +20,12 @@
 package org.xmlobjects.xal.model.types;
 
 public class ThoroughfareName extends Name<ThoroughfareNameType> {
+
+    public ThoroughfareName() {
+        super();
+    }
+
+    public ThoroughfareName(String content) {
+        super(content);
+    }
 }

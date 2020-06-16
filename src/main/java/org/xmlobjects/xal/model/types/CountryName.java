@@ -20,4 +20,12 @@
 package org.xmlobjects.xal.model.types;
 
 public class CountryName extends NameWithCode<CountryNameType> {
+
+    public CountryName() {
+        super();
+    }
+
+    public CountryName(String content) {
+        super(content);
+    }
 }

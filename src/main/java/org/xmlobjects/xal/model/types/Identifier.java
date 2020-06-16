@@ -31,6 +31,13 @@ public class Identifier extends XALObject implements Abbreviation {
     private Boolean abbreviation;
     private Map<QName, String> otherAttributes;
 
+    public Identifier() {
+    }
+
+    public Identifier(String content) {
+        this.content = content;
+    }
+
     public String getContent() {
         return content;
     }

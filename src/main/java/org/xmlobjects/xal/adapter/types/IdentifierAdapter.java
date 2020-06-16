@@ -58,7 +58,7 @@ public class IdentifierAdapter implements ObjectBuilder<Identifier>, ObjectSeria
     public void initializeElement(Element element, Identifier object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         element.addTextContent(TextContent.of(object.getContent()).collapse());
         element.addAttribute(XALConstants.CT_3_0_NAMESPACE, "Abbreviation", TextContent.ofBoolean(object.getAbbreviation()));
-        XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes());
+        XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
 
         if (object.getType() != null)
             element.addAttribute(XALConstants.XAL_3_0_NAMESPACE, "Type", object.getType().toValue());

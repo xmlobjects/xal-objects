@@ -42,7 +42,7 @@ public class XALBuilderHelper {
             if (!XALConstants.XAL_3_0_NAMESPACE.equals(attribute.getNamespaceURI())
                     && !XALConstants.CT_3_0_NAMESPACE.equals(attribute.getNamespaceURI())
                     && !XALConstants.XAL_2_0_NAMESPACE.equals(attribute.getNamespaceURI())
-                    && !XMLConstants.XML_NS_URI.equals(attribute.getNamespaceURI())
+                    && !XMLConstants.NULL_NS_URI.equals(attribute.getNamespaceURI())
                     && !XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI.equals(attribute.getNamespaceURI()))
                 otherAttributes.put(new QName(attribute.getNamespaceURI(), attribute.getLocalName()), attribute.getValue().get());
         }

@@ -20,4 +20,12 @@
 package org.xmlobjects.xal.model.types;
 
 public class AdministrativeAreaName extends NameWithCode<AdministrativeAreaNameType> {
+
+    public AdministrativeAreaName() {
+        super();
+    }
+
+    public AdministrativeAreaName(String content) {
+        super(content);
+    }
 }

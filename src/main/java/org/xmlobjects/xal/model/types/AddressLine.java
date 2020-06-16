@@ -34,6 +34,13 @@ public class AddressLine extends XALObject implements DataQuality {
     private OffsetDateTime validTo;
     private Map<QName, String> otherAttributes;
 
+    public AddressLine() {
+    }
+
+    public AddressLine(String content) {
+        this.content = content;
+    }
+
     public String getContent() {
         return content;
     }

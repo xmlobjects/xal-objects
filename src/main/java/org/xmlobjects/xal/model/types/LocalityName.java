@@ -20,4 +20,12 @@
 package org.xmlobjects.xal.model.types;
 
 public class LocalityName extends NameWithCode<LocalityNameType> {
+
+    public LocalityName() {
+        super();
+    }
+
+    public LocalityName(String content) {
+        super(content);
+    }
 }

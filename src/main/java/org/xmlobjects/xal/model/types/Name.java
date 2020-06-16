@@ -31,6 +31,13 @@ public abstract class Name<T extends NameType> extends XALObject implements Abbr
     private T nameType;
     private Map<QName, String> otherAttributes;
 
+    public Name() {
+    }
+
+    public Name(String content) {
+        this.content = content;
+    }
+
     public String getContent() {
         return content;
     }

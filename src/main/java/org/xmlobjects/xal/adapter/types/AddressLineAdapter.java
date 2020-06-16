@@ -58,6 +58,6 @@ public class AddressLineAdapter implements ObjectBuilder<AddressLine>, ObjectSer
         element.addTextContent(TextContent.of(object.getContent()).collapse());
         element.addAttribute(XALConstants.XAL_3_0_NAMESPACE, "Type", TextContent.of(object.getType()).normalize());
         XALSerializerHelper.addDataQualityAttributes(element, object);
-        XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes());
+        XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
     }
 }

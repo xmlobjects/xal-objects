@@ -20,4 +20,12 @@
 package org.xmlobjects.xal.model.types;
 
 public class PremisesName extends Name<PremisesNameType> {
+
+    public PremisesName() {
+        super();
+    }
+
+    public PremisesName(String content) {
+        super(content);
+    }
 }

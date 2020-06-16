@@ -51,7 +51,7 @@ public abstract class NameAdapter<T extends Name<?>> implements ObjectBuilder<T>
     public void initializeElement(Element element, T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         element.addTextContent(TextContent.of(object.getContent()).collapse());
         element.addAttribute(XALConstants.CT_3_0_NAMESPACE, "Abbreviation", TextContent.ofBoolean(object.getAbbreviation()));
-        XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes());
+        XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
 
         if (object.getNameType() != null)
             element.addAttribute(XALConstants.XAL_3_0_NAMESPACE, "NameType", object.getNameType().toValue());

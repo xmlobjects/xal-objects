@@ -23,6 +23,14 @@ public abstract class NameWithCode<T extends NameType> extends Name<T> {
     private String nameCode;
     private String nameCodeType;
 
+    public NameWithCode() {
+        super();
+    }
+
+    public NameWithCode(String content) {
+        super(content);
+    }
+
     public String getNameCode() {
         return nameCode;
     }

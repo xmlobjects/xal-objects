@@ -20,4 +20,12 @@
 package org.xmlobjects.xal.model.types;
 
 public class SubAdministrativeAreaName extends NameWithCode<SubAdministrativeAreaNameType> {
+
+    public SubAdministrativeAreaName() {
+        super();
+    }
+
+    public SubAdministrativeAreaName(String content) {
+        super(content);
+    }
 }

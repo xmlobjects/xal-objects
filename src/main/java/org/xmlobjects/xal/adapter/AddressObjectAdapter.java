@@ -43,6 +43,6 @@ public abstract class AddressObjectAdapter<T extends AddressObject> implements O
 
     @Override
     public void initializeElement(Element element, T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes());
+        XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
     }
 }

@@ -60,7 +60,7 @@ public class LatitudeAdapter implements ObjectBuilder<Latitude>, ObjectSerialize
         element.addAttribute(XALConstants.XAL_3_0_NAMESPACE, "DegreesMeasure", TextContent.of(object.getDegreesMeasure()).collapse());
         element.addAttribute(XALConstants.XAL_3_0_NAMESPACE, "MinutesMeasure", TextContent.of(object.getMinutesMeasure()).collapse());
         element.addAttribute(XALConstants.XAL_3_0_NAMESPACE, "SecondsMeasure", TextContent.of(object.getSecondsMeasure()).collapse());
-        XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes());
+        XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
 
         if (object.getDirection() != null)
             element.addAttribute(XALConstants.XAL_3_0_NAMESPACE, "Direction", object.getDirection().toValue());
