@@ -20,11 +20,9 @@
 package org.xmlobjects.xal.model.types;
 
 import org.xmlobjects.xal.model.XALObject;
+import org.xmlobjects.xml.Attributes;
 
-import javax.xml.namespace.QName;
 import java.time.OffsetDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 public class AddressLine extends XALObject implements DataQuality {
     private String content;
@@ -32,7 +30,7 @@ public class AddressLine extends XALObject implements DataQuality {
     private DataQualityType dataQualityType;
     private OffsetDateTime validFrom;
     private OffsetDateTime validTo;
-    private Map<QName, String> otherAttributes;
+    private Attributes otherAttributes;
 
     public AddressLine() {
     }
@@ -87,14 +85,14 @@ public class AddressLine extends XALObject implements DataQuality {
         this.validTo = validTo;
     }
 
-    public Map<QName, String> getOtherAttributes() {
+    public Attributes getOtherAttributes() {
         if (otherAttributes == null)
-            otherAttributes = new HashMap<>();
+            otherAttributes = new Attributes();
 
         return otherAttributes;
     }
 
-    public void setOtherAttributes(Map<QName, String> otherAttributes) {
+    public void setOtherAttributes(Attributes otherAttributes) {
         this.otherAttributes = otherAttributes;
     }
 }

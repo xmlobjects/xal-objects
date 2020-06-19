@@ -20,24 +20,21 @@
 package org.xmlobjects.xal.model;
 
 import org.xmlobjects.xal.visitor.XALVisitor;
-
-import javax.xml.namespace.QName;
-import java.util.HashMap;
-import java.util.Map;
+import org.xmlobjects.xml.Attributes;
 
 public abstract class AddressObject extends XALObject {
-    private Map<QName, String> otherAttributes;
+    private Attributes otherAttributes;
 
     public abstract void accept(XALVisitor visitor);
 
-    public Map<QName, String> getOtherAttributes() {
+    public Attributes getOtherAttributes() {
         if (otherAttributes == null)
-            otherAttributes = new HashMap<>();
+            otherAttributes = new Attributes();
 
         return otherAttributes;
     }
 
-    public void setOtherAttributes(Map<QName, String> otherAttributes) {
+    public void setOtherAttributes(Attributes otherAttributes) {
         this.otherAttributes = otherAttributes;
     }
 }

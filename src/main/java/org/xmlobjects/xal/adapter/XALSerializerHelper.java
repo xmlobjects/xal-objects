@@ -21,11 +21,11 @@ package org.xmlobjects.xal.adapter;
 
 import org.xmlobjects.xal.model.types.DataQuality;
 import org.xmlobjects.xal.util.XALConstants;
+import org.xmlobjects.xml.Attributes;
 import org.xmlobjects.xml.Element;
 import org.xmlobjects.xml.Namespaces;
 import org.xmlobjects.xml.TextContent;
 
-import javax.xml.namespace.QName;
 import java.util.Map;
 
 public class XALSerializerHelper {
@@ -38,10 +38,12 @@ public class XALSerializerHelper {
             element.addAttribute(XALConstants.CT_3_0_NAMESPACE, "DataQualityType", object.getDataQualityType().toValue());
     }
 
-    public static void addOtherAttributes(Element element, Map<QName, String> otherAttributes, Namespaces namespaces) {
-        for (Map.Entry<QName, String> entry : otherAttributes.entrySet()) {
-            if (namespaces.contains(entry.getKey().getNamespaceURI()))
-                element.addAttribute(entry.getKey(), entry.getValue());
+    public static void addOtherAttributes(Element element, Attributes otherAttributes, Namespaces namespaces) {
+        for (Map.Entry<String, Map<String, TextContent>> entry : otherAttributes.get().entrySet()) {
+            if (namespaces.contains(entry.getKey())) {
+                for (Map.Entry<String, TextContent> attribute : entry.getValue().entrySet())
+                    element.addAttribute(entry.getKey(), attribute.getKey(), attribute.getValue());
+            }
         }
     }
 }

@@ -20,16 +20,13 @@
 package org.xmlobjects.xal.model.types;
 
 import org.xmlobjects.xal.model.XALObject;
-
-import javax.xml.namespace.QName;
-import java.util.HashMap;
-import java.util.Map;
+import org.xmlobjects.xml.Attributes;
 
 public abstract class Name<T extends NameType> extends XALObject implements Abbreviation {
     private String content;
     private Boolean abbreviation;
     private T nameType;
-    private Map<QName, String> otherAttributes;
+    private Attributes otherAttributes;
 
     public Name() {
     }
@@ -69,14 +66,14 @@ public abstract class Name<T extends NameType> extends XALObject implements Abbr
         this.nameType = nameType;
     }
 
-    public Map<QName, String> getOtherAttributes() {
+    public Attributes getOtherAttributes() {
         if (otherAttributes == null)
-            otherAttributes = new HashMap<>();
+            otherAttributes = new Attributes();
 
         return otherAttributes;
     }
 
-    public void setOtherAttributes(Map<QName, String> otherAttributes) {
+    public void setOtherAttributes(Attributes otherAttributes) {
         this.otherAttributes = otherAttributes;
     }
 }

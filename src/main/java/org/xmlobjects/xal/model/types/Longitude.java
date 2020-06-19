@@ -20,17 +20,14 @@
 package org.xmlobjects.xal.model.types;
 
 import org.xmlobjects.xal.model.XALObject;
-
-import javax.xml.namespace.QName;
-import java.util.HashMap;
-import java.util.Map;
+import org.xmlobjects.xml.Attributes;
 
 public class Longitude extends XALObject {
     private String degreesMeasure;
     private String minutesMeasure;
     private String secondsMeasure;
     private DirectionType direction;
-    private Map<QName, String> otherAttributes;
+    private Attributes otherAttributes;
 
     public String getDegreesMeasure() {
         return degreesMeasure;
@@ -64,14 +61,14 @@ public class Longitude extends XALObject {
         this.direction = direction;
     }
 
-    public Map<QName, String> getOtherAttributes() {
+    public Attributes getOtherAttributes() {
         if (otherAttributes == null)
-            otherAttributes = new HashMap<>();
+            otherAttributes = new Attributes();
 
         return otherAttributes;
     }
 
-    public void setOtherAttributes(Map<QName, String> otherAttributes) {
+    public void setOtherAttributes(Attributes otherAttributes) {
         this.otherAttributes = otherAttributes;
     }
 }

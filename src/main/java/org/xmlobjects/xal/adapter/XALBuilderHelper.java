@@ -22,11 +22,10 @@ package org.xmlobjects.xal.adapter;
 import org.xmlobjects.xal.model.types.DataQuality;
 import org.xmlobjects.xal.model.types.DataQualityType;
 import org.xmlobjects.xal.util.XALConstants;
-import org.xmlobjects.xml.Attribute;
 import org.xmlobjects.xml.Attributes;
+import org.xmlobjects.xml.TextContent;
 
 import javax.xml.XMLConstants;
-import javax.xml.namespace.QName;
 import java.util.Map;
 
 public class XALBuilderHelper {
@@ -37,14 +36,14 @@ public class XALBuilderHelper {
         attributes.getValue(XALConstants.CT_3_0_NAMESPACE, "ValidTo").ifDateTime(object::setValidTo);
     }
 
-    public static void buildOtherAttributes(Map<QName, String> otherAttributes, Attributes attributes) {
-        for (Attribute attribute : attributes.toList()) {
-            if (!XALConstants.XAL_3_0_NAMESPACE.equals(attribute.getNamespaceURI())
-                    && !XALConstants.CT_3_0_NAMESPACE.equals(attribute.getNamespaceURI())
-                    && !XALConstants.XAL_2_0_NAMESPACE.equals(attribute.getNamespaceURI())
-                    && !XMLConstants.NULL_NS_URI.equals(attribute.getNamespaceURI())
-                    && !XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI.equals(attribute.getNamespaceURI()))
-                otherAttributes.put(new QName(attribute.getNamespaceURI(), attribute.getLocalName()), attribute.getValue().get());
+    public static void buildOtherAttributes(Attributes otherAttributes, Attributes attributes) {
+        for (Map.Entry<String, Map<String, TextContent>> entry : attributes.get().entrySet()) {
+            if (!XALConstants.XAL_3_0_NAMESPACE.equals(entry.getKey())
+                    && !XALConstants.CT_3_0_NAMESPACE.equals(entry.getKey())
+                    && !XALConstants.XAL_2_0_NAMESPACE.equals(entry.getKey())
+                    && !XMLConstants.NULL_NS_URI.equals(entry.getKey())
+                    && !XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI.equals(entry.getKey()))
+                otherAttributes.addAll(entry.getKey(), entry.getValue());
         }
     }
 }
