@@ -8,7 +8,7 @@ plugins {
 }
 
 group 'org.xmlobjects.xal'
-version '0.9.1'
+version '0.9.1-b20200619-2337'
 description 'A Java mapping for the OASIS eXtensible Address Language (xAL)'
 ext.date = new Date()
 
@@ -23,8 +23,8 @@ repositories {
 }
 
 dependencies {
-    api 'org.xmlobjects:xml-objects:0.9.1-b20200607-1257'
-    annotationProcessor 'org.xmlobjects:xml-objects:0.9.1-b20200607-1257'
+    api 'org.xmlobjects:xml-objects:0.9.1-b20200619-2337'
+    annotationProcessor 'org.xmlobjects:xml-objects:0.9.1-b20200619-2337'
 }
 
 javadoc {
