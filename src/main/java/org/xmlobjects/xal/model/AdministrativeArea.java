@@ -20,6 +20,8 @@
 package org.xmlobjects.xal.model;
 
 import org.xmlobjects.model.ChildList;
+import org.xmlobjects.xal.model.deprecated.DeprecatedProperties;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfAdministrativeArea;
 import org.xmlobjects.xal.model.types.AdministrativeAreaName;
 import org.xmlobjects.xal.model.types.AdministrativeAreaType;
 import org.xmlobjects.xal.model.types.DataQuality;
@@ -36,6 +38,13 @@ public class AdministrativeArea extends AddressObject implements DataQuality {
     private DataQualityType dataQualityType;
     private OffsetDateTime validFrom;
     private OffsetDateTime validTo;
+
+    public AdministrativeArea() {
+    }
+
+    public AdministrativeArea(AdministrativeAreaType type) {
+        this.type = type;
+    }
 
     public List<AdministrativeAreaName> getNameElements() {
         if (nameElements == null)
@@ -92,6 +101,16 @@ public class AdministrativeArea extends AddressObject implements DataQuality {
     @Override
     public void setValidTo(OffsetDateTime validTo) {
         this.validTo = validTo;
+    }
+
+    @Override
+    public DeprecatedPropertiesOfAdministrativeArea getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfAdministrativeArea) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedProperties createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfAdministrativeArea();
     }
 
     @Override

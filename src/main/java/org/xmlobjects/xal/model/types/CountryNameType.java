@@ -36,7 +36,7 @@ public enum CountryNameType implements NameType {
 
     public static CountryNameType fromValue(String value) {
         for (CountryNameType v : CountryNameType.values()) {
-            if (v.value.equals(value))
+            if (v.value.equalsIgnoreCase(value))
                 return v;
         }
 

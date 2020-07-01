@@ -31,8 +31,17 @@ public class Identifier extends XALObject implements Abbreviation {
     public Identifier() {
     }
 
-    public Identifier(String content) {
+    public Identifier(String content, IdentifierElementType type) {
         this.content = content;
+        this.type = type;
+    }
+
+    public Identifier(String content) {
+        this(content, null);
+    }
+
+    public Identifier(IdentifierElementType type) {
+        this(null, type);
     }
 
     public String getContent() {

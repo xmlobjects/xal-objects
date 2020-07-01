@@ -35,7 +35,7 @@ public enum DataQualityType {
 
     public static DataQualityType fromValue(String value) {
         for (DataQualityType v : DataQualityType.values()) {
-            if (v.value.equals(value))
+            if (v.value.equalsIgnoreCase(value))
                 return v;
         }
 

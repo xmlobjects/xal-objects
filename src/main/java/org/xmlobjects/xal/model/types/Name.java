@@ -31,8 +31,17 @@ public abstract class Name<T extends NameType> extends XALObject implements Abbr
     public Name() {
     }
 
-    public Name(String content) {
+    public Name(String content, T nameType) {
         this.content = content;
+        this.nameType = nameType;
+    }
+
+    public Name(String content) {
+        this(content, null);
+    }
+
+    public Name(T nameType) {
+        this(null, nameType);
     }
 
     public String getContent() {

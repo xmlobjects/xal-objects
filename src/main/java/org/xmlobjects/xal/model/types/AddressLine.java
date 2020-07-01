@@ -35,8 +35,13 @@ public class AddressLine extends XALObject implements DataQuality {
     public AddressLine() {
     }
 
-    public AddressLine(String content) {
+    public AddressLine(String content, String type) {
         this.content = content;
+        this.type = type;
+    }
+
+    public AddressLine(String content) {
+        this(content, null);
     }
 
     public String getContent() {

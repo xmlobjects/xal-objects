@@ -39,7 +39,7 @@ public enum PostalDeliveryPointType {
 
     public static PostalDeliveryPointType fromValue(String value) {
         for (PostalDeliveryPointType v : PostalDeliveryPointType.values()) {
-            if (v.value.equals(value))
+            if (v.value.equalsIgnoreCase(value))
                 return v;
         }
 

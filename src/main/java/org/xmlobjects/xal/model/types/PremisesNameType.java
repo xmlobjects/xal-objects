@@ -40,7 +40,7 @@ public enum PremisesNameType implements NameType {
 
     public static PremisesNameType fromValue(String value) {
         for (PremisesNameType v : PremisesNameType.values()) {
-            if (v.value.equals(value))
+            if (v.value.equalsIgnoreCase(value))
                 return v;
         }
 

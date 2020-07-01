@@ -20,6 +20,8 @@
 package org.xmlobjects.xal.model;
 
 import org.xmlobjects.model.ChildList;
+import org.xmlobjects.xal.model.deprecated.DeprecatedProperties;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfLocality;
 import org.xmlobjects.xal.model.types.DataQuality;
 import org.xmlobjects.xal.model.types.DataQualityType;
 import org.xmlobjects.xal.model.types.LocalityName;
@@ -36,6 +38,13 @@ public class Locality extends AddressObject implements DataQuality {
     private DataQualityType dataQualityType;
     private OffsetDateTime validFrom;
     private OffsetDateTime validTo;
+
+    public Locality() {
+    }
+
+    public Locality(LocalityType type) {
+        this.type = type;
+    }
 
     public List<LocalityName> getNameElements() {
         if (nameElements == null)
@@ -92,6 +101,16 @@ public class Locality extends AddressObject implements DataQuality {
     @Override
     public void setValidTo(OffsetDateTime validTo) {
         this.validTo = validTo;
+    }
+
+    @Override
+    public DeprecatedPropertiesOfLocality getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfLocality) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedProperties createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfLocality();
     }
 
     @Override

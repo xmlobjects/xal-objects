@@ -25,9 +25,6 @@ public class ThoroughfareNameOrNumber extends XALObject {
     private ThoroughfareName nameElement;
     private Identifier number;
 
-    public ThoroughfareNameOrNumber() {
-    }
-
     public ThoroughfareNameOrNumber(ThoroughfareName nameElement) {
         setNameElement(nameElement);
     }

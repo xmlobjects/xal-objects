@@ -25,7 +25,15 @@ public class CountryName extends NameWithCode<CountryNameType> {
         super();
     }
 
+    public CountryName(String content, CountryNameType nameType) {
+        super(content, nameType);
+    }
+
     public CountryName(String content) {
         super(content);
+    }
+
+    public CountryName(CountryNameType nameType) {
+        super(nameType);
     }
 }

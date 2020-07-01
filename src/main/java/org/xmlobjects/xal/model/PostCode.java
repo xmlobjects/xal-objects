@@ -20,6 +20,8 @@
 package org.xmlobjects.xal.model;
 
 import org.xmlobjects.model.ChildList;
+import org.xmlobjects.xal.model.deprecated.DeprecatedProperties;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfPostCode;
 import org.xmlobjects.xal.model.types.DataQuality;
 import org.xmlobjects.xal.model.types.DataQualityType;
 import org.xmlobjects.xal.model.types.Identifier;
@@ -73,6 +75,16 @@ public class PostCode extends AddressObject implements DataQuality {
     @Override
     public void setValidTo(OffsetDateTime validTo) {
         this.validTo = validTo;
+    }
+
+    @Override
+    public DeprecatedPropertiesOfPostCode getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfPostCode) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedProperties createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfPostCode();
     }
 
     @Override

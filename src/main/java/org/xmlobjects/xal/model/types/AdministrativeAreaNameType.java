@@ -38,7 +38,7 @@ public enum AdministrativeAreaNameType implements NameType {
 
     public static AdministrativeAreaNameType fromValue(String value) {
         for (AdministrativeAreaNameType v : AdministrativeAreaNameType.values()) {
-            if (v.value.equals(value))
+            if (v.value.equalsIgnoreCase(value))
                 return v;
         }
 

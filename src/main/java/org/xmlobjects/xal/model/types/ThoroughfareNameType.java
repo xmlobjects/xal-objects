@@ -44,7 +44,7 @@ public enum ThoroughfareNameType implements NameType {
 
     public static ThoroughfareNameType fromValue(String value) {
         for (ThoroughfareNameType v : ThoroughfareNameType.values()) {
-            if (v.value.equals(value))
+            if (v.value.equalsIgnoreCase(value))
                 return v;
         }
 

@@ -41,7 +41,7 @@ public enum LocalityType {
 
     public static LocalityType fromValue(String value) {
         for (LocalityType v : LocalityType.values()) {
-            if (v.value.equals(value))
+            if (v.value.equalsIgnoreCase(value))
                 return v;
         }
 

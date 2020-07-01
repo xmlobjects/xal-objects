@@ -1,0 +1,153 @@
+/*
+ * xal-objects - A Java mapping for the OASIS eXtensible Address Language (xAL)
+ * https://github.com/xmlobjects/xal-objects
+ *
+ * Copyright 2019-2020 Claus Nagel <claus.nagel@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.xmlobjects.xal.adapter.deprecated;
+
+import org.xmlobjects.builder.ObjectBuildException;
+import org.xmlobjects.model.Child;
+import org.xmlobjects.serializer.ObjectSerializeException;
+import org.xmlobjects.stream.XMLReadException;
+import org.xmlobjects.stream.XMLReader;
+import org.xmlobjects.stream.XMLWriteException;
+import org.xmlobjects.stream.XMLWriter;
+import org.xmlobjects.xal.adapter.AddressObjectAdapter;
+import org.xmlobjects.xal.adapter.deprecated.types.AddressLineAdapter;
+import org.xmlobjects.xal.adapter.deprecated.types.BuildingNameAdapter;
+import org.xmlobjects.xal.adapter.deprecated.types.LargeMailUserIdentifierAdapter;
+import org.xmlobjects.xal.adapter.deprecated.types.LargeMailUserNameAdapter;
+import org.xmlobjects.xal.model.Address;
+import org.xmlobjects.xal.model.FreeTextAddress;
+import org.xmlobjects.xal.model.PostCode;
+import org.xmlobjects.xal.model.PostalDeliveryPoint;
+import org.xmlobjects.xal.model.Premises;
+import org.xmlobjects.xal.model.SubPremises;
+import org.xmlobjects.xal.model.Thoroughfare;
+import org.xmlobjects.xal.model.types.Identifier;
+import org.xmlobjects.xal.model.types.PremisesNameOrNumber;
+import org.xmlobjects.xal.model.types.PremisesType;
+import org.xmlobjects.xal.util.XALConstants;
+import org.xmlobjects.xml.Attributes;
+import org.xmlobjects.xml.Element;
+import org.xmlobjects.xml.Namespaces;
+
+import javax.xml.namespace.QName;
+
+public class LargeMailUserAdapter extends AddressObjectAdapter<Premises> {
+
+    @Override
+    public Premises createObject(QName name, Object parent) throws ObjectBuildException {
+        Premises object = new Premises(PremisesType.LARGE_MAIL_USER);
+        if (parent instanceof Child)
+            object.setParent((Child) parent);
+
+        return object;
+    }
+
+    @Override
+    public void initializeObject(Premises object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        super.initializeObject(object, name, attributes, reader);
+        attributes.getValue("Type").ifPresent(v -> object.getOtherAttributes().add("Type", v));
+    }
+
+    @Override
+    public void buildChildObject(Premises object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
+            Address address = object.getParent(Address.class);
+            switch (name.getLocalPart()) {
+                case "AddressLine":
+                    if (address != null) {
+                        if (address.getFreeTextAddress() == null)
+                            address.setFreeTextAddress(new FreeTextAddress());
+
+                        address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
+                    }
+                    break;
+                case "LargeMailUserName":
+                    object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(LargeMailUserNameAdapter.class)));
+                    break;
+                case "LargeMailUserIdentifier":
+                    object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(LargeMailUserIdentifierAdapter.class)));
+                    break;
+                case "BuildingName":
+                    object.getDeprecatedProperties().getBuildingNames().add(reader.getObjectUsingBuilder(BuildingNameAdapter.class));
+                    break;
+                case "Department":
+                    object.getDeprecatedProperties().setDepartment(reader.getObjectUsingBuilder(DepartmentAdapter.class));
+                    break;
+                case "PostBox":
+                    PostalDeliveryPoint postBox = reader.getObjectUsingBuilder(PostBoxAdapter.class);
+                    if (address != null && address.getPostalDeliveryPoint() == null)
+                        address.setPostalDeliveryPoint(postBox);
+                    else
+                        object.getDeprecatedProperties().setPostBox(postBox);
+                    break;
+                case "Thoroughfare":
+                    Thoroughfare thoroughfare = reader.getObjectUsingBuilder(ThoroughfareAdapter.class);
+                    if (address != null && address.getThoroughfare() == null)
+                        address.setThoroughfare(thoroughfare);
+                    else
+                        object.getDeprecatedProperties().setThoroughfare(thoroughfare);
+                    break;
+                case "PostalCode":
+                    PostCode postalCode = reader.getObjectUsingBuilder(PostalCodeAdapter.class);
+                    if (address != null && address.getPostCode() == null)
+                        address.setPostCode(postalCode);
+                    else
+                        object.getDeprecatedProperties().setPostalCode(postalCode);
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void initializeElement(Element element, Premises object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        super.initializeElement(element, object, namespaces, writer);
+        element.addAttribute("Type", object.getOtherAttributes().getValue("Type"));
+    }
+
+    @Override
+    public void writeChildElements(Premises object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        Identifier identifier = null;
+
+        for (PremisesNameOrNumber nameElementOrNumber : object.getNameElementOrNumber()) {
+            if (nameElementOrNumber.isSetNameElement())
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "LargeMailUserName"), nameElementOrNumber.getNameElement(), LargeMailUserNameAdapter.class, namespaces);
+            else if (identifier == null)
+                identifier = nameElementOrNumber.getNumber();
+        }
+
+        if (identifier != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "LargeMailUserIdentifier"), identifier, LargeMailUserIdentifierAdapter.class, namespaces);
+
+        for (Identifier buildingName : object.getDeprecatedProperties().getBuildingNames())
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "BuildingName"), buildingName, BuildingNameAdapter.class, namespaces);
+
+        for (SubPremises subPremises : object.getSubPremises())
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Department"), subPremises, DepartmentAdapter.class, namespaces);
+
+        if (object.getDeprecatedProperties().getPostBox() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostBox"), object.getDeprecatedProperties().getPostBox(), PostBoxAdapter.class, namespaces);
+
+        if (object.getDeprecatedProperties().getThoroughfare() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Thoroughfare"), object.getDeprecatedProperties().getThoroughfare(), ThoroughfareAdapter.class, namespaces);
+
+        if (object.getDeprecatedProperties().getPostalCode() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCode"), object.getDeprecatedProperties().getPostalCode(), PostalCodeAdapter.class, namespaces);
+    }
+}

@@ -37,7 +37,7 @@ public enum DirectionType {
 
     public static DirectionType fromValue(String value) {
         for (DirectionType v : DirectionType.values()) {
-            if (v.value.equals(value))
+            if (v.value.equalsIgnoreCase(value))
                 return v;
         }
 

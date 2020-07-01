@@ -35,7 +35,7 @@ public enum SubLocalityType {
 
     public static SubLocalityType fromValue(String value) {
         for (SubLocalityType v : SubLocalityType.values()) {
-            if (v.value.equals(value))
+            if (v.value.equalsIgnoreCase(value))
                 return v;
         }
 

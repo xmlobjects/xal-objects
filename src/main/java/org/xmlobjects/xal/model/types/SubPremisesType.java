@@ -39,7 +39,7 @@ public enum SubPremisesType {
 
     public static SubPremisesType fromValue(String value) {
         for (SubPremisesType v : SubPremisesType.values()) {
-            if (v.value.equals(value))
+            if (v.value.equalsIgnoreCase(value))
                 return v;
         }
 

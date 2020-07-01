@@ -20,6 +20,8 @@
 package org.xmlobjects.xal.model;
 
 import org.xmlobjects.model.ChildList;
+import org.xmlobjects.xal.model.deprecated.DeprecatedProperties;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfPostOffice;
 import org.xmlobjects.xal.model.types.DataQuality;
 import org.xmlobjects.xal.model.types.DataQualityType;
 import org.xmlobjects.xal.model.types.Identifier;
@@ -34,6 +36,13 @@ public class PostOffice extends AddressObject implements DataQuality {
     private DataQualityType dataQualityType;
     private OffsetDateTime validFrom;
     private OffsetDateTime validTo;
+
+    public PostOffice() {
+    }
+
+    public PostOffice(String type) {
+        this.type = type;
+    }
 
     public List<Identifier> getIdentifiers() {
         if (identifiers == null)
@@ -82,6 +91,16 @@ public class PostOffice extends AddressObject implements DataQuality {
     @Override
     public void setValidTo(OffsetDateTime validTo) {
         this.validTo = validTo;
+    }
+
+    @Override
+    public DeprecatedPropertiesOfPostOffice getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfPostOffice) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedProperties createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfPostOffice();
     }
 
     @Override

@@ -25,7 +25,15 @@ public class SubAdministrativeAreaName extends NameWithCode<SubAdministrativeAre
         super();
     }
 
+    public SubAdministrativeAreaName(String content, SubAdministrativeAreaNameType nameType) {
+        super(content, nameType);
+    }
+
     public SubAdministrativeAreaName(String content) {
         super(content);
+    }
+
+    public SubAdministrativeAreaName(SubAdministrativeAreaNameType nameType) {
+        super(nameType);
     }
 }

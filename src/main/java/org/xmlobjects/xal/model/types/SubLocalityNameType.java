@@ -38,7 +38,7 @@ public enum SubLocalityNameType implements NameType {
 
     public static SubLocalityNameType fromValue(String value) {
         for (SubLocalityNameType v : SubLocalityNameType.values()) {
-            if (v.value.equals(value))
+            if (v.value.equalsIgnoreCase(value))
                 return v;
         }
 

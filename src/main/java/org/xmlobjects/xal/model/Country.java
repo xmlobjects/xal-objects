@@ -20,6 +20,8 @@
 package org.xmlobjects.xal.model;
 
 import org.xmlobjects.model.ChildList;
+import org.xmlobjects.xal.model.deprecated.DeprecatedProperties;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfCountry;
 import org.xmlobjects.xal.model.types.CountryName;
 import org.xmlobjects.xal.visitor.XALVisitor;
 
@@ -37,6 +39,16 @@ public class Country extends AddressObject {
 
     public void setNameElements(List<CountryName> nameElements) {
         this.nameElements = asChild(nameElements);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfCountry getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfCountry) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedProperties createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfCountry();
     }
 
     @Override

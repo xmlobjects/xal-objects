@@ -19,13 +19,30 @@
 
 package org.xmlobjects.xal.model;
 
+import org.xmlobjects.xal.model.deprecated.DeprecatedProperties;
 import org.xmlobjects.xal.visitor.XALVisitor;
 import org.xmlobjects.xml.Attributes;
 
 public abstract class AddressObject extends XALObject {
+    private DeprecatedProperties deprecatedProperties;
     private Attributes otherAttributes;
 
     public abstract void accept(XALVisitor visitor);
+
+    public DeprecatedProperties getDeprecatedProperties() {
+        if (deprecatedProperties == null)
+            deprecatedProperties = asChild(createDeprecatedProperties());
+
+        return deprecatedProperties;
+    }
+
+    public boolean hasDeprecatedProperties() {
+        return deprecatedProperties != null;
+    }
+
+    protected DeprecatedProperties createDeprecatedProperties() {
+        return null;
+    }
 
     public Attributes getOtherAttributes() {
         if (otherAttributes == null)

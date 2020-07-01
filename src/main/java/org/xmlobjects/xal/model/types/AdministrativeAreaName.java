@@ -25,7 +25,15 @@ public class AdministrativeAreaName extends NameWithCode<AdministrativeAreaNameT
         super();
     }
 
+    public AdministrativeAreaName(String content, AdministrativeAreaNameType nameType) {
+        super(content, nameType);
+    }
+
     public AdministrativeAreaName(String content) {
         super(content);
+    }
+
+    public AdministrativeAreaName(AdministrativeAreaNameType nameType) {
+        super(nameType);
     }
 }

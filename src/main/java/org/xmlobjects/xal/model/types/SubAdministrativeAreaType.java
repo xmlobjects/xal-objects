@@ -37,7 +37,7 @@ public enum SubAdministrativeAreaType {
 
     public static SubAdministrativeAreaType fromValue(String value) {
         for (SubAdministrativeAreaType v : SubAdministrativeAreaType.values()) {
-            if (v.value.equals(value))
+            if (v.value.equalsIgnoreCase(value))
                 return v;
         }
 

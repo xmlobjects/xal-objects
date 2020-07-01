@@ -25,7 +25,15 @@ public class LocalityName extends NameWithCode<LocalityNameType> {
         super();
     }
 
+    public LocalityName(String content, LocalityNameType nameType) {
+        super(content, nameType);
+    }
+
     public LocalityName(String content) {
         super(content);
+    }
+
+    public LocalityName(LocalityNameType nameType) {
+        super(nameType);
     }
 }

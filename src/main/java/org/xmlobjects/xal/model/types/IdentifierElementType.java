@@ -42,7 +42,7 @@ public enum IdentifierElementType {
 
     public static IdentifierElementType fromValue(String value) {
         for (IdentifierElementType v : IdentifierElementType.values()) {
-            if (v.value.equals(value))
+            if (v.value.equalsIgnoreCase(value))
                 return v;
         }
 

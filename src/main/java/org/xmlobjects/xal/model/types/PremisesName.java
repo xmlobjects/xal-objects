@@ -25,7 +25,15 @@ public class PremisesName extends Name<PremisesNameType> {
         super();
     }
 
+    public PremisesName(String content, PremisesNameType nameType) {
+        super(content, nameType);
+    }
+
     public PremisesName(String content) {
         super(content);
+    }
+
+    public PremisesName(PremisesNameType nameType) {
+        super(nameType);
     }
 }

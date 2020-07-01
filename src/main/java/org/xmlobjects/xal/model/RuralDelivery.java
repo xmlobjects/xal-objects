@@ -35,6 +35,13 @@ public class RuralDelivery extends AddressObject implements DataQuality {
     private OffsetDateTime validFrom;
     private OffsetDateTime validTo;
 
+    public RuralDelivery() {
+    }
+
+    public RuralDelivery(String type) {
+        this.type = type;
+    }
+
     public List<Identifier> getIdentifiers() {
         if (identifiers == null)
             identifiers = new ChildList<>(this);

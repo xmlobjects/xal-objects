@@ -41,7 +41,7 @@ public enum RuralDeliveryType {
 
     public static RuralDeliveryType fromValue(String value) {
         for (RuralDeliveryType v : RuralDeliveryType.values()) {
-            if (v.value.equals(value))
+            if (v.value.equalsIgnoreCase(value))
                 return v;
         }
 
