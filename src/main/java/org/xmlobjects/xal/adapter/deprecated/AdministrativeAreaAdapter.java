@@ -21,8 +21,11 @@ package org.xmlobjects.xal.adapter.deprecated;
 
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.model.Child;
+import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
+import org.xmlobjects.stream.XMLWriteException;
+import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xal.adapter.AddressObjectAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.AddressLineAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.AdministrativeAreaNameAdapter;
@@ -32,9 +35,12 @@ import org.xmlobjects.xal.model.FreeTextAddress;
 import org.xmlobjects.xal.model.Locality;
 import org.xmlobjects.xal.model.PostCode;
 import org.xmlobjects.xal.model.PostOffice;
+import org.xmlobjects.xal.model.types.AdministrativeAreaName;
 import org.xmlobjects.xal.model.types.AdministrativeAreaType;
 import org.xmlobjects.xal.util.XALConstants;
 import org.xmlobjects.xml.Attributes;
+import org.xmlobjects.xml.Element;
+import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
@@ -105,5 +111,48 @@ public class AdministrativeAreaAdapter extends AddressObjectAdapter<Administrati
                     break;
             }
         }
+    }
+
+    @Override
+    public void initializeElement(Element element, AdministrativeArea object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        super.initializeElement(element, object, namespaces, writer);
+        element.addAttribute("UsageType", object.getOtherAttributes().getValue("UsageType"));
+        element.addAttribute("Indicator", object.getOtherAttributes().getValue("Indicator"));
+
+        if (object.getType() != null)
+            element.addAttribute("Type", object.getType().toValue());
+        else
+            element.addAttribute("Type", object.getOtherAttributes().getValue("Type"));
+    }
+
+    @Override
+    public void writeChildElements(AdministrativeArea object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        Address address = object.getParent(Address.class);
+
+        for (AdministrativeAreaName nameElement : object.getNameElements())
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "AdministrativeAreaName"), nameElement, AdministrativeAreaNameAdapter.class, namespaces);
+
+        boolean hasSubAdministrativeArea = object.getSubAdministrativeArea() != null;
+        if (hasSubAdministrativeArea)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubAdministrativeArea"), object.getSubAdministrativeArea(), SubAdministrativeAreaAdapter.class, namespaces);
+
+        Locality locality = !hasSubAdministrativeArea && address != null && address.getLocality() != null ?
+                address.getLocality() :
+                object.getDeprecatedProperties().getLocality();
+
+        PostOffice postOffice = !hasSubAdministrativeArea && address != null && address.getPostOffice() != null ?
+                address.getPostOffice() :
+                object.getDeprecatedProperties().getPostOffice();
+
+        PostCode postalCode = !hasSubAdministrativeArea && address != null && address.getPostCode() != null ?
+                address.getPostCode() :
+                object.getDeprecatedProperties().getPostalCode();
+
+        if (locality != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Locality"), locality, LocalityAdapter.class, namespaces);
+        else if (postOffice != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostOffice"), postOffice, PostOfficeAdapter.class, namespaces);
+        else if (postalCode != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCode"), postalCode, PostalCodeAdapter.class, namespaces);
     }
 }

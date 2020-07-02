@@ -38,6 +38,7 @@ import org.xmlobjects.xal.model.Thoroughfare;
 import org.xmlobjects.xal.model.types.CountryName;
 import org.xmlobjects.xal.util.XALConstants;
 import org.xmlobjects.xml.Attributes;
+import org.xmlobjects.xml.Element;
 import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
@@ -97,7 +98,28 @@ public class CountryAdapter extends AddressObjectAdapter<Country> {
 
     @Override
     public void writeChildElements(Country object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        Address address = object.getParent(Address.class);
+
         for (CountryName nameElement : object.getNameElements())
             writer.writeObjectUsingSerializer(nameElement, CountryNameAdapter.class, namespaces);
+
+        AdministrativeArea administrativeArea = address != null && address.getAdministrativeArea() != null ?
+                address.getAdministrativeArea() :
+                object.getDeprecatedProperties().getAdministrativeArea();
+
+        Locality locality = address != null && address.getLocality() != null ?
+                address.getLocality() :
+                object.getDeprecatedProperties().getLocality();
+
+        Thoroughfare thoroughfare = address != null && address.getThoroughfare() != null ?
+                address.getThoroughfare() :
+                object.getDeprecatedProperties().getThoroughfare();
+
+        if (administrativeArea != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "AdministrativeArea"), administrativeArea, AdministrativeAreaAdapter.class, namespaces);
+        else if (locality != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Locality"), locality, LocalityAdapter.class, namespaces);
+        else if (thoroughfare != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Thoroughfare"), thoroughfare, ThoroughfareAdapter.class, namespaces);
     }
 }

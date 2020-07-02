@@ -25,7 +25,10 @@ import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
+import org.xmlobjects.xal.adapter.deprecated.types.PremiseNameAdapter;
 import org.xmlobjects.xal.model.SubPremises;
+import org.xmlobjects.xal.model.types.Identifier;
+import org.xmlobjects.xal.model.types.PremisesName;
 import org.xmlobjects.xal.model.types.SubPremisesType;
 import org.xmlobjects.xal.util.XALConstants;
 import org.xmlobjects.xml.Attributes;
@@ -50,6 +53,11 @@ public class SubPremisesAdapter extends AbstractPremisesAdapter<SubPremises> {
     @Override
     public void initializeElement(Element element, SubPremises object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.initializeElement(element, object, namespaces, writer);
+
+        for (Identifier buildingName : object.getDeprecatedProperties().getBuildingNames()) {
+            PremisesName nameElement = new PremisesName(buildingName.getContent());
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "NameElement"), nameElement, PremiseNameAdapter.class, namespaces);
+        }
 
         if (object.getType() != null)
             element.addAttribute(XALConstants.XAL_3_0_NAMESPACE, "Type", object.getType().toValue());

@@ -36,6 +36,7 @@ import org.xmlobjects.xal.util.XALConstants;
 import org.xmlobjects.xml.Attributes;
 import org.xmlobjects.xml.Element;
 import org.xmlobjects.xml.Namespaces;
+import org.xmlobjects.xml.TextContent;
 
 import javax.xml.namespace.QName;
 
@@ -50,9 +51,6 @@ public class AddressDetailsAdapter extends AddressObjectAdapter<Address> {
     @Override
     public void initializeObject(Address object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         super.initializeObject(object, name, attributes, reader);
-        attributes.getValue("CurrentStatus").ifPresent(object::setStatus);
-        attributes.getValue("ValidFromDate").ifDateTime(object::setDateValidFrom);
-        attributes.getValue("ValidToDate").ifDateTime(object::setDateValidTo);
         attributes.getValue("CurrentStatus").ifPresent(object::setStatus);
         attributes.getValue("AddressDetailsKey").ifPresent(object::setAddressKey);
         attributes.getValue("Code").ifPresent(v -> object.getOtherAttributes().add("Code", v));
@@ -70,6 +68,18 @@ public class AddressDetailsAdapter extends AddressObjectAdapter<Address> {
             else
                 object.getOtherAttributes().add("Usage", v);
         });
+
+        TextContent validFromDate = attributes.getValue("ValidFromDate");
+        if (validFromDate.isDateTime())
+            object.setDateValidFrom(validFromDate.getAsDateTime());
+        else if (validFromDate.isPresent())
+            object.getOtherAttributes().add("ValidFromDate", validFromDate.get());
+
+        TextContent validToDate = attributes.getValue("ValidToDate");
+        if (validToDate.isDateTime())
+            object.setDateValidFrom(validToDate.getAsDateTime());
+        else if (validToDate.isPresent())
+            object.getOtherAttributes().add("ValidToDate", validToDate.get());
     }
 
     @Override
@@ -106,6 +116,29 @@ public class AddressDetailsAdapter extends AddressObjectAdapter<Address> {
     @Override
     public void initializeElement(Element element, Address object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.initializeElement(element, object, namespaces, writer);
+        element.addAttribute("CurrentStatus", object.getStatus());
+        element.addAttribute("AddressDetailsKey", object.getAddressKey());
+        element.addAttribute("Code", object.getOtherAttributes().getValue("Code"));
+
+        if (object.getType() != null)
+            element.addAttribute("AddressType", object.getType().toValue());
+        else
+            element.addAttribute("AddressType", object.getOtherAttributes().getValue("AddressType"));
+
+        if (object.getUsage() != null)
+            element.addAttribute("Usage", object.getUsage().toValue());
+        else
+            element.addAttribute("Usage", object.getOtherAttributes().getValue("Usage"));
+
+        if (object.getDateValidFrom() != null)
+            element.addAttribute("ValidFromDate", TextContent.ofDateTime(object.getDateValidFrom()));
+        else
+            element.addAttribute("ValidFromDate", object.getOtherAttributes().getValue("ValidFromDate"));
+
+        if (object.getDateValidTo() != null)
+            element.addAttribute("ValidToDate", TextContent.ofDateTime(object.getDateValidTo()));
+        else
+            element.addAttribute("ValidToDate", object.getOtherAttributes().getValue("ValidToDate"));
     }
 
     @Override
@@ -115,21 +148,25 @@ public class AddressDetailsAdapter extends AddressObjectAdapter<Address> {
             writeAddressLines(object, namespaces, writer);
             writer.writeObjectUsingSerializer(object.getCountry(), CountryAdapter.class, namespaces);
             writer.writeEndElement();
+        } else if (object.getAdministrativeArea() != null) {
+            writer.writeStartElement(Element.of(XALConstants.XAL_2_0_NAMESPACE, "AdministrativeArea"));
+            writeAddressLines(object, namespaces, writer);
+            writer.writeObjectUsingSerializer(object.getAdministrativeArea(), AdministrativeAreaAdapter.class, namespaces);
+            writer.writeEndElement();
+        } else if (object.getLocality() != null) {
+            writer.writeStartElement(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Locality"));
+            writeAddressLines(object, namespaces, writer);
+            writer.writeObjectUsingSerializer(object.getLocality(), LocalityAdapter.class, namespaces);
+            writer.writeEndElement();
         } else if (object.getThoroughfare() != null) {
             writer.writeStartElement(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Thoroughfare"));
             writeAddressLines(object, namespaces, writer);
             writer.writeObjectUsingSerializer(object.getThoroughfare(), ThoroughfareAdapter.class, namespaces);
             writer.writeEndElement();
-        }
-
-
-
-
-        else if (object.getFreeTextAddress() != null)
+        } else if (object.getFreeTextAddress() != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "AddressLines"), object.getFreeTextAddress(), AddressLinesAdapter.class, namespaces);
-
     }
-    
+
     private void writeAddressLines(Address object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         if (object.getFreeTextAddress() != null) {
             for (AddressLine addressLine : object.getFreeTextAddress().getAddressLines())

@@ -133,11 +133,42 @@ public class ThoroughfareAdapter extends AddressObjectAdapter<Thoroughfare> {
     }
 
     @Override
+    public void initializeElement(Element element, Thoroughfare object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        super.initializeElement(element, object, namespaces, writer);
+        element.addAttribute("Type", object.getType());
+        element.addAttribute("DependentThoroughfares", object.getOtherAttributes().getValue("DependentThoroughfares"));
+        element.addAttribute("DependentThoroughfaresIndicator", object.getOtherAttributes().getValue("DependentThoroughfaresIndicator"));
+        element.addAttribute("DependentThoroughfaresConnector", object.getOtherAttributes().getValue("DependentThoroughfaresConnector"));
+        element.addAttribute("DependentThoroughfaresType", object.getOtherAttributes().getValue("DependentThoroughfaresType"));
+    }
+
+    @Override
     public void writeChildElements(Thoroughfare object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        Address address = object.getParent(Address.class);
 
         for (ThoroughfareNameOrNumber nameElementOrNumber : object.getNameElementOrNumber()) {
             if (nameElementOrNumber.isSetNumber())
                 writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfareNumber"), nameElementOrNumber.getNumber(), ThoroughfareNumberAdapter.class, namespaces);
         }
+
+        if (!object.getSubThoroughfares().isEmpty())
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "DependentThoroughfare"), object.getSubThoroughfares().get(0), DependentThoroughfareAdapter.class, namespaces);
+
+        Premises premise = address != null && address.getPremises() != null ?
+                address.getPremises() :
+                object.getDeprecatedProperties().getPremise();
+
+        PostCode postalCode = address != null && address.getLocality() == null && address.getPostCode() != null ?
+                address.getPostCode() :
+                object.getDeprecatedProperties().getPostalCode();
+
+        if (object.getDeprecatedProperties().getDependentLocality() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "DependentLocality"), object.getDeprecatedProperties().getDependentLocality(), DependentLocalityAdapter.class, namespaces);
+        else if (premise != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Premise"), premise, PremiseAdapter.class, namespaces);
+        else if (object.getDeprecatedProperties().getFirm() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Firm"), object.getDeprecatedProperties().getFirm(), FirmAdapter.class, namespaces);
+        else if (postalCode != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCode"), postalCode, PostalCodeAdapter.class, namespaces);
     }
 }

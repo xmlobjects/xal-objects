@@ -42,7 +42,7 @@ public class CountryNameAdapter implements ObjectBuilder<CountryName>, ObjectSer
 
     @Override
     public CountryName createObject(QName name, Object parent) throws ObjectBuildException {
-        return new CountryName(CountryNameType.NAME);
+        return new CountryName();
     }
 
     @Override
@@ -53,6 +53,7 @@ public class CountryNameAdapter implements ObjectBuilder<CountryName>, ObjectSer
         switch (name.getLocalPart()) {
             case "CountryName":
                 reader.getTextContent().ifPresent(object::setContent);
+                object.setNameType(CountryNameType.NAME);
                 attributes.getValue("Type").ifPresent(v -> object.getOtherAttributes().add("Type", v));
                 break;
             case "CountryNameCode":

@@ -33,11 +33,7 @@ import org.xmlobjects.xal.adapter.deprecated.types.LargeMailUserIdentifierAdapte
 import org.xmlobjects.xal.adapter.deprecated.types.LargeMailUserNameAdapter;
 import org.xmlobjects.xal.model.Address;
 import org.xmlobjects.xal.model.FreeTextAddress;
-import org.xmlobjects.xal.model.PostCode;
-import org.xmlobjects.xal.model.PostalDeliveryPoint;
 import org.xmlobjects.xal.model.Premises;
-import org.xmlobjects.xal.model.SubPremises;
-import org.xmlobjects.xal.model.Thoroughfare;
 import org.xmlobjects.xal.model.types.Identifier;
 import org.xmlobjects.xal.model.types.PremisesNameOrNumber;
 import org.xmlobjects.xal.model.types.PremisesType;
@@ -91,25 +87,13 @@ public class LargeMailUserAdapter extends AddressObjectAdapter<Premises> {
                     object.getDeprecatedProperties().setDepartment(reader.getObjectUsingBuilder(DepartmentAdapter.class));
                     break;
                 case "PostBox":
-                    PostalDeliveryPoint postBox = reader.getObjectUsingBuilder(PostBoxAdapter.class);
-                    if (address != null && address.getPostalDeliveryPoint() == null)
-                        address.setPostalDeliveryPoint(postBox);
-                    else
-                        object.getDeprecatedProperties().setPostBox(postBox);
+                    object.getDeprecatedProperties().setPostBox(reader.getObjectUsingBuilder(PostBoxAdapter.class));
                     break;
                 case "Thoroughfare":
-                    Thoroughfare thoroughfare = reader.getObjectUsingBuilder(ThoroughfareAdapter.class);
-                    if (address != null && address.getThoroughfare() == null)
-                        address.setThoroughfare(thoroughfare);
-                    else
-                        object.getDeprecatedProperties().setThoroughfare(thoroughfare);
+                    object.getDeprecatedProperties().setThoroughfare(reader.getObjectUsingBuilder(ThoroughfareAdapter.class));
                     break;
                 case "PostalCode":
-                    PostCode postalCode = reader.getObjectUsingBuilder(PostalCodeAdapter.class);
-                    if (address != null && address.getPostCode() == null)
-                        address.setPostCode(postalCode);
-                    else
-                        object.getDeprecatedProperties().setPostalCode(postalCode);
+                    object.getDeprecatedProperties().setPostalCode(reader.getObjectUsingBuilder(PostalCodeAdapter.class));
                     break;
             }
         }
@@ -138,8 +122,8 @@ public class LargeMailUserAdapter extends AddressObjectAdapter<Premises> {
         for (Identifier buildingName : object.getDeprecatedProperties().getBuildingNames())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "BuildingName"), buildingName, BuildingNameAdapter.class, namespaces);
 
-        for (SubPremises subPremises : object.getSubPremises())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Department"), subPremises, DepartmentAdapter.class, namespaces);
+        if (object.getDeprecatedProperties().getDepartment() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Department"), object.getDeprecatedProperties().getDepartment(), DepartmentAdapter.class, namespaces);
 
         if (object.getDeprecatedProperties().getPostBox() != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostBox"), object.getDeprecatedProperties().getPostBox(), PostBoxAdapter.class, namespaces);

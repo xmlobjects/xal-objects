@@ -21,8 +21,11 @@ package org.xmlobjects.xal.adapter.deprecated;
 
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.model.Child;
+import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
+import org.xmlobjects.stream.XMLWriteException;
+import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xal.adapter.AddressObjectAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.AddressLineAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.LocalityNameAdapter;
@@ -34,9 +37,13 @@ import org.xmlobjects.xal.model.PostOffice;
 import org.xmlobjects.xal.model.PostalDeliveryPoint;
 import org.xmlobjects.xal.model.Premises;
 import org.xmlobjects.xal.model.Thoroughfare;
+import org.xmlobjects.xal.model.types.LocalityName;
 import org.xmlobjects.xal.model.types.LocalityType;
+import org.xmlobjects.xal.model.types.PostalDeliveryPointType;
 import org.xmlobjects.xal.util.XALConstants;
 import org.xmlobjects.xml.Attributes;
+import org.xmlobjects.xml.Element;
+import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
@@ -131,5 +138,68 @@ public class LocalityAdapter extends AddressObjectAdapter<Locality> {
                     break;
             }
         }
+    }
+
+    @Override
+    public void initializeElement(Element element, Locality object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        super.initializeElement(element, object, namespaces, writer);
+        element.addAttribute("UsageType", object.getOtherAttributes().getValue("UsageType"));
+        element.addAttribute("Indicator", object.getOtherAttributes().getValue("Indicator"));
+
+        if (object.getType() != null)
+            element.addAttribute("Type", object.getType().toValue());
+        else
+            element.addAttribute("Type", object.getOtherAttributes().getValue("Type"));
+    }
+
+    @Override
+    public void writeChildElements(Locality object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        Address address = object.getParent(Address.class);
+
+        for (LocalityName nameElement : object.getNameElements())
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "LocalityName"), nameElement, LocalityNameAdapter.class, namespaces);
+
+        boolean hasDependentLocality = object.getSubLocality() != null;
+
+        PostalDeliveryPoint postBox = address != null && address.getPostalDeliveryPoint() != null && address.getPostalDeliveryPoint().getType() == PostalDeliveryPointType.PO_BOX ?
+                address.getPostalDeliveryPoint() :
+                object.getDeprecatedProperties().getPostBox();
+
+        PostOffice postOffice = address != null && address.getPostOffice() != null ?
+                address.getPostOffice() :
+                object.getDeprecatedProperties().getPostOffice();
+
+        if (postBox != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostBox"), postBox, PostBoxAdapter.class, namespaces);
+        else if (postOffice != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostOffice"), postOffice, PostOfficeAdapter.class, namespaces);
+        else if (object.getDeprecatedProperties().getLargeMailUser() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "LargeMailUser"), object.getDeprecatedProperties().getLargeMailUser(), LargeMailUserAdapter.class, namespaces);
+        else if (object.getDeprecatedProperties().getPostalRoute() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalRoute"), object.getDeprecatedProperties().getPostalRoute(), PostalRouteAdapter.class, namespaces);
+
+        Thoroughfare thoroughfare = !hasDependentLocality && address != null && address.getThoroughfare() != null ?
+                address.getThoroughfare() :
+                object.getDeprecatedProperties().getThoroughfare();
+
+        if (thoroughfare != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Thoroughfare"), thoroughfare, ThoroughfareAdapter.class, namespaces);
+
+        Premises premise = !hasDependentLocality && address != null && address.getThoroughfare() == null && address.getPremises() != null ?
+                address.getPremises() :
+                object.getDeprecatedProperties().getPremise();
+
+        if (premise != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Premise"), premise, PremiseAdapter.class, namespaces);
+
+        if (hasDependentLocality)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "DependentLocality"), object.getSubLocality(), DependentLocalityAdapter.class, namespaces);
+
+        PostCode postalCode = address != null && address.getPostCode() != null ?
+                address.getPostCode() :
+                object.getDeprecatedProperties().getPostalCode();
+
+        if (postalCode != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCode"), postalCode, PostalCodeAdapter.class, namespaces);
     }
 }

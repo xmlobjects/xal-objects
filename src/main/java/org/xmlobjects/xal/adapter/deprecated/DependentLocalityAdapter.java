@@ -156,6 +156,7 @@ public class DependentLocalityAdapter extends AddressObjectAdapter<SubLocality> 
 
     @Override
     public void writeChildElements(SubLocality object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        Address address = object.getParent(Address.class);
         SubLocalityName number = null;
 
         for (SubLocalityName nameElement : object.getNameElements()) {
@@ -177,11 +178,19 @@ public class DependentLocalityAdapter extends AddressObjectAdapter<SubLocality> 
         else if (object.getDeprecatedProperties().getPostalRoute() != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalRoute"), object.getDeprecatedProperties().getPostalRoute(), PostalRouteAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getThoroughfare() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Thoroughfare"), object.getDeprecatedProperties().getThoroughfare(), ThoroughfareAdapter.class, namespaces);
+        Thoroughfare thoroughfare = address != null && address.getThoroughfare() != null ?
+                address.getThoroughfare() :
+                object.getDeprecatedProperties().getThoroughfare();
 
-        if (object.getDeprecatedProperties().getPremise() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Premise"), object.getDeprecatedProperties().getPremise(), PremiseAdapter.class, namespaces);
+        if (thoroughfare != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Thoroughfare"), thoroughfare, ThoroughfareAdapter.class, namespaces);
+
+        Premises premise = address != null && address.getThoroughfare() == null && address.getPremises() != null ?
+                address.getPremises() :
+                object.getDeprecatedProperties().getPremise();
+
+        if (premise != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Premise"), premise, PremiseAdapter.class, namespaces);
 
         if (object.getDeprecatedProperties().getDependentLocality() != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "DependentLocality"), object.getDeprecatedProperties().getDependentLocality(), DependentLocalityAdapter.class, namespaces);

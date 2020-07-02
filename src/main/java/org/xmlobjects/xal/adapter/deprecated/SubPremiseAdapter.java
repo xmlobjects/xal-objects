@@ -21,8 +21,11 @@ package org.xmlobjects.xal.adapter.deprecated;
 
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.model.Child;
+import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
+import org.xmlobjects.stream.XMLWriteException;
+import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xal.adapter.AddressObjectAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.AddressLineAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.BuildingNameAdapter;
@@ -35,13 +38,21 @@ import org.xmlobjects.xal.model.Address;
 import org.xmlobjects.xal.model.FreeTextAddress;
 import org.xmlobjects.xal.model.PostCode;
 import org.xmlobjects.xal.model.PostalDeliveryPoint;
+import org.xmlobjects.xal.model.Premises;
 import org.xmlobjects.xal.model.SubPremises;
+import org.xmlobjects.xal.model.types.Identifier;
+import org.xmlobjects.xal.model.types.PremisesName;
 import org.xmlobjects.xal.model.types.PremisesNameOrNumber;
+import org.xmlobjects.xal.model.types.PremisesNameType;
 import org.xmlobjects.xal.model.types.SubPremisesType;
 import org.xmlobjects.xal.util.XALConstants;
 import org.xmlobjects.xml.Attributes;
+import org.xmlobjects.xml.Element;
+import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SubPremiseAdapter extends AddressObjectAdapter<SubPremises> {
 
@@ -115,9 +126,84 @@ public class SubPremiseAdapter extends AddressObjectAdapter<SubPremises> {
                         object.getDeprecatedProperties().setPostalCode(postalCode);
                     break;
                 case "SubPremise":
-                    object.getDeprecatedProperties().setSubPremise(reader.getObjectUsingBuilder(SubPremiseAdapter.class));
+                    SubPremises subPremise = reader.getObjectUsingBuilder(SubPremiseAdapter.class);
+                    Premises premises = object.getParent(Premises.class);
+                    if (premises != null)
+                        premises.getSubPremises().add(subPremise);
+                    else
+                        object.getDeprecatedProperties().setSubPremise(subPremise);
                     break;
             }
         }
+    }
+
+    @Override
+    public void initializeElement(Element element, SubPremises object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        super.initializeElement(element, object, namespaces, writer);
+
+        if (object.getType() != null)
+            element.addAttribute("Type", object.getType().toValue());
+        else
+            element.addAttribute("Type", object.getOtherAttributes().getValue("Type"));
+    }
+
+    @Override
+    public void writeChildElements(SubPremises object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        PremisesName subPremiseLocation = null;
+
+        for (PremisesNameOrNumber nameElementOrNumber : object.getNameElementOrNumber()) {
+            if (nameElementOrNumber.isSetNameElement()) {
+                PremisesName name = nameElementOrNumber.getNameElement();
+                if (name.getNameType() != PremisesNameType.LOCATION)
+                    writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubPremiseName"), name, SubPremiseNameAdapter.class, namespaces);
+                else if (subPremiseLocation == null)
+                    subPremiseLocation = name;
+            }
+        }
+
+        if (subPremiseLocation != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubPremiseLocation"), subPremiseLocation, SubPremiseLocationAdapter.class, namespaces);
+        else {
+            List<Identifier> prefixes = new ArrayList<>();
+            List<Identifier> suffixes = new ArrayList<>();
+
+            for (PremisesNameOrNumber nameElementOrNumber : object.getNameElementOrNumber()) {
+                if (nameElementOrNumber.isSetNumber()) {
+                    Identifier number = nameElementOrNumber.getNumber();
+                    switch (number.getType()) {
+                        case PREFIX:
+                            prefixes.add(number);
+                            break;
+                        case SUFFIX:
+                            suffixes.add(number);
+                            break;
+                        default:
+                            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubPremiseNumber"), number, SubPremiseNumberAdapter.class, namespaces);
+                            break;
+                    }
+                }
+            }
+
+            for (Identifier prefix : prefixes)
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubPremiseNumberPrefix"), prefix, SubPremiseNumberPrefixAdapter.class, namespaces);
+
+            for (Identifier suffix : suffixes)
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubPremiseNumberSuffix"), suffix, SubPremiseNumberSuffixAdapter.class, namespaces);
+        }
+
+        for (Identifier buildingName : object.getDeprecatedProperties().getBuildingNames())
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "BuildingName"), buildingName, BuildingNameAdapter.class, namespaces);
+
+        if (object.getDeprecatedProperties().getFirm() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Firm"), object.getDeprecatedProperties().getFirm(), FirmAdapter.class, namespaces);
+
+        if (object.getDeprecatedProperties().getMailStop() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "MailStop"), object.getDeprecatedProperties().getMailStop(), MailStopAdapter.class, namespaces);
+
+        if (object.getDeprecatedProperties().getPostalCode() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCode"), object.getDeprecatedProperties().getPostalCode(), PostalCodeAdapter.class, namespaces);
+
+        if (object.getDeprecatedProperties().getSubPremise() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubPremise"), object.getDeprecatedProperties().getSubPremise(), SubPremiseAdapter.class, namespaces);
     }
 }

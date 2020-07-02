@@ -124,14 +124,28 @@ public class SubAdministrativeAreaAdapter extends AddressObjectAdapter<SubAdmini
 
     @Override
     public void writeChildElements(SubAdministrativeArea object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        Address address = object.getParent(Address.class);
+
         for (SubAdministrativeAreaName nameElement : object.getNameElements())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubAdministrativeAreaName"), nameElement, SubAdministrativeAreaNameAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLocality() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Locality"), object.getDeprecatedProperties().getLocality(), LocalityAdapter.class, namespaces);
-        else if (object.getDeprecatedProperties().getPostOffice() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostOffice"), object.getDeprecatedProperties().getPostOffice(), PostOfficeAdapter.class, namespaces);
-        else if (object.getDeprecatedProperties().getPostalCode() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCode"), object.getDeprecatedProperties().getPostalCode(), PostalCodeAdapter.class, namespaces);
+        Locality locality = address != null && address.getLocality() != null ?
+                address.getLocality() :
+                object.getDeprecatedProperties().getLocality();
+
+        PostOffice postOffice = address != null && address.getPostOffice() != null ?
+                address.getPostOffice() :
+                object.getDeprecatedProperties().getPostOffice();
+
+        PostCode postalCode = address != null && address.getPostCode() != null ?
+                address.getPostCode() :
+                object.getDeprecatedProperties().getPostalCode();
+
+        if (locality != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Locality"), locality, LocalityAdapter.class, namespaces);
+        else if (postOffice != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostOffice"), postOffice, PostOfficeAdapter.class, namespaces);
+        else if (postalCode != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCode"), postalCode, PostalCodeAdapter.class, namespaces);
     }
 }
