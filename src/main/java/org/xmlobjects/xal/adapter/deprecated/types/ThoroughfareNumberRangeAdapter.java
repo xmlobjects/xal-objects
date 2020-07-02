@@ -37,15 +37,18 @@ import org.xmlobjects.xml.Attributes;
 import javax.xml.namespace.QName;
 
 public class ThoroughfareNumberRangeAdapter implements ObjectBuilder<ChildList<ThoroughfareNameOrNumber>> {
+    private Identifier separator;
 
     @Override
     public ChildList<ThoroughfareNameOrNumber> createObject(QName name, Object parent) throws ObjectBuildException {
-        return new ChildList<>(parent instanceof Child ? (Child) parent : null);
+        ChildList<ThoroughfareNameOrNumber> object = new ChildList<>(parent instanceof Child ? (Child) parent : null);
+        separator = null;
+        return object;
     }
 
     @Override
     public void initializeObject(ChildList<ThoroughfareNameOrNumber> object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        attributes.getValue("Separator").ifPresent(v -> object.add(new ThoroughfareNameOrNumber(new Identifier(v, IdentifierElementType.SEPARATOR))));
+        attributes.getValue("Separator").ifPresent(v -> separator = new Identifier(v, IdentifierElementType.SEPARATOR));
     }
 
     @Override
@@ -59,6 +62,11 @@ public class ThoroughfareNumberRangeAdapter implements ObjectBuilder<ChildList<T
                     buildNumber(object, IdentifierElementType.RANGE_FROM, reader);
                     break;
                 case "ThoroughfareNumberTo":
+                    if (separator != null) {
+                        object.add(new ThoroughfareNameOrNumber(separator));
+                        separator = null;
+                    }
+
                     buildNumber(object, IdentifierElementType.RANGE_TO, reader);
                     break;
             }

@@ -68,15 +68,7 @@ public class PremiseNumberAdapter implements ObjectBuilder<Identifier>, ObjectSe
         element.addAttribute("Code", object.getOtherAttributes().getValue("Code"));
         XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
 
-        if (object.getType() != null) {
-            switch (object.getType()) {
-                case NUMBER:
-                    element.addAttribute("NumberType", "Single");
-                    break;
-                case RANGE:
-                    element.addAttribute("NumberType", "Range");
-                    break;
-            }
-        }
+        if (object.getType() == IdentifierElementType.RANGE)
+            element.addAttribute("NumberType", "Range");
     }
 }
