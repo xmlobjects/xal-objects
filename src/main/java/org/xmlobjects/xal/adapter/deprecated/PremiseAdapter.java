@@ -212,8 +212,8 @@ public class PremiseAdapter extends AddressObjectAdapter<Premises> {
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "BuildingName"), buildingName, BuildingNameAdapter.class, namespaces);
 
         if (!object.getSubPremises().isEmpty()) {
+            ObjectSerializer<SubPremises> serializer = writer.getOrCreateSerializer(SubPremiseAdapter.class);
             for (SubPremises subPremise : object.getSubPremises()) {
-                ObjectSerializer<SubPremises> serializer = writer.getOrCreateSerializer(SubPremiseAdapter.class);
                 Element element = Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubPremise");
                 serializer.initializeElement(element, subPremise, namespaces, writer);
                 writer.writeStartElement(element);
