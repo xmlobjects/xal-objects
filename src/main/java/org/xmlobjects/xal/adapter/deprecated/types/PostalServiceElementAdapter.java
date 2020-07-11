@@ -46,16 +46,16 @@ public class PostalServiceElementAdapter implements ObjectBuilder<PostalServiceE
     @Override
     public void initializeObject(PostalServiceElement object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         reader.getTextContent().ifPresent(object::setContent);
-        attributes.getValue("Type").ifPresent(v -> object.getOtherAttributes().add("Type", v));
-        attributes.getValue("Code").ifPresent(v -> object.getOtherAttributes().add("Code", v));
+        attributes.getValue("Type").ifPresent(object::setType);
+        attributes.getValue("Code").ifPresent(object::setCode);
         XALBuilderHelper.buildOtherAttributes(object.getOtherAttributes(), attributes);
     }
 
     @Override
     public void initializeElement(Element element, PostalServiceElement object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         element.addTextContent(object.getContent());
-        element.addAttribute("Type", object.getOtherAttributes().getValue("Type"));
-        element.addAttribute("Code", object.getOtherAttributes().getValue("Code"));
+        element.addAttribute("Type", object.getType());
+        element.addAttribute("Code", object.getCode());
         XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
     }
 }
