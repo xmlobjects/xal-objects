@@ -22,36 +22,59 @@ package org.xmlobjects.xal.adapter.deprecated.helper;
 import org.xmlobjects.xal.model.AbstractThoroughfare;
 import org.xmlobjects.xal.model.types.Identifier;
 import org.xmlobjects.xal.model.types.IdentifierElementType;
+import org.xmlobjects.xal.model.types.ThoroughfareName;
 import org.xmlobjects.xal.model.types.ThoroughfareNameOrNumber;
+import org.xmlobjects.xal.model.types.ThoroughfareNameType;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ThoroughfareNumbers {
+public class ThoroughfareNamesAndNumbers {
+    private ThoroughfareName preDirection;
+    private List<ThoroughfareName> names;
+    private ThoroughfareName postDirection;
     private List<Object> numbers;
     private List<Identifier> prefixes;
     private List<Identifier> suffixes;
     private NumberRange numberRange;
 
-    public static ThoroughfareNumbers of(AbstractThoroughfare thoroughfare) {
-        ThoroughfareNumbers numbers = new ThoroughfareNumbers();
-        ParsedNumber number = new ParsedNumber();
+    public static ThoroughfareNamesAndNumbers of(AbstractThoroughfare thoroughfare) {
+        ThoroughfareNamesAndNumbers result = new ThoroughfareNamesAndNumbers();
+        if (!thoroughfare.getNameElementOrNumber().isEmpty()) {
+            ParsedNumber number = new ParsedNumber();
+            for (ThoroughfareNameOrNumber nameElementOrNumber : thoroughfare.getNameElementOrNumber()) {
+                if (nameElementOrNumber.isSetNameElement()) {
+                    ThoroughfareName nameElement = nameElementOrNumber.getNameElement();
+                    result.addName(nameElement);
+                } else if (nameElementOrNumber.isSetNumber()) {
+                    Identifier identifier = nameElementOrNumber.getNumber();
+                    if (!number.accepts(identifier)) {
+                        result.addNumber(number);
+                        number = new ParsedNumber();
+                    }
 
-        for (ThoroughfareNameOrNumber nameElementOrNumber : thoroughfare.getNameElementOrNumber()) {
-            if (nameElementOrNumber.isSetNumber()) {
-                Identifier identifier = nameElementOrNumber.getNumber();
-                if (!number.accepts(identifier)) {
-                    numbers.addNumber(number);
-                    number = new ParsedNumber();
+                    number.add(identifier);
                 }
-
-                number.add(identifier);
             }
+
+            result.addNumber(number);
         }
 
-        numbers.addNumber(number);
-        return numbers;
+        return result;
+    }
+
+    private void addName(ThoroughfareName nameElement) {
+        if (nameElement.getNameType() == ThoroughfareNameType.PRE_DIRECTION && preDirection == null)
+            preDirection = nameElement;
+        else if (nameElement.getNameType() == ThoroughfareNameType.POST_DIRECTION && postDirection == null)
+            postDirection = nameElement;
+        else {
+            if (names == null)
+                names = new ArrayList<>();
+
+            names.add(nameElement);
+        }
     }
 
     private void addNumber(ParsedNumber number) {
@@ -81,6 +104,18 @@ public class ThoroughfareNumbers {
         addNumbers(number.getNumbers());
         addPrefixes(number.getPrefixes());
         addSuffixes(number.getSuffixes());
+    }
+
+    public ThoroughfareName getPreDirection() {
+        return preDirection;
+    }
+
+    public List<ThoroughfareName> getNames() {
+        return names != null ? names : Collections.emptyList();
+    }
+
+    public ThoroughfareName getPostDirection() {
+        return postDirection;
     }
 
     public List<Object> getNumbers() {

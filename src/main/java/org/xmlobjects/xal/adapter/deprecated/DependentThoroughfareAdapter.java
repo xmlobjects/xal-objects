@@ -27,7 +27,7 @@ import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xal.adapter.AddressObjectAdapter;
-import org.xmlobjects.xal.adapter.deprecated.helper.ThoroughfareNames;
+import org.xmlobjects.xal.adapter.deprecated.helper.ThoroughfareNamesAndNumbers;
 import org.xmlobjects.xal.adapter.deprecated.types.AddressLineAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.ThoroughfareNameAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.ThoroughfarePostDirectionAdapter;
@@ -91,15 +91,15 @@ public class DependentThoroughfareAdapter extends AddressObjectAdapter<SubThorou
 
     @Override
     public void writeChildElements(SubThoroughfare object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        ThoroughfareNames names = ThoroughfareNames.of(object);
+        ThoroughfareNamesAndNumbers namesAndNumbers = ThoroughfareNamesAndNumbers.of(object);
 
-        if (names.getPreDirection() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfarePreDirection"), names.getPreDirection(), ThoroughfarePreDirectionAdapter.class, namespaces);
+        if (namesAndNumbers.getPreDirection() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfarePreDirection"), namesAndNumbers.getPreDirection(), ThoroughfarePreDirectionAdapter.class, namespaces);
 
-        for (ThoroughfareName name : names.getNames())
+        for (ThoroughfareName name : namesAndNumbers.getNames())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfareName"), name, ThoroughfareNameAdapter.class, namespaces);
 
-        if (names.getPostDirection() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfarePostDirection"), names.getPostDirection(), ThoroughfarePostDirectionAdapter.class, namespaces);
+        if (namesAndNumbers.getPostDirection() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfarePostDirection"), namesAndNumbers.getPostDirection(), ThoroughfarePostDirectionAdapter.class, namespaces);
     }
 }

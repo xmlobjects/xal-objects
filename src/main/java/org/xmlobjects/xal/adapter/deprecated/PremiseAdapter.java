@@ -30,7 +30,7 @@ import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xal.adapter.AddressObjectAdapter;
 import org.xmlobjects.xal.adapter.deprecated.helper.NumberRange;
 import org.xmlobjects.xal.adapter.deprecated.helper.ParsedNumber;
-import org.xmlobjects.xal.adapter.deprecated.helper.PremiseNumbers;
+import org.xmlobjects.xal.adapter.deprecated.helper.PremiseNamesAndNumbers;
 import org.xmlobjects.xal.adapter.deprecated.types.AddressLineAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.BuildingNameAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.PremiseLocationAdapter;
@@ -50,7 +50,6 @@ import org.xmlobjects.xal.model.types.Identifier;
 import org.xmlobjects.xal.model.types.PostalDeliveryPointType;
 import org.xmlobjects.xal.model.types.PremisesName;
 import org.xmlobjects.xal.model.types.PremisesNameOrNumber;
-import org.xmlobjects.xal.model.types.PremisesNameType;
 import org.xmlobjects.xal.model.types.PremisesType;
 import org.xmlobjects.xal.util.XALConstants;
 import org.xmlobjects.xml.Attributes;
@@ -168,28 +167,19 @@ public class PremiseAdapter extends AddressObjectAdapter<Premises> {
     public void writeChildElements(Premises object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         Address address = object.getParent(Address.class);
 
-        PremisesName premiseLocation = null;
+        PremiseNamesAndNumbers namesAndNumbers = PremiseNamesAndNumbers.of(object);
 
-        for (PremisesNameOrNumber nameElementOrNumber : object.getNameElementOrNumber()) {
-            if (nameElementOrNumber.isSetNameElement()) {
-                PremisesName name = nameElementOrNumber.getNameElement();
-                if (name.getNameType() != PremisesNameType.LOCATION)
-                    writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseName"), name, SubPremiseNameAdapter.class, namespaces);
-                else if (premiseLocation == null)
-                    premiseLocation = name;
-            }
-        }
+        for (PremisesName name : namesAndNumbers.getNames())
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseName"), name, SubPremiseNameAdapter.class, namespaces);
 
-        PremiseNumbers numbers = PremiseNumbers.of(object);
-
-        if (premiseLocation != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseLocation"), premiseLocation, PremiseLocationAdapter.class, namespaces);
+        if (namesAndNumbers.getPremiseLocation() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseLocation"), namesAndNumbers.getPremiseLocation(), PremiseLocationAdapter.class, namespaces);
         else {
-            if (!numbers.getNumbers().isEmpty()) {
-                for (Identifier number : numbers.getNumbers())
+            if (!namesAndNumbers.getNumbers().isEmpty()) {
+                for (Identifier number : namesAndNumbers.getNumbers())
                     writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumber"), number, PremiseNumberAdapter.class, namespaces);
-            } else if (numbers.getNumberRange() != null) {
-                NumberRange numberRange = numbers.getNumberRange();
+            } else if (namesAndNumbers.getNumberRange() != null) {
+                NumberRange numberRange = namesAndNumbers.getNumberRange();
 
                 Element element = Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumberRange");
                 if (numberRange.getSeparator() != null)
@@ -202,10 +192,10 @@ public class PremiseAdapter extends AddressObjectAdapter<Premises> {
             }
         }
 
-        for (Identifier prefix : numbers.getPrefixes())
+        for (Identifier prefix : namesAndNumbers.getPrefixes())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumberPrefix"), prefix, PremiseNumberPrefixAdapter.class, namespaces);
 
-        for (Identifier suffix : numbers.getSuffixes())
+        for (Identifier suffix : namesAndNumbers.getSuffixes())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumberSuffix"), suffix, PremiseNumberSuffixAdapter.class, namespaces);
 
         for (Identifier buildingName : object.getDeprecatedProperties().getBuildingNames())

@@ -22,41 +22,63 @@ package org.xmlobjects.xal.adapter.deprecated.helper;
 import org.xmlobjects.xal.model.AbstractPremises;
 import org.xmlobjects.xal.model.types.Identifier;
 import org.xmlobjects.xal.model.types.IdentifierElementType;
+import org.xmlobjects.xal.model.types.PremisesName;
 import org.xmlobjects.xal.model.types.PremisesNameOrNumber;
+import org.xmlobjects.xal.model.types.PremisesNameType;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class PremiseNumbers {
+public class PremiseNamesAndNumbers {
+    private PremisesName premiseLocation;
+    private List<PremisesName> names;
     private List<Identifier> numbers;
     private NumberRange numberRange;
     private List<Identifier> prefixes;
     private List<Identifier> suffixes;
     private boolean isRange;
 
-    public static PremiseNumbers of(AbstractPremises premise) {
-        PremiseNumbers numbers = new PremiseNumbers();
-        ParsedNumber number = new ParsedNumber();
+    public static PremiseNamesAndNumbers of(AbstractPremises premise) {
+        PremiseNamesAndNumbers result = new PremiseNamesAndNumbers();
+        if (!premise.getNameElementOrNumber().isEmpty()) {
+            ParsedNumber number = new ParsedNumber();
+            for (PremisesNameOrNumber nameElementOrNumber : premise.getNameElementOrNumber()) {
+                if (nameElementOrNumber.isSetNameElement()) {
+                    PremisesName nameElement = nameElementOrNumber.getNameElement();
+                    result.addName(nameElement);
+                } else if (nameElementOrNumber.isSetNumber()) {
+                    Identifier identifier = nameElementOrNumber.getNumber();
+                    if (!number.accepts(identifier)) {
+                        result.addNumber(number);
+                        number = new ParsedNumber();
+                    }
 
-        for (PremisesNameOrNumber nameElementOrNumber : premise.getNameElementOrNumber()) {
-            if (nameElementOrNumber.isSetNumber()) {
-                Identifier identifier = nameElementOrNumber.getNumber();
-                if (!number.accepts(identifier)) {
-                    numbers.addNumber(number);
-                    number = new ParsedNumber();
+                    number.add(identifier);
                 }
-
-                number.add(identifier);
             }
+
+            result.addNumber(number);
         }
 
-        numbers.addNumber(number);
-        return numbers;
+        return result;
+    }
+
+    private void addName(PremisesName name) {
+        if (name.getNameType() != PremisesNameType.LOCATION) {
+            if (names == null)
+                names = new ArrayList<>();
+
+            names.add(name);
+        } else if (premiseLocation == null)
+            premiseLocation = name;
     }
 
     private void addNumber(ParsedNumber number) {
         if (number.getType() == IdentifierElementType.RANGE_FROM) {
+            if (numbers == null)
+                numbers = new ArrayList<>();
+
             numberRange = new NumberRange(number);
             isRange = true;
             return;
@@ -79,6 +101,14 @@ public class PremiseNumbers {
         addNumbers(number.getNumbers());
         addPrefixes(number.getPrefixes());
         addSuffixes(number.getSuffixes());
+    }
+
+    public PremisesName getPremiseLocation() {
+        return premiseLocation;
+    }
+
+    public List<PremisesName> getNames() {
+        return names != null ? names : Collections.emptyList();
     }
 
     public List<Identifier> getNumbers() {

@@ -27,7 +27,7 @@ import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xal.adapter.AddressObjectAdapter;
-import org.xmlobjects.xal.adapter.deprecated.helper.PremiseNumbers;
+import org.xmlobjects.xal.adapter.deprecated.helper.PremiseNamesAndNumbers;
 import org.xmlobjects.xal.adapter.deprecated.types.AddressLineAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.BuildingNameAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.SubPremiseLocationAdapter;
@@ -43,7 +43,6 @@ import org.xmlobjects.xal.model.SubPremises;
 import org.xmlobjects.xal.model.types.Identifier;
 import org.xmlobjects.xal.model.types.PremisesName;
 import org.xmlobjects.xal.model.types.PremisesNameOrNumber;
-import org.xmlobjects.xal.model.types.PremisesNameType;
 import org.xmlobjects.xal.model.types.SubPremisesType;
 import org.xmlobjects.xal.util.XALConstants;
 import org.xmlobjects.xml.Attributes;
@@ -142,31 +141,22 @@ public class SubPremiseAdapter extends AddressObjectAdapter<SubPremises> {
 
     @Override
     public void writeChildElements(SubPremises object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        PremisesName subPremiseLocation = null;
+        PremiseNamesAndNumbers namesAndNumbers = PremiseNamesAndNumbers.of(object);
 
-        for (PremisesNameOrNumber nameElementOrNumber : object.getNameElementOrNumber()) {
-            if (nameElementOrNumber.isSetNameElement()) {
-                PremisesName name = nameElementOrNumber.getNameElement();
-                if (name.getNameType() != PremisesNameType.LOCATION)
-                    writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubPremiseName"), name, SubPremiseNameAdapter.class, namespaces);
-                else if (subPremiseLocation == null)
-                    subPremiseLocation = name;
-            }
-        }
+        for (PremisesName name : namesAndNumbers.getNames())
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubPremiseName"), name, SubPremiseNameAdapter.class, namespaces);
 
-        PremiseNumbers numbers = PremiseNumbers.of(object);
-
-        if (subPremiseLocation != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubPremiseLocation"), subPremiseLocation, SubPremiseLocationAdapter.class, namespaces);
+        if (namesAndNumbers.getPremiseLocation() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubPremiseLocation"), namesAndNumbers.getPremiseLocation(), SubPremiseLocationAdapter.class, namespaces);
         else {
-            for (Identifier number : numbers.getNumbers())
+            for (Identifier number : namesAndNumbers.getNumbers())
                 writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubPremiseNumber"), number, SubPremiseNumberAdapter.class, namespaces);
         }
 
-        for (Identifier prefix : numbers.getPrefixes())
+        for (Identifier prefix : namesAndNumbers.getPrefixes())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubPremiseNumberPrefix"), prefix, SubPremiseNumberPrefixAdapter.class, namespaces);
 
-        for (Identifier suffix : numbers.getSuffixes())
+        for (Identifier suffix : namesAndNumbers.getSuffixes())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubPremiseNumberSuffix"), suffix, SubPremiseNumberSuffixAdapter.class, namespaces);
 
         for (Identifier buildingName : object.getDeprecatedProperties().getBuildingNames())

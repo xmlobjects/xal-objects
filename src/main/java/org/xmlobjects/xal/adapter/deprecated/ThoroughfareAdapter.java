@@ -29,8 +29,7 @@ import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xal.adapter.AddressObjectAdapter;
 import org.xmlobjects.xal.adapter.deprecated.helper.NumberRange;
 import org.xmlobjects.xal.adapter.deprecated.helper.ParsedNumber;
-import org.xmlobjects.xal.adapter.deprecated.helper.ThoroughfareNames;
-import org.xmlobjects.xal.adapter.deprecated.helper.ThoroughfareNumbers;
+import org.xmlobjects.xal.adapter.deprecated.helper.ThoroughfareNamesAndNumbers;
 import org.xmlobjects.xal.adapter.deprecated.types.AddressLineAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.ThoroughfareNameAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.ThoroughfareNumberAdapter;
@@ -152,9 +151,9 @@ public class ThoroughfareAdapter extends AddressObjectAdapter<Thoroughfare> {
     public void writeChildElements(Thoroughfare object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         Address address = object.getParent(Address.class);
 
-        ThoroughfareNumbers numbers = ThoroughfareNumbers.of(object);
+        ThoroughfareNamesAndNumbers namesAndNumbers = ThoroughfareNamesAndNumbers.of(object);
 
-        for (Object number : numbers.getNumbers()) {
+        for (Object number : namesAndNumbers.getNumbers()) {
             if (number instanceof Identifier) {
                 writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfareNumber"), (Identifier) number, ThoroughfareNumberAdapter.class, namespaces);
             } else if (number instanceof NumberRange) {
@@ -171,22 +170,20 @@ public class ThoroughfareAdapter extends AddressObjectAdapter<Thoroughfare> {
             }
         }
 
-        for (Identifier prefix : numbers.getPrefixes())
+        for (Identifier prefix : namesAndNumbers.getPrefixes())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfareNumberPrefix"), prefix, ThoroughfareNumberPrefixAdapter.class, namespaces);
 
-        for (Identifier suffix : numbers.getSuffixes())
+        for (Identifier suffix : namesAndNumbers.getSuffixes())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfareNumberSuffix"), suffix, ThoroughfareNumberSuffixAdapter.class, namespaces);
 
-        ThoroughfareNames names = ThoroughfareNames.of(object);
+        if (namesAndNumbers.getPreDirection() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfarePreDirection"), namesAndNumbers.getPreDirection(), ThoroughfarePreDirectionAdapter.class, namespaces);
 
-        if (names.getPreDirection() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfarePreDirection"), names.getPreDirection(), ThoroughfarePreDirectionAdapter.class, namespaces);
-
-        for (ThoroughfareName name : names.getNames())
+        for (ThoroughfareName name : namesAndNumbers.getNames())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfareName"), name, ThoroughfareNameAdapter.class, namespaces);
 
-        if (names.getPostDirection() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfarePostDirection"), names.getPostDirection(), ThoroughfarePostDirectionAdapter.class, namespaces);
+        if (namesAndNumbers.getPostDirection() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfarePostDirection"), namesAndNumbers.getPostDirection(), ThoroughfarePostDirectionAdapter.class, namespaces);
 
         if (!object.getSubThoroughfares().isEmpty())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "DependentThoroughfare"), object.getSubThoroughfares().get(0), DependentThoroughfareAdapter.class, namespaces);
