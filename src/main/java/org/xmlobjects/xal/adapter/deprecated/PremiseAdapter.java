@@ -28,8 +28,6 @@ import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xal.adapter.AddressObjectAdapter;
-import org.xmlobjects.xal.adapter.deprecated.helper.NumberRange;
-import org.xmlobjects.xal.adapter.deprecated.helper.ParsedNumber;
 import org.xmlobjects.xal.adapter.deprecated.helper.PremiseNamesAndNumbers;
 import org.xmlobjects.xal.adapter.deprecated.types.AddressLineAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.BuildingNameAdapter;
@@ -178,18 +176,8 @@ public class PremiseAdapter extends AddressObjectAdapter<Premises> {
             if (!namesAndNumbers.getNumbers().isEmpty()) {
                 for (Identifier number : namesAndNumbers.getNumbers())
                     writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumber"), number, PremiseNumberAdapter.class, namespaces);
-            } else if (namesAndNumbers.getNumberRange() != null) {
-                NumberRange numberRange = namesAndNumbers.getNumberRange();
-
-                Element element = Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumberRange");
-                if (numberRange.getSeparator() != null)
-                    element.addAttribute("Separator", numberRange.getSeparator().getContent());
-
-                writer.writeStartElement(element);
-                writeRangeNumber(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumberRangeFrom"), numberRange.getRangeFrom(), namespaces, writer);
-                writeRangeNumber(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumberRangeTo"), numberRange.getRangeTo(), namespaces, writer);
-                writer.writeEndElement();
-            }
+            } else if (namesAndNumbers.getNumberRange() != null)
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumberRange"), namesAndNumbers.getNumberRange(), PremiseNumberRangeAdapter.class, namespaces);
         }
 
         for (Identifier prefix : namesAndNumbers.getPrefixes())
@@ -230,22 +218,5 @@ public class PremiseAdapter extends AddressObjectAdapter<Premises> {
 
         if (object.getDeprecatedProperties().getPremise() != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Premise"), object.getDeprecatedProperties().getPremise(), PremiseAdapter.class, namespaces);
-    }
-
-    private void writeRangeNumber(Element element, ParsedNumber rangeNumber, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        writer.writeStartElement(element);
-
-        if (rangeNumber != null) {
-            for (Identifier prefix : rangeNumber.getPrefixes())
-                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumberPrefix"), prefix, PremiseNumberPrefixAdapter.class, namespaces);
-
-            for (Identifier number : rangeNumber.getNumbers())
-                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumber"), number, PremiseNumberAdapter.class, namespaces);
-
-            for (Identifier suffix : rangeNumber.getSuffixes())
-                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumberSuffix"), suffix, PremiseNumberSuffixAdapter.class, namespaces);
-        }
-
-        writer.writeEndElement();
     }
 }

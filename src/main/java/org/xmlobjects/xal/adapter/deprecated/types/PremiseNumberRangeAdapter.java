@@ -23,9 +23,15 @@ import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.model.Child;
 import org.xmlobjects.model.ChildList;
+import org.xmlobjects.serializer.ObjectSerializeException;
+import org.xmlobjects.serializer.ObjectSerializer;
 import org.xmlobjects.stream.EventType;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
+import org.xmlobjects.stream.XMLWriteException;
+import org.xmlobjects.stream.XMLWriter;
+import org.xmlobjects.xal.adapter.deprecated.helper.NumberRange;
+import org.xmlobjects.xal.adapter.deprecated.helper.ParsedNumber;
 import org.xmlobjects.xal.model.Address;
 import org.xmlobjects.xal.model.FreeTextAddress;
 import org.xmlobjects.xal.model.types.Identifier;
@@ -33,10 +39,12 @@ import org.xmlobjects.xal.model.types.IdentifierElementType;
 import org.xmlobjects.xal.model.types.PremisesNameOrNumber;
 import org.xmlobjects.xal.util.XALConstants;
 import org.xmlobjects.xml.Attributes;
+import org.xmlobjects.xml.Element;
+import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-public class PremiseNumberRangeAdapter implements ObjectBuilder<ChildList<PremisesNameOrNumber>> {
+public class PremiseNumberRangeAdapter implements ObjectBuilder<ChildList<PremisesNameOrNumber>>, ObjectSerializer<NumberRange> {
 
     @Override
     public ChildList<PremisesNameOrNumber> createObject(QName name, Object parent) throws ObjectBuildException {
@@ -94,5 +102,34 @@ public class PremiseNumberRangeAdapter implements ObjectBuilder<ChildList<Premis
                 }
             }
         }
+    }
+
+    @Override
+    public void initializeElement(Element element, NumberRange object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        if (object.getSeparator() != null)
+            element.addAttribute("Separator", object.getSeparator().getContent());
+    }
+
+    @Override
+    public void writeChildElements(NumberRange object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        writeRangeNumber(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumberRangeFrom"), object.getRangeFrom(), namespaces, writer);
+        writeRangeNumber(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumberRangeTo"), object.getRangeTo(), namespaces, writer);
+    }
+
+    private void writeRangeNumber(Element element, ParsedNumber rangeNumber, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        writer.writeStartElement(element);
+
+        if (rangeNumber != null) {
+            for (Identifier prefix : rangeNumber.getPrefixes())
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumberPrefix"), prefix, PremiseNumberPrefixAdapter.class, namespaces);
+
+            for (Identifier number : rangeNumber.getNumbers())
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumber"), number, PremiseNumberAdapter.class, namespaces);
+
+            for (Identifier suffix : rangeNumber.getSuffixes())
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumberSuffix"), suffix, PremiseNumberSuffixAdapter.class, namespaces);
+        }
+
+        writer.writeEndElement();
     }
 }

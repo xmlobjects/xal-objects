@@ -28,7 +28,6 @@ import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xal.adapter.AddressObjectAdapter;
 import org.xmlobjects.xal.adapter.deprecated.helper.NumberRange;
-import org.xmlobjects.xal.adapter.deprecated.helper.ParsedNumber;
 import org.xmlobjects.xal.adapter.deprecated.helper.ThoroughfareNamesAndNumbers;
 import org.xmlobjects.xal.adapter.deprecated.types.AddressLineAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.ThoroughfareNameAdapter;
@@ -154,20 +153,10 @@ public class ThoroughfareAdapter extends AddressObjectAdapter<Thoroughfare> {
         ThoroughfareNamesAndNumbers namesAndNumbers = ThoroughfareNamesAndNumbers.of(object);
 
         for (Object number : namesAndNumbers.getNumbers()) {
-            if (number instanceof Identifier) {
+            if (number instanceof Identifier)
                 writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfareNumber"), (Identifier) number, ThoroughfareNumberAdapter.class, namespaces);
-            } else if (number instanceof NumberRange) {
-                NumberRange numberRange = (NumberRange) number;
-
-                Element element = Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfareNumberRange");
-                if (numberRange.getSeparator() != null)
-                    element.addAttribute("Separator", numberRange.getSeparator().getContent());
-
-                writer.writeStartElement(element);
-                writeRangeNumber(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfareNumberFrom"), numberRange.getRangeFrom(), namespaces, writer);
-                writeRangeNumber(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfareNumberTo"), numberRange.getRangeTo(), namespaces, writer);
-                writer.writeEndElement();
-            }
+            else if (number instanceof NumberRange)
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfareNumberRange"), (NumberRange) number, ThoroughfareNumberRangeAdapter.class, namespaces);
         }
 
         for (Identifier prefix : namesAndNumbers.getPrefixes())
@@ -204,22 +193,5 @@ public class ThoroughfareAdapter extends AddressObjectAdapter<Thoroughfare> {
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Firm"), object.getDeprecatedProperties().getFirm(), FirmAdapter.class, namespaces);
         else if (postalCode != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCode"), postalCode, PostalCodeAdapter.class, namespaces);
-    }
-
-    private void writeRangeNumber(Element element, ParsedNumber rangeNumber, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        writer.writeStartElement(element);
-
-        if (rangeNumber != null) {
-            for (Identifier prefix : rangeNumber.getPrefixes())
-                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfareNumberPrefix"), prefix, ThoroughfareNumberPrefixAdapter.class, namespaces);
-
-            for (Identifier number : rangeNumber.getNumbers())
-                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfareNumber"), number, ThoroughfareNumberAdapter.class, namespaces);
-
-            for (Identifier suffix : rangeNumber.getSuffixes())
-                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfareNumberSuffix"), suffix, ThoroughfareNumberSuffixAdapter.class, namespaces);
-        }
-
-        writer.writeEndElement();
     }
 }
