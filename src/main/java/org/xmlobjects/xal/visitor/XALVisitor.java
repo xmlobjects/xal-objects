@@ -36,6 +36,7 @@ import org.xmlobjects.xal.model.SubLocality;
 import org.xmlobjects.xal.model.SubPremises;
 import org.xmlobjects.xal.model.SubThoroughfare;
 import org.xmlobjects.xal.model.Thoroughfare;
+import org.xmlobjects.xal.model.deprecated.PostalServiceElements;
 
 public interface XALVisitor {
     void visit(Address address);
@@ -46,6 +47,7 @@ public interface XALVisitor {
     void visit(Locality locality);
     void visit(LocationByCoordinates locationByCoordinates);
     void visit(PostalDeliveryPoint postalDeliveryPoint);
+    void visit(PostalServiceElements postalServiceElements);
     void visit(PostCode postCode);
     void visit(PostOffice postOffice);
     void visit(Premises premises);

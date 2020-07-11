@@ -37,6 +37,7 @@ import org.xmlobjects.xal.model.SubLocality;
 import org.xmlobjects.xal.model.SubPremises;
 import org.xmlobjects.xal.model.SubThoroughfare;
 import org.xmlobjects.xal.model.Thoroughfare;
+import org.xmlobjects.xal.model.deprecated.PostalServiceElements;
 
 public abstract class XALWalker implements XALVisitor {
     private boolean shouldWalk = true;
@@ -101,6 +102,11 @@ public abstract class XALWalker implements XALVisitor {
     @Override
     public void visit(PostalDeliveryPoint postalDeliveryPoint) {
         visit((AddressObject) postalDeliveryPoint);
+    }
+
+    @Override
+    public void visit(PostalServiceElements postalServiceElements) {
+        visit((AddressObject) postalServiceElements);
     }
 
     @Override

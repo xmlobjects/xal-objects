@@ -104,6 +104,9 @@ public class AddressDetailsAdapter extends AddressObjectAdapter<Address> {
                 case "Thoroughfare":
                     object.setThoroughfare(reader.getObjectUsingBuilder(ThoroughfareAdapter.class));
                     break;
+                case "PostalServiceElements":
+                    object.getDeprecatedProperties().setPostalServiceElements(reader.getObjectUsingBuilder(PostalServiceElementsAdapter.class));
+                    break;
             }
         }
     }
@@ -143,6 +146,9 @@ public class AddressDetailsAdapter extends AddressObjectAdapter<Address> {
 
     @Override
     public void writeChildElements(Address object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        if (object.getDeprecatedProperties().getPostalServiceElements() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalServiceElements"), object.getDeprecatedProperties().getPostalServiceElements(), PostalServiceElementsAdapter.class, namespaces);
+
         if (object.getCountry() != null) {
             writer.writeStartElement(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Country"));
             writeAddressLines(object, namespaces, writer);

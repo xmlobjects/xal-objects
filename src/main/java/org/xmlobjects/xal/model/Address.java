@@ -20,6 +20,8 @@
 package org.xmlobjects.xal.model;
 
 import org.xmlobjects.util.xml.XMLPatterns;
+import org.xmlobjects.xal.model.deprecated.DeprecatedProperties;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfAddress;
 import org.xmlobjects.xal.model.types.AddressType;
 import org.xmlobjects.xal.model.types.AddressUsage;
 import org.xmlobjects.xal.model.types.DataQuality;
@@ -312,6 +314,16 @@ public class Address extends AddressObject implements DataQuality, ValidityDate,
     @Override
     public void setLanguageCode(String languageCode) {
         this.languageCode = XMLPatterns.LANGUAGE.matcher(languageCode).matches() ? languageCode : null;;
+    }
+
+    @Override
+    public DeprecatedPropertiesOfAddress getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfAddress) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedProperties createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfAddress();
     }
 
     @Override
