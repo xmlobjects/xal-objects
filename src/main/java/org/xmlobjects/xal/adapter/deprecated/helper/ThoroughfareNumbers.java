@@ -56,6 +56,9 @@ public class ThoroughfareNumbers {
 
     private void addNumber(ParsedNumber number) {
         if (number.getType() == IdentifierElementType.RANGE_FROM) {
+            if (numbers == null)
+                numbers = new ArrayList<>();
+
             numberRange = new NumberRange(number);
             numbers.add(numberRange);
             return;
