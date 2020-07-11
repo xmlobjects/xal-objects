@@ -20,42 +20,14 @@
 package org.xmlobjects.xal.adapter.deprecated.types;
 
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
-import org.xmlobjects.serializer.ObjectSerializeException;
-import org.xmlobjects.serializer.ObjectSerializer;
-import org.xmlobjects.stream.XMLReadException;
-import org.xmlobjects.stream.XMLReader;
-import org.xmlobjects.stream.XMLWriteException;
-import org.xmlobjects.stream.XMLWriter;
-import org.xmlobjects.xal.adapter.XALBuilderHelper;
-import org.xmlobjects.xal.adapter.XALSerializerHelper;
 import org.xmlobjects.xal.model.types.ThoroughfareName;
-import org.xmlobjects.xml.Attributes;
-import org.xmlobjects.xml.Element;
-import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-public class ThoroughfareNameAdapter implements ObjectBuilder<ThoroughfareName>, ObjectSerializer<ThoroughfareName> {
+public class ThoroughfareNameAdapter extends NameWithTypeAdapter<ThoroughfareName> {
 
     @Override
     public ThoroughfareName createObject(QName name, Object parent) throws ObjectBuildException {
         return new ThoroughfareName();
-    }
-
-    @Override
-    public void initializeObject(ThoroughfareName object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        reader.getTextContent().ifPresent(object::setContent);
-        attributes.getValue("Type").ifPresent(v -> object.getOtherAttributes().add("Type", v));
-        attributes.getValue("Code").ifPresent(v -> object.getOtherAttributes().add("Code", v));
-        XALBuilderHelper.buildOtherAttributes(object.getOtherAttributes(), attributes);
-    }
-
-    @Override
-    public void initializeElement(Element element, ThoroughfareName object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        element.addTextContent(object.getContent());
-        element.addAttribute("Type", object.getOtherAttributes().getValue("Type"));
-        element.addAttribute("Code", object.getOtherAttributes().getValue("Code"));
-        XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
     }
 }

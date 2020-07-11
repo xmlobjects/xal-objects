@@ -25,30 +25,24 @@ import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
-import org.xmlobjects.xal.model.types.Identifier;
-import org.xmlobjects.xal.model.types.IdentifierElementType;
+import org.xmlobjects.xal.model.types.Name;
 import org.xmlobjects.xml.Attributes;
 import org.xmlobjects.xml.Element;
 import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-public class PostBoxNumberSuffixAdapter extends IdentifierAdapter<Identifier> {
+public abstract class NameWithTypeAdapter<T extends Name<?>> extends NameAdapter<T> {
 
     @Override
-    public Identifier createObject(QName name, Object parent) throws ObjectBuildException {
-        return new Identifier(IdentifierElementType.SUFFIX);
-    }
-
-    @Override
-    public void initializeObject(Identifier object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
+    public void initializeObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         super.initializeObject(object, name, attributes, reader);
-        attributes.getValue("NumberSuffixSeparator").ifPresent(v -> object.getOtherAttributes().add("NumberSuffixSeparator", v));
+        attributes.getValue("Type").ifPresent(v -> object.getOtherAttributes().add("Type", v));
     }
 
     @Override
-    public void initializeElement(Element element, Identifier object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+    public void initializeElement(Element element, T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.initializeElement(element, object, namespaces, writer);
-        element.addAttribute("NumberSuffixSeparator", object.getOtherAttributes().getValue("NumberSuffixSeparator"));
+        element.addAttribute("Type", object.getOtherAttributes().getValue("Type"));
     }
 }
