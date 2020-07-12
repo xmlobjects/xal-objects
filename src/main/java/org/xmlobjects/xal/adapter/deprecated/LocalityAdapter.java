@@ -155,11 +155,10 @@ public class LocalityAdapter extends AddressObjectAdapter<Locality> {
     @Override
     public void writeChildElements(Locality object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         Address address = object.getParent(Address.class);
+        boolean hasDependentLocality = object.getSubLocality() != null;
 
         for (LocalityName nameElement : object.getNameElements())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "LocalityName"), nameElement, LocalityNameAdapter.class, namespaces);
-
-        boolean hasDependentLocality = object.getSubLocality() != null;
 
         PostalDeliveryPoint postBox = address != null && address.getPostalDeliveryPoint() != null && address.getPostalDeliveryPoint().getType() == PostalDeliveryPointType.PO_BOX ?
                 address.getPostalDeliveryPoint() :

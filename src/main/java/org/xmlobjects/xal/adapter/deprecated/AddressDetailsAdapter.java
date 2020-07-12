@@ -22,6 +22,7 @@ package org.xmlobjects.xal.adapter.deprecated;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
+import org.xmlobjects.serializer.ObjectSerializer;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLWriteException;
@@ -29,6 +30,7 @@ import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xal.adapter.AddressObjectAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.AddressLineAdapter;
 import org.xmlobjects.xal.model.Address;
+import org.xmlobjects.xal.model.AddressObject;
 import org.xmlobjects.xal.model.types.AddressLine;
 import org.xmlobjects.xal.model.types.AddressType;
 import org.xmlobjects.xal.model.types.AddressUsage;
@@ -149,34 +151,29 @@ public class AddressDetailsAdapter extends AddressObjectAdapter<Address> {
         if (object.getDeprecatedProperties().getPostalServiceElements() != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalServiceElements"), object.getDeprecatedProperties().getPostalServiceElements(), PostalServiceElementsAdapter.class, namespaces);
 
-        if (object.getCountry() != null) {
-            writer.writeStartElement(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Country"));
-            writeAddressLines(object, namespaces, writer);
-            writer.writeObjectUsingSerializer(object.getCountry(), CountryAdapter.class, namespaces);
-            writer.writeEndElement();
-        } else if (object.getAdministrativeArea() != null) {
-            writer.writeStartElement(Element.of(XALConstants.XAL_2_0_NAMESPACE, "AdministrativeArea"));
-            writeAddressLines(object, namespaces, writer);
-            writer.writeObjectUsingSerializer(object.getAdministrativeArea(), AdministrativeAreaAdapter.class, namespaces);
-            writer.writeEndElement();
-        } else if (object.getLocality() != null) {
-            writer.writeStartElement(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Locality"));
-            writeAddressLines(object, namespaces, writer);
-            writer.writeObjectUsingSerializer(object.getLocality(), LocalityAdapter.class, namespaces);
-            writer.writeEndElement();
-        } else if (object.getThoroughfare() != null) {
-            writer.writeStartElement(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Thoroughfare"));
-            writeAddressLines(object, namespaces, writer);
-            writer.writeObjectUsingSerializer(object.getThoroughfare(), ThoroughfareAdapter.class, namespaces);
-            writer.writeEndElement();
-        } else if (object.getFreeTextAddress() != null)
+        if (object.getCountry() != null)
+            writeAddressObject(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Country"), object.getCountry(), CountryAdapter.class, object, namespaces, writer);
+        else if (object.getAdministrativeArea() != null)
+            writeAddressObject(Element.of(XALConstants.XAL_2_0_NAMESPACE, "AdministrativeArea"), object.getAdministrativeArea(), AdministrativeAreaAdapter.class, object, namespaces, writer);
+        else if (object.getLocality() != null)
+            writeAddressObject(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Locality"), object.getLocality(), LocalityAdapter.class, object, namespaces, writer);
+        else if (object.getThoroughfare() != null)
+            writeAddressObject(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Thoroughfare"), object.getThoroughfare(), ThoroughfareAdapter.class, object, namespaces, writer);
+        else if (object.getFreeTextAddress() != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "AddressLines"), object.getFreeTextAddress(), AddressLinesAdapter.class, namespaces);
     }
 
-    private void writeAddressLines(Address object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        if (object.getFreeTextAddress() != null) {
-            for (AddressLine addressLine : object.getFreeTextAddress().getAddressLines())
+    private <T extends AddressObject> void writeAddressObject(Element element, T object, Class<? extends ObjectSerializer<T>> type, Address address, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        ObjectSerializer<T> serializer = writer.getOrCreateSerializer(type);
+        serializer.initializeElement(element, object, namespaces, writer);
+        writer.writeStartElement(element);
+
+        if (address.getFreeTextAddress() != null) {
+            for (AddressLine addressLine : address.getFreeTextAddress().getAddressLines())
                 writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "AddressLine"), addressLine, AddressLineAdapter.class, namespaces);
         }
+
+        writer.writeObjectUsingSerializer(object, serializer, namespaces);
+        writer.writeEndElement();
     }
 }
