@@ -43,14 +43,14 @@ public abstract class NameAdapter<T extends Name<?>> implements ObjectBuilder<T>
     @Override
     public void initializeObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         reader.getTextContent().collapse().ifPresent(object::setContent);
-        attributes.getValue(XALConstants.CT_3_0_NAMESPACE, "Abbreviation").ifBoolean(object::setAbbreviation);
+        attributes.getValue(XALConstants.XAL_3_0_CT_NAMESPACE, "Abbreviation").ifBoolean(object::setAbbreviation);
         XALBuilderHelper.buildOtherAttributes(object.getOtherAttributes(), attributes);
     }
 
     @Override
     public void initializeElement(Element element, T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         element.addTextContent(TextContent.of(object.getContent()).collapse());
-        element.addAttribute(XALConstants.CT_3_0_NAMESPACE, "Abbreviation", TextContent.ofBoolean(object.getAbbreviation()));
+        element.addAttribute(XALConstants.XAL_3_0_CT_NAMESPACE, "Abbreviation", TextContent.ofBoolean(object.getAbbreviation()));
         XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
 
         if (object.getNameType() != null)

@@ -31,15 +31,15 @@ import java.util.Map;
 public class XALBuilderHelper {
 
     public static void buildDataQualityAttributes(DataQuality object, Attributes attributes) {
-        attributes.getValue(XALConstants.CT_3_0_NAMESPACE, "DataQualityType").ifPresent(v -> object.setDataQualityType(DataQualityType.fromValue(v)));
-        attributes.getValue(XALConstants.CT_3_0_NAMESPACE, "ValidFrom").ifDateTime(object::setValidFrom);
-        attributes.getValue(XALConstants.CT_3_0_NAMESPACE, "ValidTo").ifDateTime(object::setValidTo);
+        attributes.getValue(XALConstants.XAL_3_0_CT_NAMESPACE, "DataQualityType").ifPresent(v -> object.setDataQualityType(DataQualityType.fromValue(v)));
+        attributes.getValue(XALConstants.XAL_3_0_CT_NAMESPACE, "ValidFrom").ifDateTime(object::setValidFrom);
+        attributes.getValue(XALConstants.XAL_3_0_CT_NAMESPACE, "ValidTo").ifDateTime(object::setValidTo);
     }
 
     public static void buildOtherAttributes(Attributes otherAttributes, Attributes attributes) {
         for (Map.Entry<String, Map<String, TextContent>> entry : attributes.get().entrySet()) {
             if (!XALConstants.XAL_3_0_NAMESPACE.equals(entry.getKey())
-                    && !XALConstants.CT_3_0_NAMESPACE.equals(entry.getKey())
+                    && !XALConstants.XAL_3_0_CT_NAMESPACE.equals(entry.getKey())
                     && !XALConstants.XAL_2_0_NAMESPACE.equals(entry.getKey())
                     && !XMLConstants.NULL_NS_URI.equals(entry.getKey())
                     && !XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI.equals(entry.getKey()))

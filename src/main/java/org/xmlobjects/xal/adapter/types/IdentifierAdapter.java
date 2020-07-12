@@ -50,14 +50,14 @@ public class IdentifierAdapter implements ObjectBuilder<Identifier>, ObjectSeria
     public void initializeObject(Identifier object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         reader.getTextContent().collapse().ifPresent(object::setContent);
         attributes.getValue(XALConstants.XAL_3_0_NAMESPACE, "Type").ifPresent(v -> object.setType(IdentifierElementType.fromValue(v)));
-        attributes.getValue(XALConstants.CT_3_0_NAMESPACE, "Abbreviation").ifBoolean(object::setAbbreviation);
+        attributes.getValue(XALConstants.XAL_3_0_CT_NAMESPACE, "Abbreviation").ifBoolean(object::setAbbreviation);
         XALBuilderHelper.buildOtherAttributes(object.getOtherAttributes(), attributes);
     }
 
     @Override
     public void initializeElement(Element element, Identifier object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         element.addTextContent(TextContent.of(object.getContent()).collapse());
-        element.addAttribute(XALConstants.CT_3_0_NAMESPACE, "Abbreviation", TextContent.ofBoolean(object.getAbbreviation()));
+        element.addAttribute(XALConstants.XAL_3_0_CT_NAMESPACE, "Abbreviation", TextContent.ofBoolean(object.getAbbreviation()));
         XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
 
         if (object.getType() != null)

@@ -57,9 +57,9 @@ public class AddressAdapter extends AddressObjectAdapter<Address> {
         attributes.getValue(XALConstants.XAL_3_0_NAMESPACE, "Status").ifPresent(object::setStatus);
         attributes.getValue(XALConstants.XAL_3_0_NAMESPACE, "AddressKey").collapse().ifPresent(object::setAddressKey);
         attributes.getValue(XALConstants.XAL_3_0_NAMESPACE, "AddressKeyRef").collapse().ifPresent(object::setAddressKeyRef);
-        attributes.getValue(XALConstants.CT_3_0_NAMESPACE, "DateValidFrom").ifDateTime(object::setDateValidFrom);
-        attributes.getValue(XALConstants.CT_3_0_NAMESPACE, "DateValidTo").ifDateTime(object::setDateValidTo);
-        attributes.getValue(XALConstants.CT_3_0_NAMESPACE, "LanguageCode").ifPresent(object::setLanguageCode);
+        attributes.getValue(XALConstants.XAL_3_0_CT_NAMESPACE, "DateValidFrom").ifDateTime(object::setDateValidFrom);
+        attributes.getValue(XALConstants.XAL_3_0_CT_NAMESPACE, "DateValidTo").ifDateTime(object::setDateValidTo);
+        attributes.getValue(XALConstants.XAL_3_0_CT_NAMESPACE, "LanguageCode").ifPresent(object::setLanguageCode);
         attributes.getValue(XALConstants.XLINK_NAMESPACE, "type").ifPresent(object::setXlinkType);
         attributes.getValue(XALConstants.XLINK_NAMESPACE, "label").ifPresent(object::setXlinkLabel);
         attributes.getValue(XALConstants.XLINK_NAMESPACE, "href").ifPresent(object::setXlinkHRef);
@@ -125,9 +125,9 @@ public class AddressAdapter extends AddressObjectAdapter<Address> {
         element.addAttribute(XALConstants.XAL_3_0_NAMESPACE, "Status", object.getStatus());
         element.addAttribute(XALConstants.XAL_3_0_NAMESPACE, "AddressKey", TextContent.of(object.getAddressKey()).collapse());
         element.addAttribute(XALConstants.XAL_3_0_NAMESPACE, "AddressKeyRef", TextContent.of(object.getAddressKeyRef()).collapse());
-        element.addAttribute(XALConstants.CT_3_0_NAMESPACE, "DateValidFrom", TextContent.ofDateTime(object.getDateValidFrom()));
-        element.addAttribute(XALConstants.CT_3_0_NAMESPACE, "DateValidTo", TextContent.ofDateTime(object.getDateValidTo()));
-        element.addAttribute(XALConstants.CT_3_0_NAMESPACE, "LanguageCode", object.getLanguageCode());
+        element.addAttribute(XALConstants.XAL_3_0_CT_NAMESPACE, "DateValidFrom", TextContent.ofDateTime(object.getDateValidFrom()));
+        element.addAttribute(XALConstants.XAL_3_0_CT_NAMESPACE, "DateValidTo", TextContent.ofDateTime(object.getDateValidTo()));
+        element.addAttribute(XALConstants.XAL_3_0_CT_NAMESPACE, "LanguageCode", object.getLanguageCode());
         element.addAttribute(XALConstants.XLINK_NAMESPACE, "type", object.getXlinkType());
         element.addAttribute(XALConstants.XLINK_NAMESPACE, "label", object.getXlinkLabel());
         element.addAttribute(XALConstants.XLINK_NAMESPACE, "href", object.getXlinkHRef());

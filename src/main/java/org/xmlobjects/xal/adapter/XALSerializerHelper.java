@@ -31,11 +31,11 @@ import java.util.Map;
 public class XALSerializerHelper {
 
     public static void addDataQualityAttributes(Element element, DataQuality object) {
-        element.addAttribute(XALConstants.CT_3_0_NAMESPACE, "ValidFrom", TextContent.ofDateTime(object.getValidFrom()));
-        element.addAttribute(XALConstants.CT_3_0_NAMESPACE, "ValidTo", TextContent.ofDateTime(object.getValidTo()));
+        element.addAttribute(XALConstants.XAL_3_0_CT_NAMESPACE, "ValidFrom", TextContent.ofDateTime(object.getValidFrom()));
+        element.addAttribute(XALConstants.XAL_3_0_CT_NAMESPACE, "ValidTo", TextContent.ofDateTime(object.getValidTo()));
 
         if (object.getDataQualityType() != null)
-            element.addAttribute(XALConstants.CT_3_0_NAMESPACE, "DataQualityType", object.getDataQualityType().toValue());
+            element.addAttribute(XALConstants.XAL_3_0_CT_NAMESPACE, "DataQualityType", object.getDataQualityType().toValue());
     }
 
     public static void addOtherAttributes(Element element, Attributes otherAttributes, Namespaces namespaces) {
