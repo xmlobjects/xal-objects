@@ -37,6 +37,18 @@ import org.xmlobjects.xal.model.SubLocality;
 import org.xmlobjects.xal.model.SubPremises;
 import org.xmlobjects.xal.model.SubThoroughfare;
 import org.xmlobjects.xal.model.Thoroughfare;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfAddress;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfAdministrativeArea;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfCountry;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfLocality;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfPostCode;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfPostOffice;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfPostalDeliveryPoint;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfPremises;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfSubAdministrativeArea;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfSubLocality;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfSubPremises;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfThoroughfare;
 import org.xmlobjects.xal.model.deprecated.PostalServiceElements;
 
 public abstract class XALWalker implements XALVisitor {
@@ -61,6 +73,12 @@ public abstract class XALWalker implements XALVisitor {
     public void visit(Address address) {
         visit((AddressObject) address);
 
+        if (address.hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfAddress deprecatedProperties = address.getDeprecatedProperties();
+
+            if (shouldWalk && deprecatedProperties.getPostalServiceElements() != null)
+                deprecatedProperties.getPostalServiceElements().accept(this);
+        }
     }
 
     @Override
@@ -69,11 +87,37 @@ public abstract class XALWalker implements XALVisitor {
 
         if (shouldWalk && administrativeArea.getSubAdministrativeArea() != null)
             administrativeArea.getSubAdministrativeArea().accept(this);
+
+        if (administrativeArea.hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfAdministrativeArea deprecatedProperties = administrativeArea.getDeprecatedProperties();
+
+            if (shouldWalk && deprecatedProperties.getLocality() != null)
+                deprecatedProperties.getLocality().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPostOffice() != null)
+                deprecatedProperties.getPostOffice().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPostalCode() != null)
+                deprecatedProperties.getPostalCode().accept(this);
+        }
     }
 
     @Override
     public void visit(Country country) {
         visit((AddressObject) country);
+
+        if (country.hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfCountry deprecatedProperties = country.getDeprecatedProperties();
+
+            if (shouldWalk && deprecatedProperties.getAdministrativeArea() != null)
+                deprecatedProperties.getAdministrativeArea().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getLocality() != null)
+                deprecatedProperties.getLocality().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getThoroughfare() != null)
+                deprecatedProperties.getThoroughfare().accept(this);
+        }
     }
 
     @Override
@@ -92,6 +136,31 @@ public abstract class XALWalker implements XALVisitor {
 
         if (shouldWalk && locality.getSubLocality() != null)
             locality.getSubLocality().accept(this);
+
+        if (locality.hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfLocality deprecatedProperties = locality.getDeprecatedProperties();
+
+            if (shouldWalk && deprecatedProperties.getLargeMailUser() != null)
+                deprecatedProperties.getLargeMailUser().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPostalRoute() != null)
+                deprecatedProperties.getPostalRoute().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPostBox() != null)
+                deprecatedProperties.getPostBox().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPostOffice() != null)
+                deprecatedProperties.getPostOffice().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getThoroughfare() != null)
+                deprecatedProperties.getThoroughfare().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPremise() != null)
+                deprecatedProperties.getPremise().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPostalCode() != null)
+                deprecatedProperties.getPostalCode().accept(this);
+        }
     }
 
     @Override
@@ -102,6 +171,16 @@ public abstract class XALWalker implements XALVisitor {
     @Override
     public void visit(PostalDeliveryPoint postalDeliveryPoint) {
         visit((AddressObject) postalDeliveryPoint);
+
+        if (postalDeliveryPoint.hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfPostalDeliveryPoint deprecatedProperties = postalDeliveryPoint.getDeprecatedProperties();
+
+            if (shouldWalk && deprecatedProperties.getFirm() != null)
+                deprecatedProperties.getFirm().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPostalCode() != null)
+                deprecatedProperties.getPostalCode().accept(this);
+        }
     }
 
     @Override
@@ -112,11 +191,31 @@ public abstract class XALWalker implements XALVisitor {
     @Override
     public void visit(PostCode postCode) {
         visit((AddressObject) postCode);
+
+        if (postCode.hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfPostCode deprecatedProperties = postCode.getDeprecatedProperties();
+
+            if (shouldWalk && deprecatedProperties.getPostTown() != null)
+                deprecatedProperties.getPostTown().accept(this);
+        }
     }
 
     @Override
     public void visit(PostOffice postOffice) {
         visit((AddressObject) postOffice);
+
+        if (postOffice.hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfPostOffice deprecatedProperties = postOffice.getDeprecatedProperties();
+
+            if (shouldWalk && deprecatedProperties.getPostalRoute() != null)
+                deprecatedProperties.getPostalRoute().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPostBox() != null)
+                deprecatedProperties.getPostBox().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPostalCode() != null)
+                deprecatedProperties.getPostalCode().accept(this);
+        }
     }
 
     @Override
@@ -126,6 +225,31 @@ public abstract class XALWalker implements XALVisitor {
         for (SubPremises subPremises : premises.getSubPremises()) {
             if (shouldWalk)
                 subPremises.accept(this);
+        }
+
+        if (premises.hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfPremises deprecatedProperties = premises.getDeprecatedProperties();
+
+            if (shouldWalk && deprecatedProperties.getPostBox() != null)
+                deprecatedProperties.getPostBox().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getThoroughfare() != null)
+                deprecatedProperties.getThoroughfare().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getMailStop() != null)
+                deprecatedProperties.getMailStop().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPostalCode() != null)
+                deprecatedProperties.getPostalCode().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getFirm() != null)
+                deprecatedProperties.getFirm().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPremise() != null)
+                deprecatedProperties.getPremise().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getDepartment() != null)
+                deprecatedProperties.getDepartment().accept(this);
         }
     }
 
@@ -137,16 +261,73 @@ public abstract class XALWalker implements XALVisitor {
     @Override
     public void visit(SubAdministrativeArea subAdministrativeArea) {
         visit((AddressObject) subAdministrativeArea);
+
+        if (subAdministrativeArea.hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfSubAdministrativeArea deprecatedProperties = subAdministrativeArea.getDeprecatedProperties();
+
+            if (shouldWalk && deprecatedProperties.getLocality() != null)
+                deprecatedProperties.getLocality().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPostOffice() != null)
+                deprecatedProperties.getPostOffice().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPostalCode() != null)
+                deprecatedProperties.getPostalCode().accept(this);
+        }
     }
 
     @Override
     public void visit(SubLocality subLocality) {
         visit((AddressObject) subLocality);
+
+        if (subLocality.hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfSubLocality deprecatedProperties = subLocality.getDeprecatedProperties();
+
+            if (shouldWalk && deprecatedProperties.getPostBox() != null)
+                deprecatedProperties.getPostBox().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getLargeMailUser() != null)
+                deprecatedProperties.getLargeMailUser().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPostOffice() != null)
+                deprecatedProperties.getPostOffice().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPostalRoute() != null)
+                deprecatedProperties.getPostalRoute().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getThoroughfare() != null)
+                deprecatedProperties.getThoroughfare().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPremise() != null)
+                deprecatedProperties.getPremise().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getDependentLocality() != null)
+                deprecatedProperties.getDependentLocality().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPostalCode() != null)
+                deprecatedProperties.getPostalCode().accept(this);
+        }
     }
 
     @Override
     public void visit(SubPremises subPremises) {
         visit((AddressObject) subPremises);
+
+        if (subPremises.hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfSubPremises deprecatedProperties = subPremises.getDeprecatedProperties();
+
+            if (shouldWalk && deprecatedProperties.getMailStop() != null)
+                deprecatedProperties.getMailStop().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPostalCode() != null)
+                deprecatedProperties.getPostalCode().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getFirm() != null)
+                deprecatedProperties.getFirm().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getSubPremise() != null)
+                deprecatedProperties.getSubPremise().accept(this);
+        }
     }
 
     @Override
@@ -161,6 +342,25 @@ public abstract class XALWalker implements XALVisitor {
         for (SubThoroughfare subThoroughfare : thoroughfare.getSubThoroughfares()) {
             if (shouldWalk)
                 subThoroughfare.accept(this);
+        }
+
+        if (thoroughfare.hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfThoroughfare deprecatedProperties = thoroughfare.getDeprecatedProperties();
+
+            if (shouldWalk && deprecatedProperties.getDependentLocality() != null)
+                deprecatedProperties.getDependentLocality().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPostBox() != null)
+                deprecatedProperties.getPostBox().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPremise() != null)
+                deprecatedProperties.getPremise().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getFirm() != null)
+                deprecatedProperties.getFirm().accept(this);
+
+            if (shouldWalk && deprecatedProperties.getPostalCode() != null)
+                deprecatedProperties.getPostalCode().accept(this);
         }
     }
 }
