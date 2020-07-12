@@ -30,6 +30,7 @@ import org.xmlobjects.xal.adapter.AddressObjectAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.AddressLineAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.DependentLocalityNameAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.DependentLocalityNumberAdapter;
+import org.xmlobjects.xal.model.AbstractThoroughfare;
 import org.xmlobjects.xal.model.Address;
 import org.xmlobjects.xal.model.FreeTextAddress;
 import org.xmlobjects.xal.model.PostCode;
@@ -157,7 +158,6 @@ public class DependentLocalityAdapter extends AddressObjectAdapter<SubLocality> 
     @Override
     public void writeChildElements(SubLocality object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         Address address = object.getParent(Address.class);
-        boolean hasDependentLocality = object.getDeprecatedProperties().getDependentLocality() != null;
         SubLocalityName number = null;
 
         for (SubLocalityName nameElement : object.getNameElements()) {
@@ -179,14 +179,17 @@ public class DependentLocalityAdapter extends AddressObjectAdapter<SubLocality> 
         else if (object.getDeprecatedProperties().getPostalRoute() != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalRoute"), object.getDeprecatedProperties().getPostalRoute(), PostalRouteAdapter.class, namespaces);
 
-        Thoroughfare thoroughfare = !hasDependentLocality && address != null && address.getThoroughfare() != null ?
+        boolean hasDependentLocality = object.getDeprecatedProperties().getDependentLocality() != null;
+        boolean hasParentThoroughfare = object.getParent(AbstractThoroughfare.class) != null;
+
+        Thoroughfare thoroughfare = !hasDependentLocality && !hasParentThoroughfare && address != null && address.getThoroughfare() != null ?
                 address.getThoroughfare() :
                 object.getDeprecatedProperties().getThoroughfare();
 
         if (thoroughfare != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Thoroughfare"), thoroughfare, ThoroughfareAdapter.class, namespaces);
 
-        Premises premise = !hasDependentLocality && address != null && address.getThoroughfare() == null && address.getPremises() != null ?
+        Premises premise = !hasDependentLocality && address != null && (address.getThoroughfare() == null || hasParentThoroughfare) && address.getPremises() != null ?
                 address.getPremises() :
                 object.getDeprecatedProperties().getPremise();
 

@@ -113,7 +113,6 @@ public class PostOfficeAdapter extends AddressObjectAdapter<PostOffice> {
     @Override
     public void writeChildElements(PostOffice object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         Address address = object.getParent(Address.class);
-
         Identifier number = null;
         boolean hasNames = false;
 

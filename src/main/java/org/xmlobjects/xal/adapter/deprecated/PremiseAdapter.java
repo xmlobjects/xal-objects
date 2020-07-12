@@ -164,7 +164,6 @@ public class PremiseAdapter extends AddressObjectAdapter<Premises> {
     @Override
     public void writeChildElements(Premises object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         Address address = object.getParent(Address.class);
-
         PremiseNamesAndNumbers namesAndNumbers = PremiseNamesAndNumbers.of(object);
 
         for (PremisesName name : namesAndNumbers.getNames())
