@@ -313,7 +313,7 @@ public class Address extends AddressObject implements DataQuality, ValidityDate,
 
     @Override
     public void setLanguageCode(String languageCode) {
-        this.languageCode = XMLPatterns.LANGUAGE.matcher(languageCode).matches() ? languageCode : null;;
+        this.languageCode = XMLPatterns.LANGUAGE.matcher(languageCode).matches() ? languageCode : null;
     }
 
     @Override
