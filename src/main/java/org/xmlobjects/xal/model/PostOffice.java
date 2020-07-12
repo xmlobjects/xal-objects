@@ -20,98 +20,39 @@
 package org.xmlobjects.xal.model;
 
 import org.xmlobjects.model.ChildList;
+import org.xmlobjects.xal.model.deprecated.DeprecatedProperties;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfPostOffice;
+import org.xmlobjects.xal.model.types.DataQuality;
+import org.xmlobjects.xal.model.types.DataQualityType;
+import org.xmlobjects.xal.model.types.Identifier;
 import org.xmlobjects.xal.visitor.XALVisitor;
 
-import javax.xml.namespace.QName;
-import java.util.HashMap;
+import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Map;
 
-public class PostOffice extends XALObject implements AddressObject {
-    private List<AddressLine> addressLines;
-    private List<PostOfficeName> postOfficeNames;
-    private PostOfficeNumber postOfficeNumber;
-    private PostalRoute postalRoute;
-    private PostBox postBox;
-    private PostalCode postalCode;
-    private List<GenericElement> genericElements;
+public class PostOffice extends AddressObject implements DataQuality {
+    private List<Identifier> identifiers;
     private String type;
-    private String indicator;
-    private Map<QName, String> otherAttributes;
+    private DataQualityType dataQualityType;
+    private OffsetDateTime validFrom;
+    private OffsetDateTime validTo;
 
-    public List<AddressLine> getAddressLines() {
-        if (addressLines == null)
-            addressLines = new ChildList<>(this);
-
-        return addressLines;
+    public PostOffice() {
     }
 
-    public void setAddressLines(List<AddressLine> addressLines) {
-        this.addressLines = asChild(addressLines);
+    public PostOffice(String type) {
+        this.type = type;
     }
 
-    public List<PostOfficeName> getPostOfficeNames() {
-        if (postOfficeNames == null)
-            postOfficeNames = new ChildList<>(this);
+    public List<Identifier> getIdentifiers() {
+        if (identifiers == null)
+            identifiers = new ChildList<>(this);
 
-        return postOfficeNames;
+        return identifiers;
     }
 
-    public boolean isSetPostOfficeNames() {
-        return postOfficeNames != null && !postOfficeNames.isEmpty();
-    }
-
-    public void setPostOfficeNames(List<PostOfficeName> postOfficeNames) {
-        clearChoice();
-        this.postOfficeNames = asChild(postOfficeNames);
-    }
-
-    public PostOfficeNumber getPostOfficeNumber() {
-        return postOfficeNumber;
-    }
-
-    public boolean isSetPostOfficeNumber() {
-        return postOfficeNumber != null;
-    }
-
-    public void setPostOfficeNumber(PostOfficeNumber postOfficeNumber) {
-        clearChoice();
-        this.postOfficeNumber = asChild(postOfficeNumber);
-    }
-
-    public PostalRoute getPostalRoute() {
-        return postalRoute;
-    }
-
-    public void setPostalRoute(PostalRoute postalRoute) {
-        this.postalRoute = asChild(postalRoute);
-    }
-
-    public PostBox getPostBox() {
-        return postBox;
-    }
-
-    public void setPostBox(PostBox postBox) {
-        this.postBox = asChild(postBox);
-    }
-
-    public PostalCode getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(PostalCode postalCode) {
-        this.postalCode = asChild(postalCode);
-    }
-
-    public List<GenericElement> getGenericElements() {
-        if (genericElements == null)
-            genericElements = new ChildList<>(this);
-
-        return genericElements;
-    }
-
-    public void setGenericElements(List<GenericElement> genericElements) {
-        this.genericElements = asChild(genericElements);
+    public void setIdentifiers(List<Identifier> identifiers) {
+        this.identifiers = asChild(identifiers);
     }
 
     public String getType() {
@@ -122,28 +63,44 @@ public class PostOffice extends XALObject implements AddressObject {
         this.type = type;
     }
 
-    public String getIndicator() {
-        return indicator;
+    @Override
+    public DataQualityType getDataQualityType() {
+        return dataQualityType;
     }
 
-    public void setIndicator(String indicator) {
-        this.indicator = indicator;
+    @Override
+    public void setDataQualityType(DataQualityType dataQualityType) {
+        this.dataQualityType = dataQualityType;
     }
 
-    public Map<QName, String> getOtherAttributes() {
-        if (otherAttributes == null)
-            otherAttributes = new HashMap<>();
-
-        return otherAttributes;
+    @Override
+    public OffsetDateTime getValidFrom() {
+        return validFrom;
     }
 
-    public void setOtherAttributes(Map<QName, String> otherAttributes) {
-        this.otherAttributes = otherAttributes;
+    @Override
+    public void setValidFrom(OffsetDateTime validFrom) {
+        this.validFrom = validFrom;
     }
 
-    private void clearChoice() {
-        postOfficeNames = null;
-        postOfficeNumber = null;
+    @Override
+    public OffsetDateTime getValidTo() {
+        return validTo;
+    }
+
+    @Override
+    public void setValidTo(OffsetDateTime validTo) {
+        this.validTo = validTo;
+    }
+
+    @Override
+    public DeprecatedPropertiesOfPostOffice getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfPostOffice) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedProperties createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfPostOffice();
     }
 
     @Override

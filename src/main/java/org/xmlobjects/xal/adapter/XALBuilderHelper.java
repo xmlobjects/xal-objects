@@ -19,33 +19,31 @@
 
 package org.xmlobjects.xal.adapter;
 
-import org.xmlobjects.stream.XMLReadException;
-import org.xmlobjects.stream.XMLReader;
-import org.xmlobjects.xal.model.GenericElement;
+import org.xmlobjects.xal.model.types.DataQuality;
+import org.xmlobjects.xal.model.types.DataQualityType;
+import org.xmlobjects.xal.util.XALConstants;
 import org.xmlobjects.xml.Attributes;
 import org.xmlobjects.xml.TextContent;
 
 import javax.xml.XMLConstants;
-import javax.xml.namespace.QName;
-import java.util.List;
 import java.util.Map;
 
 public class XALBuilderHelper {
 
-    public static void buildOtherAttributes(Map<QName, String> otherAttributes, Attributes attributes) {
-        for (Map.Entry<String, Map<String, TextContent>> entry : attributes.get().entrySet()) {
-            if (!XMLConstants.NULL_NS_URI.equals(entry.getKey())
-                    && !XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI.equals(entry.getKey())
-                    && !XMLConstants.XML_NS_URI.equals(entry.getKey())
-                    && !XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals(entry.getKey())
-                    && !XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(entry.getKey())) {
-                entry.getValue().forEach((k, v) -> otherAttributes.put(new QName(entry.getKey(), k), v.get()));
-            }
-        }
+    public static void buildDataQualityAttributes(DataQuality object, Attributes attributes) {
+        attributes.getValue(XALConstants.CT_3_0_NAMESPACE, "DataQualityType").ifPresent(v -> object.setDataQualityType(DataQualityType.fromValue(v)));
+        attributes.getValue(XALConstants.CT_3_0_NAMESPACE, "ValidFrom").ifDateTime(object::setValidFrom);
+        attributes.getValue(XALConstants.CT_3_0_NAMESPACE, "ValidTo").ifDateTime(object::setValidTo);
     }
 
-    public static void buildGenericElements(List<GenericElement> genericElements, XMLReader reader) throws XMLReadException {
-        if (reader.isCreateDOMAsFallback())
-            genericElements.add(GenericElement.of(reader.getDOMElement()));
+    public static void buildOtherAttributes(Attributes otherAttributes, Attributes attributes) {
+        for (Map.Entry<String, Map<String, TextContent>> entry : attributes.get().entrySet()) {
+            if (!XALConstants.XAL_3_0_NAMESPACE.equals(entry.getKey())
+                    && !XALConstants.CT_3_0_NAMESPACE.equals(entry.getKey())
+                    && !XALConstants.XAL_2_0_NAMESPACE.equals(entry.getKey())
+                    && !XMLConstants.NULL_NS_URI.equals(entry.getKey())
+                    && !XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI.equals(entry.getKey()))
+                otherAttributes.addAll(entry.getKey(), entry.getValue());
+        }
     }
 }

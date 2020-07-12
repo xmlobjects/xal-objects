@@ -19,18 +19,16 @@
 
 package org.xmlobjects.xal.adapter;
 
-import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
-import org.xmlobjects.serializer.ObjectSerializer;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
-import org.xmlobjects.xal.model.AddressLine;
+import org.xmlobjects.xal.adapter.types.LocalityNameAdapter;
 import org.xmlobjects.xal.model.Locality;
-import org.xmlobjects.xal.model.LocalityName;
+import org.xmlobjects.xal.model.types.LocalityName;
+import org.xmlobjects.xal.model.types.LocalityType;
 import org.xmlobjects.xal.util.XALConstants;
 import org.xmlobjects.xml.Attributes;
 import org.xmlobjects.xml.Element;
@@ -38,103 +36,49 @@ import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-@XMLElement(name = "Locality", namespaceURI = XALConstants.XAL_2_0_NAMESPACE)
-public class LocalityAdapter implements ObjectBuilder<Locality>, ObjectSerializer<Locality> {
+public class LocalityAdapter extends AddressObjectAdapter<Locality> {
 
     @Override
-    public Locality createObject(QName name) throws ObjectBuildException {
+    public Locality createObject(QName name, Object parent) throws ObjectBuildException {
         return new Locality();
     }
 
     @Override
     public void initializeObject(Locality object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        attributes.getValue("Type").ifPresent(object::setType);
-        attributes.getValue("UsageType").ifPresent(object::setUsageType);
-        attributes.getValue("Indicator").ifPresent(object::setIndicator);
-        XALBuilderHelper.buildOtherAttributes(object.getOtherAttributes(), attributes);
+        super.initializeObject(object, name, attributes, reader);
+        attributes.getValue(XALConstants.XAL_3_0_NAMESPACE, "Type").ifPresent(v -> object.setType(LocalityType.fromValue(v)));
+        XALBuilderHelper.buildDataQualityAttributes(object, attributes);
     }
 
     @Override
     public void buildChildObject(Locality object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
+        if (XALConstants.XAL_3_0_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
-                case "AddressLine":
-                    object.getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
+                case "NameElement":
+                    object.getNameElements().add(reader.getObjectUsingBuilder(LocalityNameAdapter.class));
                     break;
-                case "LocalityName":
-                    object.getLocalityNames().add(reader.getObjectUsingBuilder(LocalityNameAdapter.class));
-                    break;
-                case "PostBox":
-                    object.setPostBox(reader.getObjectUsingBuilder(PostBoxAdapter.class));
-                    break;
-                case "LargeMailUser":
-                    object.setLargeMailUser(reader.getObjectUsingBuilder(LargeMailUserAdapter.class));
-                    break;
-                case "PostOffice":
-                    object.setPostOffice(reader.getObjectUsingBuilder(PostOfficeAdapter.class));
-                    break;
-                case "PostalRoute":
-                    object.setPostalRoute(reader.getObjectUsingBuilder(PostalRouteAdapter.class));
-                    break;
-                case "Thoroughfare":
-                    object.setThoroughfare(reader.getObjectUsingBuilder(ThoroughfareAdapter.class));
-                    break;
-                case "Premise":
-                    object.setPremise(reader.getObjectUsingBuilder(PremiseAdapter.class));
-                    break;
-                case "DependentLocality":
-                    object.setDependentLocality(reader.getObjectUsingBuilder(DependentLocalityAdapter.class));
-                    break;
-                case "PostalCode":
-                    object.setPostalCode(reader.getObjectUsingBuilder(PostalCodeAdapter.class));
+                case "SubLocality":
+                    object.setSubLocality(reader.getObjectUsingBuilder(SubLocalityAdapter.class));
                     break;
             }
-        } else
-            XALBuilderHelper.buildGenericElements(object.getGenericElements(), reader);
-    }
-
-    @Override
-    public Element createElement(Locality object, Namespaces namespaces) throws ObjectSerializeException {
-        return Element.of(XALConstants.XAL_2_0_NAMESPACE, "Locality");
+        }
     }
 
     @Override
     public void initializeElement(Element element, Locality object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        element.addAttribute("Type", object.getType());
-        element.addAttribute("UsageType", object.getUsageType());
-        element.addAttribute("Indicator", object.getIndicator());
-        XALSerializerHelper.serializeOtherAttributes(element, object.getOtherAttributes());
+        super.initializeElement(element, object, namespaces, writer);
+        XALSerializerHelper.addDataQualityAttributes(element, object);
+
+        if (object.getType() != null)
+            element.addAttribute(XALConstants.XAL_3_0_NAMESPACE, "Type", object.getType().toValue());
     }
 
     @Override
     public void writeChildElements(Locality object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        for (AddressLine addressLine : object.getAddressLines())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "AddressLine"), addressLine, AddressLineAdapter.class, namespaces);
+        for (LocalityName name : object.getNameElements())
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "NameElement"), name, LocalityNameAdapter.class, namespaces);
 
-        for (LocalityName localityName : object.getLocalityNames())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "LocalityName"), localityName, LocalityNameAdapter.class, namespaces);
-
-        if (object.isSetPostBox())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostBox"), object.getPostBox(), PostBoxAdapter.class, namespaces);
-        else if (object.isSetLargeMailUser())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "LargeMailUser"), object.getLargeMailUser(), LargeMailUserAdapter.class, namespaces);
-        else if (object.isSetPostOffice())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostOffice"), object.getPostOffice(), PostOfficeAdapter.class, namespaces);
-        else if (object.isSetPostalRoute())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalRoute"), object.getPostalRoute(), PostalRouteAdapter.class, namespaces);
-
-        if (object.getThoroughfare() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Thoroughfare"), object.getThoroughfare(), ThoroughfareAdapter.class, namespaces);
-
-        if (object.getPremise() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Premise"), object.getPremise(), PremiseAdapter.class, namespaces);
-
-        if (object.getDependentLocality() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "DependentLocality"), object.getDependentLocality(), DependentLocalityAdapter.class, namespaces);
-
-        if (object.getPostalCode() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCode"), object.getPostalCode(), PostalCodeAdapter.class, namespaces);
-
-        XALSerializerHelper.serializeGenericElements(object.getGenericElements(), writer);
+        if (object.getSubLocality() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "SubLocality"), object.getSubLocality(), SubLocalityAdapter.class, namespaces);
     }
 }

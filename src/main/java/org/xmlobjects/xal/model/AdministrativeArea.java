@@ -20,46 +20,41 @@
 package org.xmlobjects.xal.model;
 
 import org.xmlobjects.model.ChildList;
+import org.xmlobjects.xal.model.deprecated.DeprecatedProperties;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfAdministrativeArea;
+import org.xmlobjects.xal.model.types.AdministrativeAreaName;
+import org.xmlobjects.xal.model.types.AdministrativeAreaType;
+import org.xmlobjects.xal.model.types.DataQuality;
+import org.xmlobjects.xal.model.types.DataQualityType;
 import org.xmlobjects.xal.visitor.XALVisitor;
 
-import javax.xml.namespace.QName;
-import java.util.HashMap;
+import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Map;
 
-public class AdministrativeArea extends XALObject implements AddressObject {
-    private List<AddressLine> addressLines;
-    private List<AdministrativeAreaName> administrativeAreaNames;
+public class AdministrativeArea extends AddressObject implements DataQuality {
+    private List<AdministrativeAreaName> nameElements;
     private SubAdministrativeArea subAdministrativeArea;
-    private Locality locality;
-    private PostOffice postOffice;
-    private PostalCode postalCode;
-    private List<GenericElement> genericElements;
-    private String type;
-    private String usageType;
-    private String indicator;
-    private Map<QName, String> otherAttributes;
+    private AdministrativeAreaType type;
+    private DataQualityType dataQualityType;
+    private OffsetDateTime validFrom;
+    private OffsetDateTime validTo;
 
-    public List<AddressLine> getAddressLines() {
-        if (addressLines == null)
-            addressLines = new ChildList<>(this);
-
-        return addressLines;
+    public AdministrativeArea() {
     }
 
-    public void setAddressLines(List<AddressLine> addressLines) {
-        this.addressLines = asChild(addressLines);
+    public AdministrativeArea(AdministrativeAreaType type) {
+        this.type = type;
     }
 
-    public List<AdministrativeAreaName> getAdministrativeAreaNames() {
-        if (administrativeAreaNames == null)
-            administrativeAreaNames = new ChildList<>(this);
+    public List<AdministrativeAreaName> getNameElements() {
+        if (nameElements == null)
+            nameElements = new ChildList<>(this);
 
-        return administrativeAreaNames;
+        return nameElements;
     }
 
-    public void setAdministrativeAreaNames(List<AdministrativeAreaName> administrativeAreaNames) {
-        this.administrativeAreaNames = asChild(administrativeAreaNames);
+    public void setNameElements(List<AdministrativeAreaName> nameElements) {
+        this.nameElements = asChild(nameElements);
     }
 
     public SubAdministrativeArea getSubAdministrativeArea() {
@@ -70,95 +65,52 @@ public class AdministrativeArea extends XALObject implements AddressObject {
         this.subAdministrativeArea = asChild(subAdministrativeArea);
     }
 
-    public Locality getLocality() {
-        return locality;
-    }
-
-    public boolean isSetLocality() {
-        return locality != null;
-    }
-
-    public void setLocality(Locality locality) {
-        clearChoice();
-        this.locality = asChild(locality);
-    }
-
-    public PostOffice getPostOffice() {
-        return postOffice;
-    }
-
-    public boolean isSetPostOffice() {
-        return postOffice != null;
-    }
-
-    public void setPostOffice(PostOffice postOffice) {
-        clearChoice();
-        this.postOffice = asChild(postOffice);
-    }
-
-    public PostalCode getPostalCode() {
-        return postalCode;
-    }
-
-    public boolean isSetPostalCode() {
-        return postalCode != null;
-    }
-
-    public void setPostalCode(PostalCode postalCode) {
-        clearChoice();
-        this.postalCode = asChild(postalCode);
-    }
-
-    public List<GenericElement> getGenericElements() {
-        if (genericElements == null)
-            genericElements = new ChildList<>(this);
-
-        return genericElements;
-    }
-
-    public void setGenericElements(List<GenericElement> genericElements) {
-        this.genericElements = asChild(genericElements);
-    }
-
-    public String getType() {
+    public AdministrativeAreaType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(AdministrativeAreaType type) {
         this.type = type;
     }
 
-    public String getUsageType() {
-        return usageType;
+    @Override
+    public DataQualityType getDataQualityType() {
+        return dataQualityType;
     }
 
-    public void setUsageType(String usageType) {
-        this.usageType = usageType;
+    @Override
+    public void setDataQualityType(DataQualityType dataQualityType) {
+        this.dataQualityType = dataQualityType;
     }
 
-    public String getIndicator() {
-        return indicator;
+    @Override
+    public OffsetDateTime getValidFrom() {
+        return validFrom;
     }
 
-    public void setIndicator(String indicator) {
-        this.indicator = indicator;
+    @Override
+    public void setValidFrom(OffsetDateTime validFrom) {
+        this.validFrom = validFrom;
     }
 
-    public Map<QName, String> getOtherAttributes() {
-        if (otherAttributes == null)
-            otherAttributes = new HashMap<>();
-
-        return otherAttributes;
+    @Override
+    public OffsetDateTime getValidTo() {
+        return validTo;
     }
 
-    public void setOtherAttributes(Map<QName, String> otherAttributes) {
-        this.otherAttributes = otherAttributes;
+    @Override
+    public void setValidTo(OffsetDateTime validTo) {
+        this.validTo = validTo;
     }
 
-    private void clearChoice() {
-        locality = null;
-        postOffice = null;
-        postalCode = null;
+    @Override
+    public DeprecatedPropertiesOfAdministrativeArea getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfAdministrativeArea) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedProperties createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfAdministrativeArea();
     }
 
     @Override
