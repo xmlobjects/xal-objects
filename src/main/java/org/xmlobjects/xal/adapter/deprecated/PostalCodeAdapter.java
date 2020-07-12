@@ -94,7 +94,7 @@ public class PostalCodeAdapter extends AddressObjectAdapter<PostCode> {
     @Override
     public void writeChildElements(PostCode object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         for (Identifier identifier : object.getIdentifiers()) {
-            if (identifier.getType() == IdentifierElementType.NUMBER)
+            if (identifier.getType() != IdentifierElementType.EXTENSION)
                 writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCodeNumber"), identifier, PostalCodeNumberAdapter.class, namespaces);
         }
 

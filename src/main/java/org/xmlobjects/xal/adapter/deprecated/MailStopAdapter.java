@@ -95,7 +95,7 @@ public class MailStopAdapter extends AddressObjectAdapter<PostalDeliveryPoint> {
         Identifier number = null;
 
         for (Identifier identifier : object.getIdentifiers()) {
-            if (name == null && identifier.getType() == IdentifierElementType.NAME)
+            if (name == null && identifier.getType() != IdentifierElementType.NUMBER)
                 name = identifier;
             else if (number == null && identifier.getType() == IdentifierElementType.NUMBER)
                 number = identifier;
