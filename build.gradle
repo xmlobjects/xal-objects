@@ -23,8 +23,8 @@ repositories {
 }
 
 dependencies {
-    api 'org.xmlobjects:xml-objects:1.0.0-rc.1'
-    annotationProcessor 'org.xmlobjects:xml-objects:1.0.0-rc.1'
+    api 'org.xmlobjects:xml-objects:1.0.0-rc.2'
+    annotationProcessor 'org.xmlobjects:xml-objects:1.0.0-rc.2'
 }
 
 javadoc {
