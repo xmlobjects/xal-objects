@@ -8,7 +8,7 @@ plugins {
 }
 
 group 'org.xmlobjects.xal'
-version '1.0.0-rc.1'
+version '1.0.0-rc.2'
 description 'A Java mapping for the OASIS eXtensible Address Language (xAL)'
 ext.date = new Date()
 
