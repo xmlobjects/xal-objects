@@ -2,7 +2,7 @@
  * xal-objects - A Java mapping for the OASIS eXtensible Address Language (xAL)
  * https://github.com/xmlobjects/xal-objects
  *
- * Copyright 2019-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2019-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,12 +22,7 @@ package org.xmlobjects.xal.model;
 import org.xmlobjects.util.xml.XMLPatterns;
 import org.xmlobjects.xal.model.deprecated.DeprecatedProperties;
 import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfAddress;
-import org.xmlobjects.xal.model.types.AddressType;
-import org.xmlobjects.xal.model.types.AddressUsage;
-import org.xmlobjects.xal.model.types.DataQuality;
-import org.xmlobjects.xal.model.types.DataQualityType;
-import org.xmlobjects.xal.model.types.LanguageCode;
-import org.xmlobjects.xal.model.types.ValidityDate;
+import org.xmlobjects.xal.model.types.*;
 import org.xmlobjects.xal.visitor.XALVisitor;
 
 import java.time.OffsetDateTime;

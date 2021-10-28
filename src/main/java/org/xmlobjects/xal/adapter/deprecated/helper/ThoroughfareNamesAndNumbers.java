@@ -2,7 +2,7 @@
  * xal-objects - A Java mapping for the OASIS eXtensible Address Language (xAL)
  * https://github.com/xmlobjects/xal-objects
  *
- * Copyright 2019-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2019-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,7 @@
 package org.xmlobjects.xal.adapter.deprecated.helper;
 
 import org.xmlobjects.xal.model.AbstractThoroughfare;
-import org.xmlobjects.xal.model.types.Identifier;
-import org.xmlobjects.xal.model.types.IdentifierElementType;
-import org.xmlobjects.xal.model.types.ThoroughfareName;
-import org.xmlobjects.xal.model.types.ThoroughfareNameOrNumber;
-import org.xmlobjects.xal.model.types.ThoroughfareNameType;
+import org.xmlobjects.xal.model.types.*;
 
 import java.util.ArrayList;
 import java.util.Collections;

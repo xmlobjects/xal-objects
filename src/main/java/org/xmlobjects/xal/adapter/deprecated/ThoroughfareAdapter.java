@@ -2,7 +2,7 @@
  * xal-objects - A Java mapping for the OASIS eXtensible Address Language (xAL)
  * https://github.com/xmlobjects/xal-objects
  *
- * Copyright 2019-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2019-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,19 +29,8 @@ import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xal.adapter.AddressObjectAdapter;
 import org.xmlobjects.xal.adapter.deprecated.helper.NumberRange;
 import org.xmlobjects.xal.adapter.deprecated.helper.ThoroughfareNamesAndNumbers;
-import org.xmlobjects.xal.adapter.deprecated.types.AddressLineAdapter;
-import org.xmlobjects.xal.adapter.deprecated.types.ThoroughfareNameAdapter;
-import org.xmlobjects.xal.adapter.deprecated.types.ThoroughfareNumberAdapter;
-import org.xmlobjects.xal.adapter.deprecated.types.ThoroughfareNumberPrefixAdapter;
-import org.xmlobjects.xal.adapter.deprecated.types.ThoroughfareNumberRangeAdapter;
-import org.xmlobjects.xal.adapter.deprecated.types.ThoroughfareNumberSuffixAdapter;
-import org.xmlobjects.xal.adapter.deprecated.types.ThoroughfarePostDirectionAdapter;
-import org.xmlobjects.xal.adapter.deprecated.types.ThoroughfarePreDirectionAdapter;
-import org.xmlobjects.xal.model.Address;
-import org.xmlobjects.xal.model.FreeTextAddress;
-import org.xmlobjects.xal.model.PostCode;
-import org.xmlobjects.xal.model.Premises;
-import org.xmlobjects.xal.model.Thoroughfare;
+import org.xmlobjects.xal.adapter.deprecated.types.*;
+import org.xmlobjects.xal.model.*;
 import org.xmlobjects.xal.model.types.Identifier;
 import org.xmlobjects.xal.model.types.ThoroughfareName;
 import org.xmlobjects.xal.model.types.ThoroughfareNameOrNumber;

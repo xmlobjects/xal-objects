@@ -2,7 +2,7 @@
  * xal-objects - A Java mapping for the OASIS eXtensible Address Language (xAL)
  * https://github.com/xmlobjects/xal-objects
  *
- * Copyright 2019-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2019-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,37 +19,8 @@
 
 package org.xmlobjects.xal.visitor;
 
-import org.xmlobjects.xal.model.Address;
-import org.xmlobjects.xal.model.AddressObject;
-import org.xmlobjects.xal.model.AdministrativeArea;
-import org.xmlobjects.xal.model.Country;
-import org.xmlobjects.xal.model.FreeTextAddress;
-import org.xmlobjects.xal.model.GeoRSS;
-import org.xmlobjects.xal.model.Locality;
-import org.xmlobjects.xal.model.LocationByCoordinates;
-import org.xmlobjects.xal.model.PostCode;
-import org.xmlobjects.xal.model.PostOffice;
-import org.xmlobjects.xal.model.PostalDeliveryPoint;
-import org.xmlobjects.xal.model.Premises;
-import org.xmlobjects.xal.model.RuralDelivery;
-import org.xmlobjects.xal.model.SubAdministrativeArea;
-import org.xmlobjects.xal.model.SubLocality;
-import org.xmlobjects.xal.model.SubPremises;
-import org.xmlobjects.xal.model.SubThoroughfare;
-import org.xmlobjects.xal.model.Thoroughfare;
-import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfAddress;
-import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfAdministrativeArea;
-import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfCountry;
-import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfLocality;
-import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfPostCode;
-import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfPostOffice;
-import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfPostalDeliveryPoint;
-import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfPremises;
-import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfSubAdministrativeArea;
-import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfSubLocality;
-import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfSubPremises;
-import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfThoroughfare;
-import org.xmlobjects.xal.model.deprecated.PostalServiceElements;
+import org.xmlobjects.xal.model.*;
+import org.xmlobjects.xal.model.deprecated.*;
 
 public abstract class XALWalker implements XALVisitor {
     private boolean shouldWalk = true;

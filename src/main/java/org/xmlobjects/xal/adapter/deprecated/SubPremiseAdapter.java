@@ -2,7 +2,7 @@
  * xal-objects - A Java mapping for the OASIS eXtensible Address Language (xAL)
  * https://github.com/xmlobjects/xal-objects
  *
- * Copyright 2019-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2019-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,18 +28,8 @@ import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xal.adapter.AddressObjectAdapter;
 import org.xmlobjects.xal.adapter.deprecated.helper.PremiseNamesAndNumbers;
-import org.xmlobjects.xal.adapter.deprecated.types.AddressLineAdapter;
-import org.xmlobjects.xal.adapter.deprecated.types.BuildingNameAdapter;
-import org.xmlobjects.xal.adapter.deprecated.types.SubPremiseLocationAdapter;
-import org.xmlobjects.xal.adapter.deprecated.types.SubPremiseNameAdapter;
-import org.xmlobjects.xal.adapter.deprecated.types.SubPremiseNumberAdapter;
-import org.xmlobjects.xal.adapter.deprecated.types.SubPremiseNumberPrefixAdapter;
-import org.xmlobjects.xal.adapter.deprecated.types.SubPremiseNumberSuffixAdapter;
-import org.xmlobjects.xal.model.Address;
-import org.xmlobjects.xal.model.FreeTextAddress;
-import org.xmlobjects.xal.model.PostCode;
-import org.xmlobjects.xal.model.PostalDeliveryPoint;
-import org.xmlobjects.xal.model.SubPremises;
+import org.xmlobjects.xal.adapter.deprecated.types.*;
+import org.xmlobjects.xal.model.*;
 import org.xmlobjects.xal.model.types.Identifier;
 import org.xmlobjects.xal.model.types.PremisesName;
 import org.xmlobjects.xal.model.types.PremisesNameOrNumber;

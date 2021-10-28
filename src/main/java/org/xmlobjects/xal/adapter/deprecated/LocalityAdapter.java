@@ -2,7 +2,7 @@
  * xal-objects - A Java mapping for the OASIS eXtensible Address Language (xAL)
  * https://github.com/xmlobjects/xal-objects
  *
- * Copyright 2019-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2019-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,14 +29,7 @@ import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xal.adapter.AddressObjectAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.AddressLineAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.LocalityNameAdapter;
-import org.xmlobjects.xal.model.Address;
-import org.xmlobjects.xal.model.FreeTextAddress;
-import org.xmlobjects.xal.model.Locality;
-import org.xmlobjects.xal.model.PostCode;
-import org.xmlobjects.xal.model.PostOffice;
-import org.xmlobjects.xal.model.PostalDeliveryPoint;
-import org.xmlobjects.xal.model.Premises;
-import org.xmlobjects.xal.model.Thoroughfare;
+import org.xmlobjects.xal.model.*;
 import org.xmlobjects.xal.model.types.LocalityName;
 import org.xmlobjects.xal.model.types.LocalityType;
 import org.xmlobjects.xal.model.types.PostalDeliveryPointType;

@@ -2,7 +2,7 @@
  * xal-objects - A Java mapping for the OASIS eXtensible Address Language (xAL)
  * https://github.com/xmlobjects/xal-objects
  *
- * Copyright 2019-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2019-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,7 @@
 
 package org.xmlobjects.xal.model.deprecated;
 
-import org.xmlobjects.xal.model.PostCode;
-import org.xmlobjects.xal.model.PostOffice;
-import org.xmlobjects.xal.model.PostalDeliveryPoint;
-import org.xmlobjects.xal.model.Premises;
-import org.xmlobjects.xal.model.SubLocality;
-import org.xmlobjects.xal.model.Thoroughfare;
+import org.xmlobjects.xal.model.*;
 
 public class DeprecatedPropertiesOfSubLocality extends DeprecatedProperties {
     private PostalDeliveryPoint postBox;

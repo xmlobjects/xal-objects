@@ -2,7 +2,7 @@
  * xal-objects - A Java mapping for the OASIS eXtensible Address Language (xAL)
  * https://github.com/xmlobjects/xal-objects
  *
- * Copyright 2019-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2019-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,11 +25,7 @@ import org.xmlobjects.model.Child;
 import org.xmlobjects.model.ChildList;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.serializer.ObjectSerializer;
-import org.xmlobjects.stream.EventType;
-import org.xmlobjects.stream.XMLReadException;
-import org.xmlobjects.stream.XMLReader;
-import org.xmlobjects.stream.XMLWriteException;
-import org.xmlobjects.stream.XMLWriter;
+import org.xmlobjects.stream.*;
 import org.xmlobjects.xal.adapter.deprecated.helper.NumberRange;
 import org.xmlobjects.xal.adapter.deprecated.helper.ParsedNumber;
 import org.xmlobjects.xal.model.Address;
