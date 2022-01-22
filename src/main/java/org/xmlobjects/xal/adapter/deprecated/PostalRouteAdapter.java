@@ -107,7 +107,7 @@ public class PostalRouteAdapter extends AddressObjectAdapter<Thoroughfare> {
         if (!hasNames && number != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalRouteNumber"), number, PostalRouteNumberAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getPostBox() != null)
+        if (object.hasDeprecatedProperties() && object.getDeprecatedProperties().getPostBox() != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostBox"), object.getDeprecatedProperties().getPostBox(), PostBoxAdapter.class, namespaces);
     }
 }

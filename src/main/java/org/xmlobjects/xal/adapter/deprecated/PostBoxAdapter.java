@@ -32,6 +32,7 @@ import org.xmlobjects.xal.model.Address;
 import org.xmlobjects.xal.model.FreeTextAddress;
 import org.xmlobjects.xal.model.PostCode;
 import org.xmlobjects.xal.model.PostalDeliveryPoint;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfPostalDeliveryPoint;
 import org.xmlobjects.xal.model.types.Identifier;
 import org.xmlobjects.xal.model.types.IdentifierElementType;
 import org.xmlobjects.xal.model.types.PostalDeliveryPointType;
@@ -147,10 +148,14 @@ public class PostBoxAdapter extends AddressObjectAdapter<PostalDeliveryPoint> {
         if (extension != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostBoxNumberExtension"), extension, PostBoxNumberExtensionAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getFirm() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Firm"), object.getDeprecatedProperties().getFirm(), FirmAdapter.class, namespaces);
+        if (object.hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfPostalDeliveryPoint properties = object.getDeprecatedProperties();
 
-        if (object.getDeprecatedProperties().getPostalCode() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCode"), object.getDeprecatedProperties().getPostalCode(), PostalCodeAdapter.class, namespaces);
+            if (properties.getFirm() != null)
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Firm"), properties.getFirm(), FirmAdapter.class, namespaces);
+
+            if (properties.getPostalCode() != null)
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCode"), properties.getPostalCode(), PostalCodeAdapter.class, namespaces);
+        }
     }
 }

@@ -30,6 +30,7 @@ import org.xmlobjects.xal.adapter.AddressObjectAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.AddressLineAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.AdministrativeAreaNameAdapter;
 import org.xmlobjects.xal.model.*;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfAdministrativeArea;
 import org.xmlobjects.xal.model.types.AdministrativeAreaName;
 import org.xmlobjects.xal.model.types.AdministrativeAreaType;
 import org.xmlobjects.xal.util.XALConstants;
@@ -124,6 +125,10 @@ public class AdministrativeAreaAdapter extends AddressObjectAdapter<Administrati
     public void writeChildElements(AdministrativeArea object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         Address address = object.getParent(Address.class);
 
+        DeprecatedPropertiesOfAdministrativeArea properties = object.hasDeprecatedProperties() ?
+                object.getDeprecatedProperties() :
+                null;
+
         for (AdministrativeAreaName nameElement : object.getNameElements())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "AdministrativeAreaName"), nameElement, AdministrativeAreaNameAdapter.class, namespaces);
 
@@ -131,17 +136,26 @@ public class AdministrativeAreaAdapter extends AddressObjectAdapter<Administrati
         if (hasSubAdministrativeArea)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubAdministrativeArea"), object.getSubAdministrativeArea(), SubAdministrativeAreaAdapter.class, namespaces);
 
-        Locality locality = !hasSubAdministrativeArea && address != null && address.getLocality() != null ?
-                address.getLocality() :
-                object.getDeprecatedProperties().getLocality();
+        Locality locality = null;
+        if (!hasSubAdministrativeArea && address != null && address.getLocality() != null) {
+            locality = address.getLocality();
+        } else if (properties != null) {
+            locality = properties.getLocality();
+        }
 
-        PostOffice postOffice = !hasSubAdministrativeArea && address != null && address.getPostOffice() != null ?
-                address.getPostOffice() :
-                object.getDeprecatedProperties().getPostOffice();
+        PostOffice postOffice = null;
+        if (!hasSubAdministrativeArea && address != null && address.getPostOffice() != null) {
+            postOffice = address.getPostOffice();
+        } else if (properties != null) {
+            postOffice = properties.getPostOffice();
+        }
 
-        PostCode postalCode = !hasSubAdministrativeArea && address != null && address.getPostCode() != null ?
-                address.getPostCode() :
-                object.getDeprecatedProperties().getPostalCode();
+        PostCode postalCode = null;
+        if (!hasSubAdministrativeArea && address != null && address.getPostCode() != null) {
+            postalCode = address.getPostCode();
+        } else if (properties != null) {
+            postalCode = properties.getPostalCode();
+        }
 
         if (locality != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Locality"), locality, LocalityAdapter.class, namespaces);

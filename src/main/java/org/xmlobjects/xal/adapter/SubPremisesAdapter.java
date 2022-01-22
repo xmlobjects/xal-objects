@@ -62,9 +62,11 @@ public class SubPremisesAdapter extends AbstractPremisesAdapter<SubPremises> {
     public void writeChildElements(SubPremises object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (Identifier buildingName : object.getDeprecatedProperties().getBuildingNames()) {
-            PremisesName nameElement = new PremisesName(buildingName.getContent());
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "NameElement"), nameElement, PremiseNameAdapter.class, namespaces);
+        if (object.hasDeprecatedProperties()) {
+            for (Identifier buildingName : object.getDeprecatedProperties().getBuildingNames()) {
+                PremisesName nameElement = new PremisesName(buildingName.getContent());
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "NameElement"), nameElement, PremiseNameAdapter.class, namespaces);
+            }
         }
     }
 }

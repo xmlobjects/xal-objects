@@ -30,6 +30,7 @@ import org.xmlobjects.xal.adapter.AddressObjectAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.AddressLineAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.CountryNameAdapter;
 import org.xmlobjects.xal.model.*;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfCountry;
 import org.xmlobjects.xal.model.types.CountryName;
 import org.xmlobjects.xal.util.XALConstants;
 import org.xmlobjects.xml.Attributes;
@@ -94,21 +95,33 @@ public class CountryAdapter extends AddressObjectAdapter<Country> {
     @Override
     public void writeChildElements(Country object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         Address address = object.getParent(Address.class);
+        DeprecatedPropertiesOfCountry properties = object.hasDeprecatedProperties() ?
+                object.getDeprecatedProperties() :
+                null;
 
         for (CountryName nameElement : object.getNameElements())
             writer.writeObjectUsingSerializer(nameElement, CountryNameAdapter.class, namespaces);
 
-        AdministrativeArea administrativeArea = address != null && address.getAdministrativeArea() != null ?
-                address.getAdministrativeArea() :
-                object.getDeprecatedProperties().getAdministrativeArea();
+        AdministrativeArea administrativeArea = null;
+        if (address != null && address.getAdministrativeArea() != null) {
+            administrativeArea = address.getAdministrativeArea();
+        } else if (properties != null) {
+            administrativeArea = properties.getAdministrativeArea();
+        }
 
-        Locality locality = address != null && address.getLocality() != null ?
-                address.getLocality() :
-                object.getDeprecatedProperties().getLocality();
+        Locality locality = null;
+        if (address != null && address.getLocality() != null) {
+            locality = address.getLocality();
+        } else if (properties != null) {
+            locality = properties.getLocality();
+        }
 
-        Thoroughfare thoroughfare = address != null && address.getThoroughfare() != null ?
-                address.getThoroughfare() :
-                object.getDeprecatedProperties().getThoroughfare();
+        Thoroughfare thoroughfare = null;
+        if (address != null && address.getThoroughfare() != null) {
+            thoroughfare = address.getThoroughfare();
+        } if (properties != null) {
+            thoroughfare = properties.getThoroughfare();
+        }
 
         if (administrativeArea != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "AdministrativeArea"), administrativeArea, AdministrativeAreaAdapter.class, namespaces);

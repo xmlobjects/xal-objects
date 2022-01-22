@@ -34,6 +34,7 @@ import org.xmlobjects.xal.model.Address;
 import org.xmlobjects.xal.model.FreeTextAddress;
 import org.xmlobjects.xal.model.Premises;
 import org.xmlobjects.xal.model.SubPremises;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfPremises;
 import org.xmlobjects.xal.model.types.PremisesNameOrNumber;
 import org.xmlobjects.xal.util.XALConstants;
 import org.xmlobjects.xml.Attributes;
@@ -104,10 +105,14 @@ public class FirmAdapter extends AddressObjectAdapter<Premises> {
         for (SubPremises subPremises : object.getSubPremises())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Department"), subPremises, DepartmentAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getMailStop() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "MailStop"), object.getDeprecatedProperties().getMailStop(), MailStopAdapter.class, namespaces);
+        if (object.hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfPremises properties = object.getDeprecatedProperties();
 
-        if (object.getDeprecatedProperties().getPostalCode() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCode"), object.getDeprecatedProperties().getPostalCode(), PostalCodeAdapter.class, namespaces);
+            if (properties.getMailStop() != null)
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "MailStop"), properties.getMailStop(), MailStopAdapter.class, namespaces);
+
+            if (properties.getPostalCode() != null)
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCode"), properties.getPostalCode(), PostalCodeAdapter.class, namespaces);
+        }
     }
 }

@@ -148,7 +148,7 @@ public class AddressDetailsAdapter extends AddressObjectAdapter<Address> {
 
     @Override
     public void writeChildElements(Address object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        if (object.getDeprecatedProperties().getPostalServiceElements() != null)
+        if (object.hasDeprecatedProperties() && object.getDeprecatedProperties().getPostalServiceElements() != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalServiceElements"), object.getDeprecatedProperties().getPostalServiceElements(), PostalServiceElementsAdapter.class, namespaces);
 
         if (object.getCountry() != null)

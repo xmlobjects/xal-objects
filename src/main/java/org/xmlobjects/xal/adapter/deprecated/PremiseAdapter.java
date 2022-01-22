@@ -31,6 +31,7 @@ import org.xmlobjects.xal.adapter.AddressObjectAdapter;
 import org.xmlobjects.xal.adapter.deprecated.helper.PremiseNamesAndNumbers;
 import org.xmlobjects.xal.adapter.deprecated.types.*;
 import org.xmlobjects.xal.model.*;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfPremises;
 import org.xmlobjects.xal.model.types.*;
 import org.xmlobjects.xal.util.XALConstants;
 import org.xmlobjects.xml.Attributes;
@@ -149,6 +150,10 @@ public class PremiseAdapter extends AddressObjectAdapter<Premises> {
         Address address = object.getParent(Address.class);
         PremiseNamesAndNumbers namesAndNumbers = PremiseNamesAndNumbers.of(object);
 
+        DeprecatedPropertiesOfPremises properties = object.hasDeprecatedProperties() ?
+                object.getDeprecatedProperties() :
+                null;
+
         for (PremisesName name : namesAndNumbers.getNames())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseName"), name, SubPremiseNameAdapter.class, namespaces);
 
@@ -168,8 +173,10 @@ public class PremiseAdapter extends AddressObjectAdapter<Premises> {
         for (Identifier suffix : namesAndNumbers.getSuffixes())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumberSuffix"), suffix, PremiseNumberSuffixAdapter.class, namespaces);
 
-        for (Identifier buildingName : object.getDeprecatedProperties().getBuildingNames())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "BuildingName"), buildingName, BuildingNameAdapter.class, namespaces);
+        if (properties != null) {
+            for (Identifier buildingName : properties.getBuildingNames())
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "BuildingName"), buildingName, BuildingNameAdapter.class, namespaces);
+        }
 
         if (!object.getSubPremises().isEmpty()) {
             ObjectSerializer<SubPremises> serializer = writer.getOrCreateSerializer(SubPremiseAdapter.class);
@@ -181,24 +188,30 @@ public class PremiseAdapter extends AddressObjectAdapter<Premises> {
             }
 
             writer.writeEndElements(object.getSubPremises().size());
-        } else if (object.getDeprecatedProperties().getFirm() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Firm"), object.getDeprecatedProperties().getFirm(), FirmAdapter.class, namespaces);
+        } else if (properties != null && properties.getFirm() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Firm"), properties.getFirm(), FirmAdapter.class, namespaces);
 
-        PostalDeliveryPoint mailStop = address != null && address.getPostalDeliveryPoint() != null && address.getPostalDeliveryPoint().getType() == PostalDeliveryPointType.MAIL_STOP ?
-                address.getPostalDeliveryPoint() :
-                object.getDeprecatedProperties().getMailStop();
+        PostalDeliveryPoint mailStop = null;
+        if (address != null && address.getPostalDeliveryPoint() != null && address.getPostalDeliveryPoint().getType() == PostalDeliveryPointType.MAIL_STOP) {
+            mailStop = address.getPostalDeliveryPoint();
+        } else if (properties != null) {
+            mailStop = properties.getMailStop();
+        }
 
         if (mailStop != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "MailStop"), mailStop, MailStopAdapter.class, namespaces);
 
-        PostCode postalCode = address != null && address.getLocality() == null && address.getPostCode() != null ?
-                address.getPostCode() :
-                object.getDeprecatedProperties().getPostalCode();
+        PostCode postalCode = null;
+        if (address != null && address.getLocality() == null && address.getPostCode() != null) {
+            postalCode = address.getPostCode();
+        } else if (properties != null) {
+            postalCode = properties.getPostalCode();
+        }
 
         if (postalCode != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCode"), postalCode, PostalCodeAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getPremise() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Premise"), object.getDeprecatedProperties().getPremise(), PremiseAdapter.class, namespaces);
+        if (properties != null && properties.getPremise() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Premise"), properties.getPremise(), PremiseAdapter.class, namespaces);
     }
 }

@@ -103,7 +103,7 @@ public class PostalCodeAdapter extends AddressObjectAdapter<PostCode> {
                 writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCodeNumberExtension"), identifier, PostalCodeNumberExtensionAdapter.class, namespaces);
         }
 
-        if (object.getDeprecatedProperties().getPostTown() != null)
+        if (object.hasDeprecatedProperties() && object.getDeprecatedProperties().getPostTown() != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostTown"), object.getDeprecatedProperties().getPostTown(), PostTownAdapter.class, namespaces);
     }
 }

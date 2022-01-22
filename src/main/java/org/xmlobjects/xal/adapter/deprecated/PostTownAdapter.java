@@ -93,7 +93,7 @@ public class PostTownAdapter extends AddressObjectAdapter<Locality> {
         for (LocalityName nameElement : object.getNameElements())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostTownName"), nameElement, PostTownNameAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getPostTownSuffix() != null)
+        if (object.hasDeprecatedProperties() && object.getDeprecatedProperties().getPostTownSuffix() != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostTownSuffix"), object.getDeprecatedProperties().getPostTownSuffix(), PostTownSuffixAdapter.class, namespaces);
     }
 }

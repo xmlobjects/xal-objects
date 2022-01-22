@@ -30,6 +30,7 @@ import org.xmlobjects.xal.adapter.AddressObjectAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.AddressLineAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.SubAdministrativeAreaNameAdapter;
 import org.xmlobjects.xal.model.*;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfSubAdministrativeArea;
 import org.xmlobjects.xal.model.types.SubAdministrativeAreaName;
 import org.xmlobjects.xal.model.types.SubAdministrativeAreaType;
 import org.xmlobjects.xal.util.XALConstants;
@@ -121,20 +122,33 @@ public class SubAdministrativeAreaAdapter extends AddressObjectAdapter<SubAdmini
     public void writeChildElements(SubAdministrativeArea object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         Address address = object.getParent(Address.class);
 
+        DeprecatedPropertiesOfSubAdministrativeArea properties = object.hasDeprecatedProperties() ?
+                object.getDeprecatedProperties() :
+                null;
+
         for (SubAdministrativeAreaName nameElement : object.getNameElements())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubAdministrativeAreaName"), nameElement, SubAdministrativeAreaNameAdapter.class, namespaces);
 
-        Locality locality = address != null && address.getLocality() != null ?
-                address.getLocality() :
-                object.getDeprecatedProperties().getLocality();
+        Locality locality = null;
+        if (address != null && address.getLocality() != null) {
+            locality = address.getLocality();
+        } else if (properties != null) {
+            locality = properties.getLocality();
+        }
 
-        PostOffice postOffice = address != null && address.getPostOffice() != null ?
-                address.getPostOffice() :
-                object.getDeprecatedProperties().getPostOffice();
+        PostOffice postOffice = null;
+        if (address != null && address.getPostOffice() != null) {
+            postOffice = address.getPostOffice();
+        } else if (properties != null) {
+            postOffice = properties.getPostOffice();
+        }
 
-        PostCode postalCode = address != null && address.getPostCode() != null ?
-                address.getPostCode() :
-                object.getDeprecatedProperties().getPostalCode();
+        PostCode postalCode = null;
+        if (address != null && address.getPostCode() != null) {
+            postalCode = address.getPostCode();
+        } else if (properties != null) {
+            postalCode = properties.getPostalCode();
+        }
 
         if (locality != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Locality"), locality, LocalityAdapter.class, namespaces);

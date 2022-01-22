@@ -34,6 +34,7 @@ import org.xmlobjects.xal.adapter.deprecated.types.LargeMailUserNameAdapter;
 import org.xmlobjects.xal.model.Address;
 import org.xmlobjects.xal.model.FreeTextAddress;
 import org.xmlobjects.xal.model.Premises;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfPremises;
 import org.xmlobjects.xal.model.types.Identifier;
 import org.xmlobjects.xal.model.types.PremisesNameOrNumber;
 import org.xmlobjects.xal.model.types.PremisesType;
@@ -119,19 +120,23 @@ public class LargeMailUserAdapter extends AddressObjectAdapter<Premises> {
         if (identifier != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "LargeMailUserIdentifier"), identifier, LargeMailUserIdentifierAdapter.class, namespaces);
 
-        for (Identifier buildingName : object.getDeprecatedProperties().getBuildingNames())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "BuildingName"), buildingName, BuildingNameAdapter.class, namespaces);
+        if (object.hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfPremises properties = object.getDeprecatedProperties();
 
-        if (object.getDeprecatedProperties().getDepartment() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Department"), object.getDeprecatedProperties().getDepartment(), DepartmentAdapter.class, namespaces);
+            for (Identifier buildingName : properties.getBuildingNames())
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "BuildingName"), buildingName, BuildingNameAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getPostBox() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostBox"), object.getDeprecatedProperties().getPostBox(), PostBoxAdapter.class, namespaces);
+            if (properties.getDepartment() != null)
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Department"), properties.getDepartment(), DepartmentAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getThoroughfare() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Thoroughfare"), object.getDeprecatedProperties().getThoroughfare(), ThoroughfareAdapter.class, namespaces);
+            if (properties.getPostBox() != null)
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostBox"), properties.getPostBox(), PostBoxAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getPostalCode() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCode"), object.getDeprecatedProperties().getPostalCode(), PostalCodeAdapter.class, namespaces);
+            if (properties.getThoroughfare() != null)
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Thoroughfare"), properties.getThoroughfare(), ThoroughfareAdapter.class, namespaces);
+
+            if (properties.getPostalCode() != null)
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCode"), properties.getPostalCode(), PostalCodeAdapter.class, namespaces);
+        }
     }
 }

@@ -31,6 +31,7 @@ import org.xmlobjects.xal.adapter.deprecated.types.AddressLineAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.PostOfficeNameAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.PostOfficeNumberAdapter;
 import org.xmlobjects.xal.model.*;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfPostOffice;
 import org.xmlobjects.xal.model.types.Identifier;
 import org.xmlobjects.xal.model.types.IdentifierElementType;
 import org.xmlobjects.xal.model.types.PostalDeliveryPointType;
@@ -112,6 +113,10 @@ public class PostOfficeAdapter extends AddressObjectAdapter<PostOffice> {
         Identifier number = null;
         boolean hasNames = false;
 
+        DeprecatedPropertiesOfPostOffice properties = object.hasDeprecatedProperties() ?
+                object.getDeprecatedProperties() :
+                null;
+
         for (Identifier identifier : object.getIdentifiers()) {
             if (identifier.getType() != IdentifierElementType.NUMBER) {
                 writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostOfficeName"), identifier, PostOfficeNameAdapter.class, namespaces);
@@ -123,19 +128,25 @@ public class PostOfficeAdapter extends AddressObjectAdapter<PostOffice> {
         if (!hasNames && number != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostOfficeNumber"), number, PostOfficeNumberAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getPostalRoute() != null)
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalRoute"), object.getDeprecatedProperties().getPostalRoute(), PostalRouteAdapter.class, namespaces);
+        if (properties != null && properties.getPostalRoute() != null)
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalRoute"), properties.getPostalRoute(), PostalRouteAdapter.class, namespaces);
 
-        PostalDeliveryPoint postBox = address != null && address.getLocality() == null && address.getPostalDeliveryPoint() != null && address.getPostalDeliveryPoint().getType() == PostalDeliveryPointType.PO_BOX ?
-                address.getPostalDeliveryPoint() :
-                object.getDeprecatedProperties().getPostBox();
+        PostalDeliveryPoint postBox = null;
+        if (address != null && address.getLocality() == null && address.getPostalDeliveryPoint() != null && address.getPostalDeliveryPoint().getType() == PostalDeliveryPointType.PO_BOX) {
+            postBox = address.getPostalDeliveryPoint();
+        } else if (properties != null) {
+            postBox = properties.getPostBox();
+        }
 
         if (postBox != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostBox"), postBox, PostBoxAdapter.class, namespaces);
 
-        PostCode postalCode = address != null && address.getLocality() == null && address.getPostCode() != null ?
-                address.getPostCode() :
-                object.getDeprecatedProperties().getPostalCode();
+        PostCode postalCode = null;
+        if (address != null && address.getLocality() == null && address.getPostCode() != null) {
+            postalCode = address.getPostCode();
+        } else if (properties != null) {
+            postalCode = properties.getPostalCode();
+        }
 
         if (postalCode != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalCode"), postalCode, PostalCodeAdapter.class, namespaces);
