@@ -112,7 +112,6 @@ public class PostOfficeAdapter extends AddressObjectAdapter<PostOffice> {
         Address address = object.getParent(Address.class);
         Identifier number = null;
         boolean hasNames = false;
-
         DeprecatedPropertiesOfPostOffice properties = object.hasDeprecatedProperties() ?
                 object.getDeprecatedProperties() :
                 null;

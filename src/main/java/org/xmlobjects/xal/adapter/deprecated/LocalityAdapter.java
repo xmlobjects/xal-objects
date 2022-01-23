@@ -149,7 +149,6 @@ public class LocalityAdapter extends AddressObjectAdapter<Locality> {
     @Override
     public void writeChildElements(Locality object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         Address address = object.getParent(Address.class);
-
         DeprecatedPropertiesOfLocality properties = object.hasDeprecatedProperties() ?
                 object.getDeprecatedProperties() :
                 null;

@@ -140,7 +140,6 @@ public class ThoroughfareAdapter extends AddressObjectAdapter<Thoroughfare> {
     public void writeChildElements(Thoroughfare object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         Address address = object.getParent(Address.class);
         ThoroughfareNamesAndNumbers namesAndNumbers = ThoroughfareNamesAndNumbers.of(object);
-
         DeprecatedPropertiesOfThoroughfare properties = object.hasDeprecatedProperties() ?
                 object.getDeprecatedProperties() :
                 null;

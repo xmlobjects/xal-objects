@@ -121,7 +121,6 @@ public class SubAdministrativeAreaAdapter extends AddressObjectAdapter<SubAdmini
     @Override
     public void writeChildElements(SubAdministrativeArea object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         Address address = object.getParent(Address.class);
-
         DeprecatedPropertiesOfSubAdministrativeArea properties = object.hasDeprecatedProperties() ?
                 object.getDeprecatedProperties() :
                 null;

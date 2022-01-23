@@ -152,7 +152,6 @@ public class DependentLocalityAdapter extends AddressObjectAdapter<SubLocality> 
     public void writeChildElements(SubLocality object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         Address address = object.getParent(Address.class);
         SubLocalityName number = null;
-
         DeprecatedPropertiesOfSubLocality properties = object.hasDeprecatedProperties() ?
                 object.getDeprecatedProperties() :
                 null;

@@ -124,7 +124,6 @@ public class AdministrativeAreaAdapter extends AddressObjectAdapter<Administrati
     @Override
     public void writeChildElements(AdministrativeArea object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         Address address = object.getParent(Address.class);
-
         DeprecatedPropertiesOfAdministrativeArea properties = object.hasDeprecatedProperties() ?
                 object.getDeprecatedProperties() :
                 null;
