@@ -62,7 +62,9 @@ public class PostCodeAdapter extends AddressObjectAdapter<PostCode> {
 
     @Override
     public void writeChildElements(PostCode object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        for (Identifier identifier : object.getIdentifiers())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "Identifier"), identifier, IdentifierAdapter.class, namespaces);
+        if (object.isSetIdentifiers()) {
+            for (Identifier identifier : object.getIdentifiers())
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "Identifier"), identifier, IdentifierAdapter.class, namespaces);
+        }
     }
 }

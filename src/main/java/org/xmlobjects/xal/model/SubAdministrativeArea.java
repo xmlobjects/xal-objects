@@ -52,6 +52,10 @@ public class SubAdministrativeArea extends AddressObject implements DataQuality 
         return nameElements;
     }
 
+    public boolean isSetNameElements() {
+        return nameElements != null && !nameElements.isEmpty();
+    }
+
     public void setNameElements(List<SubAdministrativeAreaName> nameElements) {
         this.nameElements = asChild(nameElements);
     }

@@ -53,6 +53,10 @@ public class AdministrativeArea extends AddressObject implements DataQuality {
         return nameElements;
     }
 
+    public boolean isSetNameElements() {
+        return nameElements != null && !nameElements.isEmpty();
+    }
+
     public void setNameElements(List<AdministrativeAreaName> nameElements) {
         this.nameElements = asChild(nameElements);
     }

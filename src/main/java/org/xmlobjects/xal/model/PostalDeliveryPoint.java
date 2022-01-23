@@ -52,6 +52,10 @@ public class PostalDeliveryPoint extends AddressObject implements DataQuality {
         return identifiers;
     }
 
+    public boolean isSetIdentifiers() {
+        return identifiers != null && !identifiers.isEmpty();
+    }
+
     public void setIdentifiers(List<Identifier> identifiers) {
         this.identifiers = asChild(identifiers);
     }

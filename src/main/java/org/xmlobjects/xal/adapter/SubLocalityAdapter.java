@@ -67,7 +67,9 @@ public class SubLocalityAdapter extends AddressObjectAdapter<SubLocality> {
 
     @Override
     public void writeChildElements(SubLocality object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        for (SubLocalityName name : object.getNameElements())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "NameElement"), name, SubLocalityNameAdapter.class, namespaces);
+        if (object.isSetNameElements()) {
+            for (SubLocalityName name : object.getNameElements())
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "NameElement"), name, SubLocalityNameAdapter.class, namespaces);
+        }
     }
 }

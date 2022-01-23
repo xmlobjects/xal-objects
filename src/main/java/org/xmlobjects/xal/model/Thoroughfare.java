@@ -36,6 +36,10 @@ public class Thoroughfare extends AbstractThoroughfare {
         return subThoroughfares;
     }
 
+    public boolean isSetSubThoroughfares() {
+        return subThoroughfares != null && !subThoroughfares.isEmpty();
+    }
+
     public void setSubThoroughfares(List<SubThoroughfare> subThoroughfares) {
         this.subThoroughfares = asChild(subThoroughfares);
     }

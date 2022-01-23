@@ -1,8 +1,10 @@
 /*
- * xal-objects - A Java mapping for the OASIS eXtensible Address Language (xAL)
- * https://github.com/xmlobjects/xal-objects
+ * citygml4j-cityjson - CityJSON module for citygml4j
+ * https://github.com/citygml4j/citygml4j-cityjson
  *
- * Copyright 2019-2021 Claus Nagel <claus.nagel@gmail.com>
+ * citygml4j-cityjson is part of the citygml4j project
+ *
+ * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +19,9 @@
  * limitations under the License.
  */
 
-package org.xmlobjects.xal.model.deprecated;
+package org.xmlobjects.xal.model;
 
 import org.xmlobjects.model.ChildList;
-import org.xmlobjects.xal.model.AddressObject;
 import org.xmlobjects.xal.model.deprecated.types.AddressIdentifier;
 import org.xmlobjects.xal.model.deprecated.types.PostalServiceElement;
 import org.xmlobjects.xal.visitor.XALVisitor;
@@ -42,14 +43,18 @@ public class PostalServiceElements extends AddressObject {
     private String type;
     private Attributes otherAttributes;
 
-    public List<AddressIdentifier> getAddressIdentifier() {
+    public List<AddressIdentifier> getAddressIdentifiers() {
         if (addressIdentifier == null)
             addressIdentifier = new ChildList<>(this);
 
         return addressIdentifier;
     }
 
-    public void setAddressIdentifier(List<AddressIdentifier> addressIdentifier) {
+    public boolean isSetAddressIdentifiers() {
+        return addressIdentifier != null && !addressIdentifier.isEmpty();
+    }
+
+    public void setAddressIdentifiers(List<AddressIdentifier> addressIdentifier) {
         this.addressIdentifier = asChild(addressIdentifier);
     }
 
@@ -122,6 +127,10 @@ public class PostalServiceElements extends AddressObject {
             supplementaryPostalServiceData = new ChildList<>(this);
 
         return supplementaryPostalServiceData;
+    }
+
+    public boolean isSetSupplementaryPostalServiceData() {
+        return supplementaryPostalServiceData != null && !supplementaryPostalServiceData.isEmpty();
     }
 
     public void setSupplementaryPostalServiceData(List<PostalServiceElement> supplementaryPostalServiceData) {

@@ -35,6 +35,10 @@ public abstract class AbstractPremises extends AddressObject {
         return nameElementOrNumber;
     }
 
+    public boolean isSetNameElementOrNumber() {
+        return nameElementOrNumber != null && !nameElementOrNumber.isEmpty();
+    }
+
     public void setNameElementOrNumber(List<PremisesNameOrNumber> nameElementOrNumber) {
         this.nameElementOrNumber = asChild(nameElementOrNumber);
     }

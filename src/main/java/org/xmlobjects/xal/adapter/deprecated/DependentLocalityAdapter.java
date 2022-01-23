@@ -157,11 +157,13 @@ public class DependentLocalityAdapter extends AddressObjectAdapter<SubLocality> 
                 object.getDeprecatedProperties() :
                 null;
 
-        for (SubLocalityName nameElement : object.getNameElements()) {
-            if (nameElement.getNameType() == SubLocalityNameType.NAME)
-                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "DependentLocalityName"), nameElement, DependentLocalityNameAdapter.class, namespaces);
-            else if (number == null && nameElement.getNameType() == SubLocalityNameType.NUMBER)
-                number = nameElement;
+        if (object.isSetNameElements()) {
+            for (SubLocalityName nameElement : object.getNameElements()) {
+                if (nameElement.getNameType() == SubLocalityNameType.NAME)
+                    writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "DependentLocalityName"), nameElement, DependentLocalityNameAdapter.class, namespaces);
+                else if (number == null && nameElement.getNameType() == SubLocalityNameType.NUMBER)
+                    number = nameElement;
+            }
         }
 
         if (number != null)

@@ -37,7 +37,7 @@ public class PremiseNamesAndNumbers {
 
     public static PremiseNamesAndNumbers of(AbstractPremises premise) {
         PremiseNamesAndNumbers result = new PremiseNamesAndNumbers();
-        if (!premise.getNameElementOrNumber().isEmpty()) {
+        if (premise.isSetNameElementOrNumber()) {
             ParsedNumber number = new ParsedNumber();
             for (PremisesNameOrNumber nameElementOrNumber : premise.getNameElementOrNumber()) {
                 if (nameElementOrNumber.isSetNameElement()) {

@@ -99,8 +99,10 @@ public class CountryAdapter extends AddressObjectAdapter<Country> {
                 object.getDeprecatedProperties() :
                 null;
 
-        for (CountryName nameElement : object.getNameElements())
-            writer.writeObjectUsingSerializer(nameElement, CountryNameAdapter.class, namespaces);
+        if (object.isSetNameElements()) {
+            for (CountryName nameElement : object.getNameElements())
+                writer.writeObjectUsingSerializer(nameElement, CountryNameAdapter.class, namespaces);
+        }
 
         AdministrativeArea administrativeArea = null;
         if (address != null && address.getAdministrativeArea() != null) {

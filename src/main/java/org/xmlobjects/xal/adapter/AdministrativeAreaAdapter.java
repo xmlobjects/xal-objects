@@ -75,8 +75,10 @@ public class AdministrativeAreaAdapter extends AddressObjectAdapter<Administrati
 
     @Override
     public void writeChildElements(AdministrativeArea object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        for (AdministrativeAreaName name : object.getNameElements())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "NameElement"), name, AdministrativeAreaNameAdapter.class, namespaces);
+        if (object.isSetNameElements()) {
+            for (AdministrativeAreaName name : object.getNameElements())
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "NameElement"), name, AdministrativeAreaNameAdapter.class, namespaces);
+        }
 
         if (object.getSubAdministrativeArea() != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "SubAdministrativeArea"), object.getSubAdministrativeArea(), SubAdministrativeAreaAdapter.class, namespaces);

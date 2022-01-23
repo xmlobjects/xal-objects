@@ -96,12 +96,14 @@ public class PostalRouteAdapter extends AddressObjectAdapter<Thoroughfare> {
         Identifier number = null;
         boolean hasNames = false;
 
-        for (ThoroughfareNameOrNumber nameElementOrNumber : object.getNameElementOrNumber()) {
-            if (nameElementOrNumber.isSetNameElement()) {
-                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalRouteName"), nameElementOrNumber.getNameElement(), PostalRouteNameAdapter.class, namespaces);
-                hasNames = true;
-            } else if (!hasNames && number == null)
-                number = nameElementOrNumber.getNumber();
+        if (object.isSetNameElementOrNumber()) {
+            for (ThoroughfareNameOrNumber nameElementOrNumber : object.getNameElementOrNumber()) {
+                if (nameElementOrNumber.isSetNameElement()) {
+                    writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostalRouteName"), nameElementOrNumber.getNameElement(), PostalRouteNameAdapter.class, namespaces);
+                    hasNames = true;
+                } else if (!hasNames && number == null)
+                    number = nameElementOrNumber.getNumber();
+            }
         }
 
         if (!hasNames && number != null)

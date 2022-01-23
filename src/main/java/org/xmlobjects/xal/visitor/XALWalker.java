@@ -193,9 +193,11 @@ public abstract class XALWalker implements XALVisitor {
     public void visit(Premises premises) {
         visit((AddressObject) premises);
 
-        for (SubPremises subPremises : premises.getSubPremises()) {
-            if (shouldWalk)
-                subPremises.accept(this);
+        if (premises.isSetSubPremises()) {
+            for (SubPremises subPremises : premises.getSubPremises()) {
+                if (shouldWalk)
+                    subPremises.accept(this);
+            }
         }
 
         if (premises.hasDeprecatedProperties()) {
@@ -310,9 +312,11 @@ public abstract class XALWalker implements XALVisitor {
     public void visit(Thoroughfare thoroughfare) {
         visit((AddressObject) thoroughfare);
 
-        for (SubThoroughfare subThoroughfare : thoroughfare.getSubThoroughfares()) {
-            if (shouldWalk)
-                subThoroughfare.accept(this);
+        if (thoroughfare.isSetSubThoroughfares()) {
+            for (SubThoroughfare subThoroughfare : thoroughfare.getSubThoroughfares()) {
+                if (shouldWalk)
+                    subThoroughfare.accept(this);
+            }
         }
 
         if (thoroughfare.hasDeprecatedProperties()) {

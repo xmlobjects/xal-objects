@@ -62,7 +62,9 @@ public class FreeTextAddressAdapter extends AddressObjectAdapter<FreeTextAddress
 
     @Override
     public void writeChildElements(FreeTextAddress object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        for (AddressLine addressLine : object.getAddressLines())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "AddressLine"), addressLine, AddressLineAdapter.class, namespaces);
+        if (object.isSetAddressLines()) {
+            for (AddressLine addressLine : object.getAddressLines())
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "AddressLine"), addressLine, AddressLineAdapter.class, namespaces);
+        }
     }
 }

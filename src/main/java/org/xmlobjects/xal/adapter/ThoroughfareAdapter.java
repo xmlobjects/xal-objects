@@ -55,7 +55,9 @@ public class ThoroughfareAdapter extends AbstractThoroughfareAdapter<Thoroughfar
     public void writeChildElements(Thoroughfare object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (SubThoroughfare subThoroughfare : object.getSubThoroughfares())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "SubThoroughfare"), subThoroughfare, SubThoroughfareAdapter.class, namespaces);
+        if (object.isSetSubThoroughfares()) {
+            for (SubThoroughfare subThoroughfare : object.getSubThoroughfares())
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "SubThoroughfare"), subThoroughfare, SubThoroughfareAdapter.class, namespaces);
+        }
     }
 }

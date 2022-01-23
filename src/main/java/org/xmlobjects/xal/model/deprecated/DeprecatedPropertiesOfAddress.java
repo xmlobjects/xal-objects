@@ -19,6 +19,8 @@
 
 package org.xmlobjects.xal.model.deprecated;
 
+import org.xmlobjects.xal.model.PostalServiceElements;
+
 public class DeprecatedPropertiesOfAddress extends DeprecatedProperties {
     private PostalServiceElements postalServiceElements;
 

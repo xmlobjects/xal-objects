@@ -42,6 +42,10 @@ public abstract class AbstractThoroughfare extends AddressObject implements Data
         return nameElementOrNumber;
     }
 
+    public boolean isSetNameElementOrNumber() {
+        return nameElementOrNumber != null && !nameElementOrNumber.isEmpty();
+    }
+
     public void setNameElementOrNumber(List<ThoroughfareNameOrNumber> nameElementOrNumber) {
         this.nameElementOrNumber = asChild(nameElementOrNumber);
     }

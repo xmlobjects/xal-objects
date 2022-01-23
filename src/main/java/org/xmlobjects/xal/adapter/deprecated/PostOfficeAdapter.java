@@ -117,12 +117,14 @@ public class PostOfficeAdapter extends AddressObjectAdapter<PostOffice> {
                 object.getDeprecatedProperties() :
                 null;
 
-        for (Identifier identifier : object.getIdentifiers()) {
-            if (identifier.getType() != IdentifierElementType.NUMBER) {
-                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostOfficeName"), identifier, PostOfficeNameAdapter.class, namespaces);
-                hasNames = true;
-            } else if (number == null && identifier.getType() == IdentifierElementType.NUMBER)
-                number = identifier;
+        if (object.isSetIdentifiers()) {
+            for (Identifier identifier : object.getIdentifiers()) {
+                if (identifier.getType() != IdentifierElementType.NUMBER) {
+                    writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PostOfficeName"), identifier, PostOfficeNameAdapter.class, namespaces);
+                    hasNames = true;
+                } else if (number == null && identifier.getType() == IdentifierElementType.NUMBER)
+                    number = identifier;
+            }
         }
 
         if (!hasNames && number != null)

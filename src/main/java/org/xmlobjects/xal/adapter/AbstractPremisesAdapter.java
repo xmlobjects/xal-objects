@@ -67,11 +67,13 @@ public abstract class AbstractPremisesAdapter<T extends AbstractPremises> extend
 
     @Override
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        for (PremisesNameOrNumber element : object.getNameElementOrNumber()) {
-            if (element.isSetNameElement())
-                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "NameElement"), element.getNameElement(), PremisesNameAdapter.class, namespaces);
-            else if (element.isSetNumber())
-                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "Number"), element.getNumber(), IdentifierAdapter.class, namespaces);
+        if (object.isSetNameElementOrNumber()) {
+            for (PremisesNameOrNumber element : object.getNameElementOrNumber()) {
+                if (element.isSetNameElement())
+                    writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "NameElement"), element.getNameElement(), PremisesNameAdapter.class, namespaces);
+                else if (element.isSetNumber())
+                    writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "Number"), element.getNumber(), IdentifierAdapter.class, namespaces);
+            }
         }
     }
 }

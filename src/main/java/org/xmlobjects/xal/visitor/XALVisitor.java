@@ -20,7 +20,6 @@
 package org.xmlobjects.xal.visitor;
 
 import org.xmlobjects.xal.model.*;
-import org.xmlobjects.xal.model.deprecated.PostalServiceElements;
 
 public interface XALVisitor {
     void visit(Address address);

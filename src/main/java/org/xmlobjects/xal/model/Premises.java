@@ -45,6 +45,10 @@ public class Premises extends AbstractPremises {
         return subPremises;
     }
 
+    public boolean isSetSubPremises() {
+        return subPremises != null && !subPremises.isEmpty();
+    }
+
     public void setSubPremises(List<SubPremises> subPremises) {
         this.subPremises = asChild(subPremises);
     }

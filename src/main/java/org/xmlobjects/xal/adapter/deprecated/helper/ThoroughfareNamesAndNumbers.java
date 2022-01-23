@@ -37,7 +37,7 @@ public class ThoroughfareNamesAndNumbers {
 
     public static ThoroughfareNamesAndNumbers of(AbstractThoroughfare thoroughfare) {
         ThoroughfareNamesAndNumbers result = new ThoroughfareNamesAndNumbers();
-        if (!thoroughfare.getNameElementOrNumber().isEmpty()) {
+        if (thoroughfare.isSetNameElementOrNumber()) {
             ParsedNumber number = new ParsedNumber();
             for (ThoroughfareNameOrNumber nameElementOrNumber : thoroughfare.getNameElementOrNumber()) {
                 if (nameElementOrNumber.isSetNameElement()) {

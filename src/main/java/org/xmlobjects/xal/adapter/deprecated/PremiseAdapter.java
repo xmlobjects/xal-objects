@@ -173,12 +173,12 @@ public class PremiseAdapter extends AddressObjectAdapter<Premises> {
         for (Identifier suffix : namesAndNumbers.getSuffixes())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "PremiseNumberSuffix"), suffix, PremiseNumberSuffixAdapter.class, namespaces);
 
-        if (properties != null) {
+        if (properties != null && properties.isSetBuildingNames()) {
             for (Identifier buildingName : properties.getBuildingNames())
                 writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "BuildingName"), buildingName, BuildingNameAdapter.class, namespaces);
         }
 
-        if (!object.getSubPremises().isEmpty()) {
+        if (object.isSetSubPremises()) {
             ObjectSerializer<SubPremises> serializer = writer.getOrCreateSerializer(SubPremiseAdapter.class);
             for (SubPremises subPremise : object.getSubPremises()) {
                 Element element = Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubPremise");

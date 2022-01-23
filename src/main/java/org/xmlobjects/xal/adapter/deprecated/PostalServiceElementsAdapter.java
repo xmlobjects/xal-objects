@@ -28,7 +28,7 @@ import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xal.adapter.AddressObjectAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.AddressIdentifierAdapter;
 import org.xmlobjects.xal.adapter.deprecated.types.PostalServiceElementAdapter;
-import org.xmlobjects.xal.model.deprecated.PostalServiceElements;
+import org.xmlobjects.xal.model.PostalServiceElements;
 import org.xmlobjects.xal.model.deprecated.types.AddressIdentifier;
 import org.xmlobjects.xal.model.deprecated.types.PostalServiceElement;
 import org.xmlobjects.xal.util.XALConstants;
@@ -56,7 +56,7 @@ public class PostalServiceElementsAdapter extends AddressObjectAdapter<PostalSer
         if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "AddressIdentifier":
-                    object.getAddressIdentifier().add(reader.getObjectUsingBuilder(AddressIdentifierAdapter.class));
+                    object.getAddressIdentifiers().add(reader.getObjectUsingBuilder(AddressIdentifierAdapter.class));
                     break;
                 case "EndorsementLineCode":
                     object.setEndorsementLineCode(reader.getObjectUsingBuilder(PostalServiceElementAdapter.class));
@@ -97,8 +97,10 @@ public class PostalServiceElementsAdapter extends AddressObjectAdapter<PostalSer
 
     @Override
     public void writeChildElements(PostalServiceElements object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        for (AddressIdentifier identifier : object.getAddressIdentifier())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "AddressIdentifier"), identifier, AddressIdentifierAdapter.class, namespaces);
+        if (object.isSetAddressIdentifiers()) {
+            for (AddressIdentifier identifier : object.getAddressIdentifiers())
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "AddressIdentifier"), identifier, AddressIdentifierAdapter.class, namespaces);
+        }
 
         if (object.getEndorsementLineCode() != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "EndorsementLineCode"), object.getEndorsementLineCode(), PostalServiceElementAdapter.class, namespaces);
@@ -124,7 +126,9 @@ public class PostalServiceElementsAdapter extends AddressObjectAdapter<PostalSer
         if (object.getAddressLongitudeDirection() != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "AddressLongitudeDirection"), object.getAddressLongitudeDirection(), PostalServiceElementAdapter.class, namespaces);
 
-        for (PostalServiceElement element : object.getSupplementaryPostalServiceData())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SupplementaryPostalServiceData"), element, PostalServiceElementAdapter.class, namespaces);
+        if (object.isSetSupplementaryPostalServiceData()) {
+            for (PostalServiceElement element : object.getSupplementaryPostalServiceData())
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SupplementaryPostalServiceData"), element, PostalServiceElementAdapter.class, namespaces);
+        }
     }
 }

@@ -34,6 +34,10 @@ public class GeoRSS extends AddressObject {
         return genericElements;
     }
 
+    public boolean isSetGenericElements() {
+        return genericElements != null && !genericElements.isEmpty();
+    }
+
     public void setGenericElements(List<GenericElement> genericElements) {
         this.genericElements = asChild(genericElements);
     }

@@ -97,13 +97,17 @@ public class FirmAdapter extends AddressObjectAdapter<Premises> {
 
     @Override
     public void writeChildElements(Premises object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        for (PremisesNameOrNumber nameElementOrNumber : object.getNameElementOrNumber()) {
-            if (nameElementOrNumber.isSetNameElement())
-                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "FirmName"), nameElementOrNumber.getNameElement(), DepartmentNameAdapter.class, namespaces);
+        if (object.isSetNameElementOrNumber()) {
+            for (PremisesNameOrNumber nameElementOrNumber : object.getNameElementOrNumber()) {
+                if (nameElementOrNumber.isSetNameElement())
+                    writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "FirmName"), nameElementOrNumber.getNameElement(), DepartmentNameAdapter.class, namespaces);
+            }
         }
 
-        for (SubPremises subPremises : object.getSubPremises())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Department"), subPremises, DepartmentAdapter.class, namespaces);
+        if (object.isSetSubPremises()) {
+            for (SubPremises subPremises : object.getSubPremises())
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Department"), subPremises, DepartmentAdapter.class, namespaces);
+        }
 
         if (object.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfPremises properties = object.getDeprecatedProperties();

@@ -168,7 +168,7 @@ public class AddressDetailsAdapter extends AddressObjectAdapter<Address> {
         serializer.initializeElement(element, object, namespaces, writer);
         writer.writeStartElement(element);
 
-        if (address.getFreeTextAddress() != null) {
+        if (address.getFreeTextAddress() != null && address.getFreeTextAddress().isSetAddressLines()) {
             for (AddressLine addressLine : address.getFreeTextAddress().getAddressLines())
                 writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "AddressLine"), addressLine, AddressLineAdapter.class, namespaces);
         }

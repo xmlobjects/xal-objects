@@ -126,8 +126,10 @@ public class SubAdministrativeAreaAdapter extends AddressObjectAdapter<SubAdmini
                 object.getDeprecatedProperties() :
                 null;
 
-        for (SubAdministrativeAreaName nameElement : object.getNameElements())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubAdministrativeAreaName"), nameElement, SubAdministrativeAreaNameAdapter.class, namespaces);
+        if (object.isSetNameElements()) {
+            for (SubAdministrativeAreaName nameElement : object.getNameElements())
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "SubAdministrativeAreaName"), nameElement, SubAdministrativeAreaNameAdapter.class, namespaces);
+        }
 
         Locality locality = null;
         if (address != null && address.getLocality() != null) {

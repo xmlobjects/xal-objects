@@ -50,7 +50,9 @@ public class CountryAdapter extends AddressObjectAdapter<Country> {
 
     @Override
     public void writeChildElements(Country object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        for (CountryName name : object.getNameElements())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "NameElement"), name, CountryNameAdapter.class, namespaces);
+        if (object.isSetNameElements()) {
+            for (CountryName name : object.getNameElements())
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "NameElement"), name, CountryNameAdapter.class, namespaces);
+        }
     }
 }

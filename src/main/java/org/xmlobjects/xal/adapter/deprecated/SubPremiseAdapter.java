@@ -153,8 +153,10 @@ public class SubPremiseAdapter extends AddressObjectAdapter<SubPremises> {
         if (object.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfSubPremises properties = object.getDeprecatedProperties();
 
-            for (Identifier buildingName : properties.getBuildingNames())
-                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "BuildingName"), buildingName, BuildingNameAdapter.class, namespaces);
+            if (properties.isSetBuildingNames()) {
+                for (Identifier buildingName : properties.getBuildingNames())
+                    writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "BuildingName"), buildingName, BuildingNameAdapter.class, namespaces);
+            }
 
             if (properties.getFirm() != null)
                 writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Firm"), properties.getFirm(), FirmAdapter.class, namespaces);

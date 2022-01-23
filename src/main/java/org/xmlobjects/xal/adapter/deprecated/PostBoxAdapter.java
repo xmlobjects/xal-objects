@@ -114,25 +114,27 @@ public class PostBoxAdapter extends AddressObjectAdapter<PostalDeliveryPoint> {
         Identifier suffix = null;
         Identifier extension = null;
 
-        for (Identifier identifier : object.getIdentifiers()) {
-            IdentifierElementType type = identifier.getType();
-            switch (type != null ? type : IdentifierElementType.NUMBER) {
-                case PREFIX:
-                    if (prefix == null)
-                        prefix = identifier;
-                    break;
-                case SUFFIX:
-                    if (suffix == null)
-                        suffix = identifier;
-                    break;
-                case EXTENSION:
-                    if (extension == null)
-                        extension = identifier;
-                    break;
-                default:
-                    if (number == null)
-                        number = identifier;
-                    break;
+        if (object.isSetIdentifiers()) {
+            for (Identifier identifier : object.getIdentifiers()) {
+                IdentifierElementType type = identifier.getType();
+                switch (type != null ? type : IdentifierElementType.NUMBER) {
+                    case PREFIX:
+                        if (prefix == null)
+                            prefix = identifier;
+                        break;
+                    case SUFFIX:
+                        if (suffix == null)
+                            suffix = identifier;
+                        break;
+                    case EXTENSION:
+                        if (extension == null)
+                            extension = identifier;
+                        break;
+                    default:
+                        if (number == null)
+                            number = identifier;
+                        break;
+                }
             }
         }
 

@@ -27,6 +27,7 @@ import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.xal.adapter.deprecated.types.PremiseNameAdapter;
 import org.xmlobjects.xal.model.SubPremises;
+import org.xmlobjects.xal.model.deprecated.DeprecatedPropertiesOfSubPremises;
 import org.xmlobjects.xal.model.types.Identifier;
 import org.xmlobjects.xal.model.types.PremisesName;
 import org.xmlobjects.xal.model.types.SubPremisesType;
@@ -63,9 +64,13 @@ public class SubPremisesAdapter extends AbstractPremisesAdapter<SubPremises> {
         super.writeChildElements(object, namespaces, writer);
 
         if (object.hasDeprecatedProperties()) {
-            for (Identifier buildingName : object.getDeprecatedProperties().getBuildingNames()) {
-                PremisesName nameElement = new PremisesName(buildingName.getContent());
-                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "NameElement"), nameElement, PremiseNameAdapter.class, namespaces);
+            DeprecatedPropertiesOfSubPremises properties = object.getDeprecatedProperties();
+
+            if (properties.isSetBuildingNames()) {
+                for (Identifier buildingName : properties.getBuildingNames()) {
+                    PremisesName nameElement = new PremisesName(buildingName.getContent());
+                    writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_3_0_NAMESPACE, "NameElement"), nameElement, PremiseNameAdapter.class, namespaces);
+                }
             }
         }
     }

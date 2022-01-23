@@ -92,9 +92,11 @@ public class DepartmentAdapter extends AddressObjectAdapter<SubPremises> {
 
     @Override
     public void writeChildElements(SubPremises object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        for (PremisesNameOrNumber nameElementOrNumber : object.getNameElementOrNumber()) {
-            if (nameElementOrNumber.isSetNameElement())
-                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "DepartmentName"), nameElementOrNumber.getNameElement(), DepartmentNameAdapter.class, namespaces);
+        if (object.isSetNameElementOrNumber()) {
+            for (PremisesNameOrNumber nameElementOrNumber : object.getNameElementOrNumber()) {
+                if (nameElementOrNumber.isSetNameElement())
+                    writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "DepartmentName"), nameElementOrNumber.getNameElement(), DepartmentNameAdapter.class, namespaces);
+            }
         }
 
         if (object.hasDeprecatedProperties()) {

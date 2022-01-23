@@ -129,8 +129,10 @@ public class AdministrativeAreaAdapter extends AddressObjectAdapter<Administrati
                 object.getDeprecatedProperties() :
                 null;
 
-        for (AdministrativeAreaName nameElement : object.getNameElements())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "AdministrativeAreaName"), nameElement, AdministrativeAreaNameAdapter.class, namespaces);
+        if (object.isSetNameElements()) {
+            for (AdministrativeAreaName nameElement : object.getNameElements())
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "AdministrativeAreaName"), nameElement, AdministrativeAreaNameAdapter.class, namespaces);
+        }
 
         boolean hasSubAdministrativeArea = object.getSubAdministrativeArea() != null;
         if (hasSubAdministrativeArea)

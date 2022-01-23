@@ -53,6 +53,10 @@ public class Locality extends AddressObject implements DataQuality {
         return nameElements;
     }
 
+    public boolean isSetNameElements() {
+        return nameElements != null && !nameElements.isEmpty();
+    }
+
     public void setNameElements(List<LocalityName> nameElements) {
         this.nameElements = asChild(nameElements);
     }

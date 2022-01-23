@@ -110,11 +110,13 @@ public class LargeMailUserAdapter extends AddressObjectAdapter<Premises> {
     public void writeChildElements(Premises object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         Identifier identifier = null;
 
-        for (PremisesNameOrNumber nameElementOrNumber : object.getNameElementOrNumber()) {
-            if (nameElementOrNumber.isSetNameElement())
-                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "LargeMailUserName"), nameElementOrNumber.getNameElement(), LargeMailUserNameAdapter.class, namespaces);
-            else if (identifier == null)
-                identifier = nameElementOrNumber.getNumber();
+        if (object.isSetNameElementOrNumber()) {
+            for (PremisesNameOrNumber nameElementOrNumber : object.getNameElementOrNumber()) {
+                if (nameElementOrNumber.isSetNameElement())
+                    writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "LargeMailUserName"), nameElementOrNumber.getNameElement(), LargeMailUserNameAdapter.class, namespaces);
+                else if (identifier == null)
+                    identifier = nameElementOrNumber.getNumber();
+            }
         }
 
         if (identifier != null)
@@ -123,8 +125,10 @@ public class LargeMailUserAdapter extends AddressObjectAdapter<Premises> {
         if (object.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfPremises properties = object.getDeprecatedProperties();
 
-            for (Identifier buildingName : properties.getBuildingNames())
-                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "BuildingName"), buildingName, BuildingNameAdapter.class, namespaces);
+            if (properties.isSetBuildingNames()) {
+                for (Identifier buildingName : properties.getBuildingNames())
+                    writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "BuildingName"), buildingName, BuildingNameAdapter.class, namespaces);
+            }
 
             if (properties.getDepartment() != null)
                 writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "Department"), properties.getDepartment(), DepartmentAdapter.class, namespaces);

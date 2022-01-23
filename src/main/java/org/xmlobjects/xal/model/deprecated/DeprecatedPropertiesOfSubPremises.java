@@ -42,6 +42,10 @@ public class DeprecatedPropertiesOfSubPremises extends DeprecatedProperties {
         return buildingNames;
     }
 
+    public boolean isSetBuildingNames() {
+        return buildingNames != null && !buildingNames.isEmpty();
+    }
+
     public void setBuildingNames(List<Identifier> buildingNames) {
         this.buildingNames = asChild(buildingNames);
     }

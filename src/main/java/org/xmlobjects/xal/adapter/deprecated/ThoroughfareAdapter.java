@@ -167,7 +167,7 @@ public class ThoroughfareAdapter extends AddressObjectAdapter<Thoroughfare> {
         if (namesAndNumbers.getPostDirection() != null)
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfarePostDirection"), namesAndNumbers.getPostDirection(), ThoroughfarePostDirectionAdapter.class, namespaces);
 
-        if (!object.getSubThoroughfares().isEmpty())
+        if (object.isSetSubThoroughfares())
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "DependentThoroughfare"), object.getSubThoroughfares().get(0), DependentThoroughfareAdapter.class, namespaces);
 
         Premises premise = null;

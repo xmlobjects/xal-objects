@@ -41,6 +41,10 @@ public class FreeTextAddress extends AddressObject implements DataQuality {
         return addressLines;
     }
 
+    public boolean isSetAddressLines() {
+        return addressLines != null && !addressLines.isEmpty();
+    }
+
     public void setAddressLines(List<AddressLine> addressLines) {
         this.addressLines = asChild(addressLines);
     }

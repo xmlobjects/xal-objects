@@ -48,9 +48,11 @@ public class GeoRSSAdapter extends AddressObjectAdapter<GeoRSS> {
 
     @Override
     public void writeChildElements(GeoRSS object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        for (GenericElement element : object.getGenericElements()) {
-            if (XALConstants.GEORSS_1_1_NAMESPACE.equals(element.getNamespaceURI()))
-                writer.writeDOMElement(element.getContent());
+        if (object.isSetGenericElements()) {
+            for (GenericElement element : object.getGenericElements()) {
+                if (XALConstants.GEORSS_1_1_NAMESPACE.equals(element.getNamespaceURI()))
+                    writer.writeDOMElement(element.getContent());
+            }
         }
     }
 }

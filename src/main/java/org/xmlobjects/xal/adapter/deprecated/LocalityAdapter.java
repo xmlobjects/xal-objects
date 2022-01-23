@@ -154,8 +154,10 @@ public class LocalityAdapter extends AddressObjectAdapter<Locality> {
                 object.getDeprecatedProperties() :
                 null;
 
-        for (LocalityName nameElement : object.getNameElements())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "LocalityName"), nameElement, LocalityNameAdapter.class, namespaces);
+        if (object.isSetNameElements()) {
+            for (LocalityName nameElement : object.getNameElements())
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "LocalityName"), nameElement, LocalityNameAdapter.class, namespaces);
+        }
 
         PostalDeliveryPoint postBox = null;
         if (address != null && address.getPostalDeliveryPoint() != null && address.getPostalDeliveryPoint().getType() == PostalDeliveryPointType.PO_BOX) {
