@@ -82,6 +82,10 @@ public class Identifier extends XALObject implements Abbreviation {
         return otherAttributes;
     }
 
+    public boolean isSetOtherAttributes() {
+        return otherAttributes != null && !otherAttributes.isEmpty();
+    }
+
     public void setOtherAttributes(Attributes otherAttributes) {
         this.otherAttributes = otherAttributes;
     }

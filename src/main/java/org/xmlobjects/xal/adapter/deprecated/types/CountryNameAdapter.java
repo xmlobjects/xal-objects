@@ -48,7 +48,7 @@ public class CountryNameAdapter implements ObjectBuilder<CountryName>, ObjectSer
     @Override
     public void initializeObject(CountryName object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         attributes.getValue("Code").ifPresent(v -> object.getOtherAttributes().add("Code", v));
-        XALBuilderHelper.buildOtherAttributes(object.getOtherAttributes(), attributes);
+        XALBuilderHelper.buildOtherAttributes(object::getOtherAttributes, attributes);
 
         switch (name.getLocalPart()) {
             case "CountryName":
@@ -73,7 +73,10 @@ public class CountryNameAdapter implements ObjectBuilder<CountryName>, ObjectSer
     @Override
     public void initializeElement(Element element, CountryName object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         element.addAttribute("Code", object.getOtherAttributes().getValue("Code"));
-        XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
+
+        if (object.isSetOtherAttributes()) {
+            XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
+        }
 
         if (object.getContent() == null && object.getNameCode() != null) {
             element.addTextContent(object.getNameCode());

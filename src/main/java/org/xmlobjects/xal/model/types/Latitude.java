@@ -68,6 +68,10 @@ public class Latitude extends XALObject {
         return otherAttributes;
     }
 
+    public boolean isSetOtherAttributes() {
+        return otherAttributes != null && !otherAttributes.isEmpty();
+    }
+
     public void setOtherAttributes(Attributes otherAttributes) {
         this.otherAttributes = otherAttributes;
     }

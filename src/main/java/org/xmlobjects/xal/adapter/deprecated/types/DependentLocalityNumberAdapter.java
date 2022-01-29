@@ -49,7 +49,7 @@ public class DependentLocalityNumberAdapter implements ObjectBuilder<SubLocality
         reader.getTextContent().ifPresent(object::setContent);
         attributes.getValue("NameNumberOccurrence").ifPresent(v -> object.getOtherAttributes().add("NameNumberOccurrence", v));
         attributes.getValue("Code").ifPresent(v -> object.getOtherAttributes().add("Code", v));
-        XALBuilderHelper.buildOtherAttributes(object.getOtherAttributes(), attributes);
+        XALBuilderHelper.buildOtherAttributes(object::getOtherAttributes, attributes);
     }
 
     @Override
@@ -57,6 +57,9 @@ public class DependentLocalityNumberAdapter implements ObjectBuilder<SubLocality
         element.addTextContent(object.getContent());
         element.addAttribute("NameNumberOccurrence", object.getOtherAttributes().getValue("NameNumberOccurrence"));
         element.addAttribute("Code", object.getOtherAttributes().getValue("Code"));
-        XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
+
+        if (object.isSetOtherAttributes()) {
+            XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
+        }
     }
 }

@@ -51,14 +51,17 @@ public class IdentifierAdapter implements ObjectBuilder<Identifier>, ObjectSeria
         reader.getTextContent().collapse().ifPresent(object::setContent);
         attributes.getValue(XALConstants.XAL_3_0_NAMESPACE, "Type").ifPresent(v -> object.setType(IdentifierElementType.fromValue(v)));
         attributes.getValue(XALConstants.XAL_3_0_CT_NAMESPACE, "Abbreviation").ifBoolean(object::setAbbreviation);
-        XALBuilderHelper.buildOtherAttributes(object.getOtherAttributes(), attributes);
+        XALBuilderHelper.buildOtherAttributes(object::getOtherAttributes, attributes);
     }
 
     @Override
     public void initializeElement(Element element, Identifier object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         element.addTextContent(TextContent.of(object.getContent()).collapse());
         element.addAttribute(XALConstants.XAL_3_0_CT_NAMESPACE, "Abbreviation", TextContent.ofBoolean(object.getAbbreviation()));
-        XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
+
+        if (object.isSetOtherAttributes()) {
+            XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
+        }
 
         if (object.getType() != null)
             element.addAttribute(XALConstants.XAL_3_0_NAMESPACE, "Type", object.getType().toValue());

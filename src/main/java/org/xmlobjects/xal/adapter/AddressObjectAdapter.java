@@ -38,11 +38,13 @@ public abstract class AddressObjectAdapter<T extends AddressObject> implements O
 
     @Override
     public void initializeObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        XALBuilderHelper.buildOtherAttributes(object.getOtherAttributes(), attributes);
+        XALBuilderHelper.buildOtherAttributes(object::getOtherAttributes, attributes);
     }
 
     @Override
     public void initializeElement(Element element, T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
+        if (object.isSetOtherAttributes()) {
+            XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
+        }
     }
 }

@@ -48,7 +48,7 @@ public class AddressLineAdapter implements ObjectBuilder<AddressLine>, ObjectSer
         reader.getTextContent().ifPresent(object::setContent);
         attributes.getValue("Type").ifPresent(object::setType);
         attributes.getValue("Code").ifPresent(v -> object.getOtherAttributes().add("Code", v));
-        XALBuilderHelper.buildOtherAttributes(object.getOtherAttributes(), attributes);
+        XALBuilderHelper.buildOtherAttributes(object::getOtherAttributes, attributes);
     }
 
     @Override
@@ -56,6 +56,9 @@ public class AddressLineAdapter implements ObjectBuilder<AddressLine>, ObjectSer
         element.addTextContent(object.getContent());
         element.addAttribute("Type", object.getType());
         element.addAttribute("Code", object.getOtherAttributes().getValue("Code"));
-        XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
+
+        if (object.isSetOtherAttributes()) {
+            XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
+        }
     }
 }

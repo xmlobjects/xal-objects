@@ -97,6 +97,10 @@ public class AddressLine extends XALObject implements DataQuality {
         return otherAttributes;
     }
 
+    public boolean isSetOtherAttributes() {
+        return otherAttributes != null && !otherAttributes.isEmpty();
+    }
+
     public void setOtherAttributes(Attributes otherAttributes) {
         this.otherAttributes = otherAttributes;
     }

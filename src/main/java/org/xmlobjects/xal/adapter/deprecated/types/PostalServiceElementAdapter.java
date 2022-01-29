@@ -48,7 +48,7 @@ public class PostalServiceElementAdapter implements ObjectBuilder<PostalServiceE
         reader.getTextContent().ifPresent(object::setContent);
         attributes.getValue("Type").ifPresent(object::setType);
         attributes.getValue("Code").ifPresent(object::setCode);
-        XALBuilderHelper.buildOtherAttributes(object.getOtherAttributes(), attributes);
+        XALBuilderHelper.buildOtherAttributes(object::getOtherAttributes, attributes);
     }
 
     @Override
@@ -56,6 +56,9 @@ public class PostalServiceElementAdapter implements ObjectBuilder<PostalServiceE
         element.addTextContent(object.getContent());
         element.addAttribute("Type", object.getType());
         element.addAttribute("Code", object.getCode());
-        XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
+
+        if (object.isSetOtherAttributes()) {
+            XALSerializerHelper.addOtherAttributes(element, object.getOtherAttributes(), namespaces);
+        }
     }
 }

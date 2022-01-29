@@ -82,6 +82,10 @@ public abstract class Name<T extends NameType> extends XALObject implements Abbr
         return otherAttributes;
     }
 
+    public boolean isSetOtherAttributes() {
+        return otherAttributes != null && !otherAttributes.isEmpty();
+    }
+
     public void setOtherAttributes(Attributes otherAttributes) {
         this.otherAttributes = otherAttributes;
     }
