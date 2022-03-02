@@ -44,6 +44,50 @@ public abstract class XALWalker implements XALVisitor {
     public void visit(Address address) {
         visit((AddressObject) address);
 
+        if (shouldWalk && address.getCountry() != null) {
+            address.getCountry().accept(this);
+        }
+
+        if (shouldWalk && address.getAdministrativeArea() != null) {
+            address.getAdministrativeArea().accept(this);
+        }
+
+        if (shouldWalk && address.getLocality() != null) {
+            address.getLocality().accept(this);
+        }
+
+        if (shouldWalk && address.getThoroughfare() != null) {
+            address.getThoroughfare().accept(this);
+        }
+
+        if (shouldWalk && address.getPremises() != null) {
+            address.getPremises().accept(this);
+        }
+
+        if (shouldWalk && address.getPostCode() != null) {
+            address.getPostCode().accept(this);
+        }
+
+        if (shouldWalk && address.getRuralDelivery() != null) {
+            address.getRuralDelivery().accept(this);
+        }
+
+        if (shouldWalk && address.getPostalDeliveryPoint() != null) {
+            address.getPostalDeliveryPoint().accept(this);
+        }
+
+        if (shouldWalk && address.getPostOffice() != null) {
+            address.getPostOffice().accept(this);
+        }
+
+        if (shouldWalk && address.getGeoRSS() != null) {
+            address.getGeoRSS().accept(this);
+        }
+
+        if (shouldWalk && address.getLocationByCoordinates() != null) {
+            address.getLocationByCoordinates().accept(this);
+        }
+
         if (address.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAddress deprecatedProperties = address.getDeprecatedProperties();
 
