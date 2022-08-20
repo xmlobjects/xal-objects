@@ -1,10 +1,8 @@
 /*
- * citygml4j-cityjson - CityJSON module for citygml4j
- * https://github.com/citygml4j/citygml4j-cityjson
+ * xal-objects - A Java mapping for the OASIS eXtensible Address Language (xAL)
+ * https://github.com/xmlobjects/xal-objects
  *
- * citygml4j-cityjson is part of the citygml4j project
- *
- * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2019-2022 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
