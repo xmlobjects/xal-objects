@@ -1,4 +1,4 @@
-![build](https://img.shields.io/github/workflow/status/xmlobjects/xal-objects/xal-objects-build?logo=Gradle)
+![build](https://img.shields.io/github/actions/workflow/status/xmlobjects/xal-objects/xal-objects-build.yml?logo=Gradle)
 ![release](https://img.shields.io/github/v/release/xmlobjects/xal-objects?display_name=tag)
 [![maven](https://maven-badges.herokuapp.com/maven-central/org.xmlobjects.xal/xal-objects/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.xmlobjects.xal/xal-objects)
 [![license](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
