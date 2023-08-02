@@ -44,6 +44,10 @@ public abstract class XALWalker implements XALVisitor {
     public void visit(Address address) {
         visit((AddressObject) address);
 
+        if (shouldWalk && address.getFreeTextAddress() != null) {
+            address.getFreeTextAddress().accept(this);
+        }
+
         if (shouldWalk && address.getCountry() != null) {
             address.getCountry().accept(this);
         }
