@@ -19,6 +19,8 @@
 
 package org.xmlobjects.xal.model;
 
+import org.xmlobjects.util.copy.CopyBuilder;
+import org.xmlobjects.util.copy.Copyable;
 import org.xmlobjects.xal.model.deprecated.DeprecatedProperties;
 import org.xmlobjects.xal.visitor.XALVisitor;
 import org.xmlobjects.xml.Attributes;
@@ -57,5 +59,10 @@ public abstract class AddressObject extends XALObject {
 
     public void setOtherAttributes(Attributes otherAttributes) {
         this.otherAttributes = otherAttributes;
+    }
+
+    @Override
+    public Copyable deepCopy(CopyBuilder builder) {
+        return super.deepCopy(builder.withClone(otherAttributes, () -> otherAttributes.copy()));
     }
 }
