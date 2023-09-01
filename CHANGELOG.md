@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+### Fixed
+- Deep-copying of `AddressObjects` using the `CopyBuilder` from xml-objects failed in case the
+  `otherAttributes` field was used for the address object.
 
 ## [1.0.3] - 2023-04-04
 ### Changed
