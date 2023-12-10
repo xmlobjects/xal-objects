@@ -47,8 +47,8 @@ public class ThoroughfareAdapter extends AddressObjectAdapter<Thoroughfare> {
     @Override
     public Thoroughfare createObject(QName name, Object parent) throws ObjectBuildException {
         Thoroughfare object = new Thoroughfare();
-        if (parent instanceof Child)
-            object.setParent((Child) parent);
+        if (parent instanceof Child child)
+            object.setParent(child);
 
         return object;
     }

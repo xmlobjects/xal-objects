@@ -46,8 +46,8 @@ public class DepartmentAdapter extends AddressObjectAdapter<SubPremises> {
     @Override
     public SubPremises createObject(QName name, Object parent) throws ObjectBuildException {
         SubPremises object = new SubPremises();
-        if (parent instanceof Child)
-            object.setParent((Child) parent);
+        if (parent instanceof Child child)
+            object.setParent(child);
 
         return object;
     }

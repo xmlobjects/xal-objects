@@ -49,8 +49,8 @@ public class DependentThoroughfareAdapter extends AddressObjectAdapter<SubThorou
     @Override
     public SubThoroughfare createObject(QName name, Object parent) throws ObjectBuildException {
         SubThoroughfare object = new SubThoroughfare();
-        if (parent instanceof Child)
-            object.setParent((Child) parent);
+        if (parent instanceof Child child)
+            object.setParent(child);
 
         return object;
     }

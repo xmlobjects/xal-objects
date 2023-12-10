@@ -48,8 +48,8 @@ public class MailStopAdapter extends AddressObjectAdapter<PostalDeliveryPoint> {
     @Override
     public PostalDeliveryPoint createObject(QName name, Object parent) throws ObjectBuildException {
         PostalDeliveryPoint object = new PostalDeliveryPoint(PostalDeliveryPointType.MAIL_STOP);
-        if (parent instanceof Child)
-            object.setParent((Child) parent);
+        if (parent instanceof Child child)
+            object.setParent(child);
 
         return object;
     }

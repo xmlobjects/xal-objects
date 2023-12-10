@@ -48,8 +48,8 @@ public class FirmAdapter extends AddressObjectAdapter<Premises> {
     @Override
     public Premises createObject(QName name, Object parent) throws ObjectBuildException {
         Premises object = new Premises();
-        if (parent instanceof Child)
-            object.setParent((Child) parent);
+        if (parent instanceof Child child)
+            object.setParent(child);
 
         return object;
     }

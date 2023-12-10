@@ -44,7 +44,7 @@ public class PremiseNumberRangeAdapter implements ObjectBuilder<ChildList<Premis
 
     @Override
     public ChildList<PremisesNameOrNumber> createObject(QName name, Object parent) throws ObjectBuildException {
-        return new ChildList<>(parent instanceof Child ? (Child) parent : null);
+        return new ChildList<>(parent instanceof Child child ? child : null);
     }
 
     @Override

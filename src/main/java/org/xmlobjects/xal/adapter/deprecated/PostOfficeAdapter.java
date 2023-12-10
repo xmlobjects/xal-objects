@@ -47,8 +47,8 @@ public class PostOfficeAdapter extends AddressObjectAdapter<PostOffice> {
     @Override
     public PostOffice createObject(QName name, Object parent) throws ObjectBuildException {
         PostOffice object = new PostOffice();
-        if (parent instanceof Child)
-            object.setParent((Child) parent);
+        if (parent instanceof Child child)
+            object.setParent(child);
 
         return object;
     }

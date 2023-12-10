@@ -47,8 +47,8 @@ public class PostalCodeAdapter extends AddressObjectAdapter<PostCode> {
     @Override
     public PostCode createObject(QName name, Object parent) throws ObjectBuildException {
         PostCode object = new PostCode();
-        if (parent instanceof Child)
-            object.setParent((Child) parent);
+        if (parent instanceof Child child)
+            object.setParent(child);
 
         return object;
     }

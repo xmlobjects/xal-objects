@@ -45,8 +45,8 @@ public class AdministrativeAreaAdapter extends AddressObjectAdapter<Administrati
     @Override
     public AdministrativeArea createObject(QName name, Object parent) throws ObjectBuildException {
         AdministrativeArea object = new AdministrativeArea();
-        if (parent instanceof Child)
-            object.setParent((Child) parent);
+        if (parent instanceof Child child)
+            object.setParent(child);
 
         return object;
     }

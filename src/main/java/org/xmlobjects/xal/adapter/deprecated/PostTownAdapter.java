@@ -47,8 +47,8 @@ public class PostTownAdapter extends AddressObjectAdapter<Locality> {
     @Override
     public Locality createObject(QName name, Object parent) throws ObjectBuildException {
         Locality object = new Locality(LocalityType.POST_TOWN);
-        if (parent instanceof Child)
-            object.setParent((Child) parent);
+        if (parent instanceof Child child)
+            object.setParent(child);
 
         return object;
     }

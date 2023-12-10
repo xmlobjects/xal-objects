@@ -47,8 +47,8 @@ public class DependentLocalityAdapter extends AddressObjectAdapter<SubLocality> 
     @Override
     public SubLocality createObject(QName name, Object parent) throws ObjectBuildException {
         SubLocality object = new SubLocality();
-        if (parent instanceof Child)
-            object.setParent((Child) parent);
+        if (parent instanceof Child child)
+            object.setParent(child);
 
         return object;
     }

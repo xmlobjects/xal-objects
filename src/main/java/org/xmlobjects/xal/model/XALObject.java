@@ -36,8 +36,8 @@ public abstract class XALObject implements Child, Copyable {
     }
 
     protected final <T extends Child> List<T> asChild(List<T> child) {
-        if (child instanceof ChildList) {
-            ((ChildList<T>) child).setParent(this);
+        if (child instanceof ChildList<T> childList) {
+            childList.setParent(this);
             return child;
         } else
             return child != null ? new ChildList<>(child, this) : null;

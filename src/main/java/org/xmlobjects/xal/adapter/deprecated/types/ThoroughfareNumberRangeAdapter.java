@@ -45,7 +45,7 @@ public class ThoroughfareNumberRangeAdapter implements ObjectBuilder<ChildList<T
 
     @Override
     public ChildList<ThoroughfareNameOrNumber> createObject(QName name, Object parent) throws ObjectBuildException {
-        ChildList<ThoroughfareNameOrNumber> object = new ChildList<>(parent instanceof Child ? (Child) parent : null);
+        ChildList<ThoroughfareNameOrNumber> object = new ChildList<>(parent instanceof Child child ? child : null);
         separator = null;
         return object;
     }

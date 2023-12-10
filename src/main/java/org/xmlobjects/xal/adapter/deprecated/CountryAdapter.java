@@ -44,8 +44,8 @@ public class CountryAdapter extends AddressObjectAdapter<Country> {
     @Override
     public Country createObject(QName name, Object parent) throws ObjectBuildException {
         Country object = new Country();
-        if (parent instanceof Child)
-            object.setParent((Child) parent);
+        if (parent instanceof Child child)
+            object.setParent(child);
 
         return object;
     }

@@ -9,13 +9,13 @@ plugins {
 }
 
 group 'org.xmlobjects.xal'
-version '1.0.4'
+version '1.1.0-SNAPSHOT'
 description 'A Java mapping for the OASIS eXtensible Address Language (xAL)'
 ext.date = new Date()
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(11)
+        languageVersion = JavaLanguageVersion.of(17)
     }
     withJavadocJar()
     withSourcesJar()
@@ -33,8 +33,8 @@ repositories {
 }
 
 dependencies {
-    api 'org.xmlobjects:xml-objects:1.0.4'
-    annotationProcessor 'org.xmlobjects:xml-objects:1.0.4'
+    api 'org.xmlobjects:xml-objects:1.1.0-SNAPSHOT'
+    annotationProcessor 'org.xmlobjects:xml-objects:1.1.0-SNAPSHOT'
 }
 
 javadoc {
@@ -49,6 +49,7 @@ javadoc {
             Claus Nagel &lt;claus.nagel@gmail.com&gt;
             """.replaceAll("[\r|\n]+", "")
         addStringOption('doctitle', project.name + ' - ' + project.description)
+        addStringOption('Xdoclint:none', '-quiet')
     }
 
     doFirst {

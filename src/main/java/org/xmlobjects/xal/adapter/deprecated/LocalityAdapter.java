@@ -46,8 +46,8 @@ public class LocalityAdapter extends AddressObjectAdapter<Locality> {
     @Override
     public Locality createObject(QName name, Object parent) throws ObjectBuildException {
         Locality object = new Locality();
-        if (parent instanceof Child)
-            object.setParent((Child) parent);
+        if (parent instanceof Child child)
+            object.setParent(child);
 
         return object;
     }

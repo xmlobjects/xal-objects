@@ -45,8 +45,8 @@ public class SubAdministrativeAreaAdapter extends AddressObjectAdapter<SubAdmini
     @Override
     public SubAdministrativeArea createObject(QName name, Object parent) throws ObjectBuildException {
         SubAdministrativeArea object = new SubAdministrativeArea();
-        if (parent instanceof Child)
-            object.setParent((Child) parent);
+        if (parent instanceof Child child)
+            object.setParent(child);
 
         return object;
     }

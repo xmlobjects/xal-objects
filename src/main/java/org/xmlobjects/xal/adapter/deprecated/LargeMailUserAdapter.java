@@ -50,8 +50,8 @@ public class LargeMailUserAdapter extends AddressObjectAdapter<Premises> {
     @Override
     public Premises createObject(QName name, Object parent) throws ObjectBuildException {
         Premises object = new Premises(PremisesType.LARGE_MAIL_USER);
-        if (parent instanceof Child)
-            object.setParent((Child) parent);
+        if (parent instanceof Child child)
+            object.setParent(child);
 
         return object;
     }
