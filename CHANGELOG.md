@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+### Changed
+- **Breaking:** Java 17 is now the minimum required version for using xal-objects.
 
 ## [1.0.4] - 2023-11-03
 ### Fixed
