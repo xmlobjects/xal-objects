@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [1.1.1] - 2024-07-15
+### Changed
+- Updated xml-objects to 1.1.1.
+
 ## [1.1.0] - 2024-01-29
 ### Changed
 - **Breaking:** Java 17 is now the minimum required version for using xal-objects.
@@ -27,7 +31,8 @@
 ## [1.0.0] - 2022-08-20
 This is the initial release of xal-objects.
 
-[Unreleased]: https://github.com/xmlobjects/xal-objects/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/xmlobjects/xal-objects/compare/v1.1.1...HEAD
+[1.1.0]: https://github.com/xmlobjects/xal-objects/releases/tag/v1.1.1
 [1.1.0]: https://github.com/xmlobjects/xal-objects/releases/tag/v1.1.0
 [1.0.4]: https://github.com/xmlobjects/xal-objects/releases/tag/v1.0.4
 [1.0.3]: https://github.com/xmlobjects/xal-objects/releases/tag/v1.0.3
