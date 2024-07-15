@@ -21,5 +21,6 @@ package org.xmlobjects.xal.model.types;
 
 public interface LanguageCode {
     String getLanguageCode();
+
     void setLanguageCode(String languageCode);
 }

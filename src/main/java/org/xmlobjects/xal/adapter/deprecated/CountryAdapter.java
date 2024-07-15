@@ -121,7 +121,7 @@ public class CountryAdapter extends AddressObjectAdapter<Country> {
         Thoroughfare thoroughfare = null;
         if (address != null && address.getThoroughfare() != null) {
             thoroughfare = address.getThoroughfare();
-        } if (properties != null) {
+        } else if (properties != null) {
             thoroughfare = properties.getThoroughfare();
         }
 

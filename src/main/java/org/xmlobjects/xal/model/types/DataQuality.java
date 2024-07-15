@@ -23,9 +23,14 @@ import java.time.OffsetDateTime;
 
 public interface DataQuality {
     DataQualityType getDataQualityType();
+
     void setDataQualityType(DataQualityType dataQualityType);
+
     OffsetDateTime getValidFrom();
+
     void setValidFrom(OffsetDateTime validFrom);
+
     OffsetDateTime getValidTo();
+
     void setValidTo(OffsetDateTime validTo);
 }

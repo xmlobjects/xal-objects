@@ -21,6 +21,8 @@ package org.xmlobjects.xal.model.types;
 
 public interface Abbreviation {
     Boolean getAbbreviation();
+
     boolean isSetAbbreviation();
+
     void setAbbreviation(Boolean abbreviation);
 }
