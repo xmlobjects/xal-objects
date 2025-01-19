@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
-## [1.1.2] - 2025-01-19
+## [1.1.3] - 2025-01-19
 ### Changed
 - Updated xml-objects to 1.1.3.
 - Updated Gradle to 8.12.
