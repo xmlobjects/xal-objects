@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [1.1.5] - 2025-03-02
+### Changed
+- Updated xml-objects to 1.1.5.
+
 ## [1.1.4] - 2025-01-19
 ### Changed
 - Updated xml-objects to 1.1.4.
@@ -40,7 +44,8 @@
 ## [1.0.0] - 2022-08-20
 This is the initial release of xal-objects.
 
-[Unreleased]: https://github.com/xmlobjects/xal-objects/compare/v1.1.4...HEAD
+[Unreleased]: https://github.com/xmlobjects/xal-objects/compare/v1.1.5...HEAD
+[1.1.5]: https://github.com/xmlobjects/xal-objects/releases/tag/v1.1.5
 [1.1.4]: https://github.com/xmlobjects/xal-objects/releases/tag/v1.1.4
 [1.1.2]: https://github.com/xmlobjects/xal-objects/releases/tag/v1.1.2
 [1.1.1]: https://github.com/xmlobjects/xal-objects/releases/tag/v1.1.1
