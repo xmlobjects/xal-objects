@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [1.1.6] - 2025-09-27
+### Changed
+- Updated xml-objects to 1.1.6.
+
 ## [1.1.5] - 2025-03-02
 ### Changed
 - Updated xml-objects to 1.1.5.
