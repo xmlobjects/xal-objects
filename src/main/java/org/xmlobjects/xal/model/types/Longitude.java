@@ -19,15 +19,15 @@
 
 package org.xmlobjects.xal.model.types;
 
+import org.xmlobjects.xal.model.GenericAttributes;
 import org.xmlobjects.xal.model.XALObject;
-import org.xmlobjects.xml.Attributes;
 
 public class Longitude extends XALObject {
     private String degreesMeasure;
     private String minutesMeasure;
     private String secondsMeasure;
     private DirectionType direction;
-    private Attributes otherAttributes;
+    private GenericAttributes otherAttributes;
 
     public String getDegreesMeasure() {
         return degreesMeasure;
@@ -61,9 +61,9 @@ public class Longitude extends XALObject {
         this.direction = direction;
     }
 
-    public Attributes getOtherAttributes() {
+    public GenericAttributes getOtherAttributes() {
         if (otherAttributes == null)
-            otherAttributes = new Attributes();
+            otherAttributes = new GenericAttributes();
 
         return otherAttributes;
     }
@@ -72,7 +72,7 @@ public class Longitude extends XALObject {
         return otherAttributes != null && !otherAttributes.isEmpty();
     }
 
-    public void setOtherAttributes(Attributes otherAttributes) {
+    public void setOtherAttributes(GenericAttributes otherAttributes) {
         this.otherAttributes = otherAttributes;
     }
 }

@@ -19,15 +19,12 @@
 
 package org.xmlobjects.xal.model;
 
-import org.xmlobjects.util.copy.CopyBuilder;
-import org.xmlobjects.util.copy.Copyable;
 import org.xmlobjects.xal.model.deprecated.DeprecatedProperties;
 import org.xmlobjects.xal.visitor.XALVisitor;
-import org.xmlobjects.xml.Attributes;
 
 public abstract class AddressObject extends XALObject {
     private DeprecatedProperties deprecatedProperties;
-    private Attributes otherAttributes;
+    private GenericAttributes otherAttributes;
 
     public abstract void accept(XALVisitor visitor);
 
@@ -46,9 +43,9 @@ public abstract class AddressObject extends XALObject {
         return null;
     }
 
-    public Attributes getOtherAttributes() {
+    public GenericAttributes getOtherAttributes() {
         if (otherAttributes == null)
-            otherAttributes = new Attributes();
+            otherAttributes = new GenericAttributes();
 
         return otherAttributes;
     }
@@ -57,12 +54,7 @@ public abstract class AddressObject extends XALObject {
         return otherAttributes != null && !otherAttributes.isEmpty();
     }
 
-    public void setOtherAttributes(Attributes otherAttributes) {
+    public void setOtherAttributes(GenericAttributes otherAttributes) {
         this.otherAttributes = otherAttributes;
-    }
-
-    @Override
-    public Copyable deepCopy(CopyBuilder builder) {
-        return super.deepCopy(builder.withClone(otherAttributes, () -> otherAttributes.copy()));
     }
 }

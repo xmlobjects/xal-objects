@@ -19,8 +19,8 @@
 
 package org.xmlobjects.xal.model.types;
 
+import org.xmlobjects.xal.model.GenericAttributes;
 import org.xmlobjects.xal.model.XALObject;
-import org.xmlobjects.xml.Attributes;
 
 import java.time.OffsetDateTime;
 
@@ -30,7 +30,7 @@ public class AddressLine extends XALObject implements DataQuality {
     private DataQualityType dataQualityType;
     private OffsetDateTime validFrom;
     private OffsetDateTime validTo;
-    private Attributes otherAttributes;
+    private GenericAttributes otherAttributes;
 
     public AddressLine() {
     }
@@ -90,9 +90,9 @@ public class AddressLine extends XALObject implements DataQuality {
         this.validTo = validTo;
     }
 
-    public Attributes getOtherAttributes() {
+    public GenericAttributes getOtherAttributes() {
         if (otherAttributes == null)
-            otherAttributes = new Attributes();
+            otherAttributes = new GenericAttributes();
 
         return otherAttributes;
     }
@@ -101,7 +101,7 @@ public class AddressLine extends XALObject implements DataQuality {
         return otherAttributes != null && !otherAttributes.isEmpty();
     }
 
-    public void setOtherAttributes(Attributes otherAttributes) {
+    public void setOtherAttributes(GenericAttributes otherAttributes) {
         this.otherAttributes = otherAttributes;
     }
 }

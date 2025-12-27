@@ -19,6 +19,7 @@
 
 package org.xmlobjects.xal.adapter;
 
+import org.xmlobjects.xal.model.GenericAttributes;
 import org.xmlobjects.xal.model.types.DataQuality;
 import org.xmlobjects.xal.model.types.DataQualityType;
 import org.xmlobjects.xal.util.XALConstants;
@@ -37,14 +38,18 @@ public class XALBuilderHelper {
         attributes.getValue(XALConstants.XAL_3_0_CT_NAMESPACE, "ValidTo").ifDateTime(object::setValidTo);
     }
 
-    public static void buildOtherAttributes(Supplier<Attributes> otherAttributes, Attributes attributes) {
+    public static void buildOtherAttributes(Supplier<GenericAttributes> otherAttributes, Attributes attributes) {
         for (Map.Entry<String, Map<String, TextContent>> entry : attributes.get().entrySet()) {
             if (!XALConstants.XAL_3_0_NAMESPACE.equals(entry.getKey())
                     && !XALConstants.XAL_3_0_CT_NAMESPACE.equals(entry.getKey())
                     && !XALConstants.XAL_2_0_NAMESPACE.equals(entry.getKey())
                     && !XMLConstants.NULL_NS_URI.equals(entry.getKey())
-                    && !XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI.equals(entry.getKey()))
-                otherAttributes.get().addAll(entry.getKey(), entry.getValue());
+                    && !XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI.equals(entry.getKey())) {
+                String namespaceURI = entry.getKey();
+                for (Map.Entry<String, TextContent> attribute : entry.getValue().entrySet()) {
+                    otherAttributes.get().add(namespaceURI, attribute.getKey(), attribute.getValue().get());
+                }
+            }
         }
     }
 }

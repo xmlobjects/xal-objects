@@ -19,14 +19,14 @@
 
 package org.xmlobjects.xal.model.types;
 
+import org.xmlobjects.xal.model.GenericAttributes;
 import org.xmlobjects.xal.model.XALObject;
-import org.xmlobjects.xml.Attributes;
 
 public abstract class Name<T extends NameType> extends XALObject implements Abbreviation {
     private String content;
     private Boolean abbreviation;
     private T nameType;
-    private Attributes otherAttributes;
+    private GenericAttributes otherAttributes;
 
     public Name() {
     }
@@ -75,9 +75,9 @@ public abstract class Name<T extends NameType> extends XALObject implements Abbr
         this.nameType = nameType;
     }
 
-    public Attributes getOtherAttributes() {
+    public GenericAttributes getOtherAttributes() {
         if (otherAttributes == null)
-            otherAttributes = new Attributes();
+            otherAttributes = new GenericAttributes();
 
         return otherAttributes;
     }
@@ -86,7 +86,7 @@ public abstract class Name<T extends NameType> extends XALObject implements Abbr
         return otherAttributes != null && !otherAttributes.isEmpty();
     }
 
-    public void setOtherAttributes(Attributes otherAttributes) {
+    public void setOtherAttributes(GenericAttributes otherAttributes) {
         this.otherAttributes = otherAttributes;
     }
 }

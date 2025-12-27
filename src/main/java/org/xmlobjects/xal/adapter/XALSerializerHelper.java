@@ -19,9 +19,9 @@
 
 package org.xmlobjects.xal.adapter;
 
+import org.xmlobjects.xal.model.GenericAttributes;
 import org.xmlobjects.xal.model.types.DataQuality;
 import org.xmlobjects.xal.util.XALConstants;
-import org.xmlobjects.xml.Attributes;
 import org.xmlobjects.xml.Element;
 import org.xmlobjects.xml.Namespaces;
 import org.xmlobjects.xml.TextContent;
@@ -38,10 +38,10 @@ public class XALSerializerHelper {
             element.addAttribute(XALConstants.XAL_3_0_CT_NAMESPACE, "DataQualityType", object.getDataQualityType().toValue());
     }
 
-    public static void addOtherAttributes(Element element, Attributes otherAttributes, Namespaces namespaces) {
-        for (Map.Entry<String, Map<String, TextContent>> entry : otherAttributes.get().entrySet()) {
+    public static void addOtherAttributes(Element element, GenericAttributes otherAttributes, Namespaces namespaces) {
+        for (Map.Entry<String, Map<String, String>> entry : otherAttributes.get().entrySet()) {
             if (namespaces.contains(entry.getKey())) {
-                for (Map.Entry<String, TextContent> attribute : entry.getValue().entrySet())
+                for (Map.Entry<String, String> attribute : entry.getValue().entrySet())
                     element.addAttribute(entry.getKey(), attribute.getKey(), attribute.getValue());
             }
         }

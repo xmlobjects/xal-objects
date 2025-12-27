@@ -19,14 +19,14 @@
 
 package org.xmlobjects.xal.model.deprecated.types;
 
+import org.xmlobjects.xal.model.GenericAttributes;
 import org.xmlobjects.xal.model.XALObject;
-import org.xmlobjects.xml.Attributes;
 
 public class PostalServiceElement extends XALObject implements Postal {
     private String content;
     private String type;
     private String code;
-    private Attributes otherAttributes;
+    private GenericAttributes otherAttributes;
 
     public String getContent() {
         return content;
@@ -54,9 +54,9 @@ public class PostalServiceElement extends XALObject implements Postal {
         this.code = code;
     }
 
-    public Attributes getOtherAttributes() {
+    public GenericAttributes getOtherAttributes() {
         if (otherAttributes == null)
-            otherAttributes = new Attributes();
+            otherAttributes = new GenericAttributes();
 
         return otherAttributes;
     }
@@ -65,7 +65,7 @@ public class PostalServiceElement extends XALObject implements Postal {
         return otherAttributes != null && !otherAttributes.isEmpty();
     }
 
-    public void setOtherAttributes(Attributes otherAttributes) {
+    public void setOtherAttributes(GenericAttributes otherAttributes) {
         this.otherAttributes = otherAttributes;
     }
 }

@@ -23,7 +23,6 @@ import org.xmlobjects.model.ChildList;
 import org.xmlobjects.xal.model.deprecated.types.AddressIdentifier;
 import org.xmlobjects.xal.model.deprecated.types.PostalServiceElement;
 import org.xmlobjects.xal.visitor.XALVisitor;
-import org.xmlobjects.xml.Attributes;
 
 import java.util.List;
 
@@ -39,7 +38,6 @@ public class PostalServiceElements extends AddressObject {
     private PostalServiceElement addressLongitudeDirection;
     private List<PostalServiceElement> supplementaryPostalServiceData;
     private String type;
-    private Attributes otherAttributes;
 
     public List<AddressIdentifier> getAddressIdentifiers() {
         if (addressIdentifier == null)
@@ -141,21 +139,6 @@ public class PostalServiceElements extends AddressObject {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public Attributes getOtherAttributes() {
-        if (otherAttributes == null)
-            otherAttributes = new Attributes();
-
-        return otherAttributes;
-    }
-
-    public boolean isSetOtherAttributes() {
-        return otherAttributes != null && !otherAttributes.isEmpty();
-    }
-
-    public void setOtherAttributes(Attributes otherAttributes) {
-        this.otherAttributes = otherAttributes;
     }
 
     @Override

@@ -19,14 +19,14 @@
 
 package org.xmlobjects.xal.model.types;
 
+import org.xmlobjects.xal.model.GenericAttributes;
 import org.xmlobjects.xal.model.XALObject;
-import org.xmlobjects.xml.Attributes;
 
 public class Identifier extends XALObject implements Abbreviation {
     private String content;
     private IdentifierElementType type;
     private Boolean abbreviation;
-    private Attributes otherAttributes;
+    private GenericAttributes otherAttributes;
 
     public Identifier() {
     }
@@ -75,9 +75,9 @@ public class Identifier extends XALObject implements Abbreviation {
         this.abbreviation = abbreviation;
     }
 
-    public Attributes getOtherAttributes() {
+    public GenericAttributes getOtherAttributes() {
         if (otherAttributes == null)
-            otherAttributes = new Attributes();
+            otherAttributes = new GenericAttributes();
 
         return otherAttributes;
     }
@@ -86,7 +86,7 @@ public class Identifier extends XALObject implements Abbreviation {
         return otherAttributes != null && !otherAttributes.isEmpty();
     }
 
-    public void setOtherAttributes(Attributes otherAttributes) {
+    public void setOtherAttributes(GenericAttributes otherAttributes) {
         this.otherAttributes = otherAttributes;
     }
 }

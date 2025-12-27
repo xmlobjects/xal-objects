@@ -53,6 +53,6 @@ public class GenericElement extends XALObject {
 
     @Override
     public Copyable deepCopy(CopyBuilder builder) {
-        return super.deepCopy(builder.withClone(content, () -> content.cloneNode(true)));
+        return new GenericElement((Element) content.cloneNode(true));
     }
 }
