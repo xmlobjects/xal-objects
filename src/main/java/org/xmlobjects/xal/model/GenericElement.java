@@ -21,6 +21,7 @@ package org.xmlobjects.xal.model;
 
 import org.w3c.dom.Element;
 import org.xmlobjects.util.copy.CopyBuilder;
+import org.xmlobjects.util.copy.CopyContext;
 import org.xmlobjects.util.copy.Copyable;
 
 import java.util.Objects;
@@ -52,7 +53,7 @@ public class GenericElement extends XALObject implements Copyable {
     }
 
     @Override
-    public Copyable deepCopy(CopyBuilder builder) {
+    public Copyable deepCopy(CopyBuilder builder, CopyContext context) {
         return new GenericElement((Element) content.cloneNode(true));
     }
 }

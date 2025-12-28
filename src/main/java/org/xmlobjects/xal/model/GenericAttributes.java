@@ -20,6 +20,7 @@
 package org.xmlobjects.xal.model;
 
 import org.xmlobjects.util.copy.CopyBuilder;
+import org.xmlobjects.util.copy.CopyContext;
 import org.xmlobjects.util.copy.Copyable;
 
 import javax.xml.XMLConstants;
@@ -85,7 +86,7 @@ public class GenericAttributes implements Copyable, Serializable {
     }
 
     @Override
-    public GenericAttributes deepCopy(CopyBuilder builder) {
+    public GenericAttributes deepCopy(CopyBuilder builder, CopyContext context) {
         GenericAttributes copy = new GenericAttributes();
         copy.attributes.putAll(attributes);
         return copy;
