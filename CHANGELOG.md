@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+### Changed
+- Replaced the external `Attributes` class with `GenericAttributes` for storing non-xAL attributes, resolving
+  serialization issues with `Attributes`. [#4](https://github.com/xmlobjects/xal-objects/issues/4)
 
 ## [1.2.0] - 2025-11-20
 ### Changed
