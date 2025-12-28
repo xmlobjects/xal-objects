@@ -24,11 +24,12 @@ import org.xmlobjects.util.copy.Copyable;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GenericAttributes implements Copyable {
+public class GenericAttributes implements Copyable, Serializable {
     private final Map<String, Map<String, String>> attributes = new HashMap<>();
 
     public void add(String namespaceURI, String localName, String value) {

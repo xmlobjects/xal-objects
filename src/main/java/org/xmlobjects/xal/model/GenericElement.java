@@ -25,7 +25,7 @@ import org.xmlobjects.util.copy.Copyable;
 
 import java.util.Objects;
 
-public class GenericElement extends XALObject {
+public class GenericElement extends XALObject implements Copyable {
     private Element content;
 
     private GenericElement() {
