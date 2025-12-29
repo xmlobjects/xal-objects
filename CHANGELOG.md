@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [1.3.0] - 2025-12-29
 ### Changed
 - Replaced the external `Attributes` class with `GenericAttributes` for storing non-xAL attributes, resolving
   serialization issues with `Attributes`. [#4](https://github.com/xmlobjects/xal-objects/issues/4)
@@ -55,7 +57,8 @@
 ## [1.0.0] - 2022-08-20
 This is the initial release of xal-objects.
 
-[Unreleased]: https://github.com/xmlobjects/xal-objects/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/xmlobjects/xal-objects/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/xmlobjects/xal-objects/releases/tag/v1.3.0
 [1.2.0]: https://github.com/xmlobjects/xal-objects/releases/tag/v1.2.0
 [1.1.6]: https://github.com/xmlobjects/xal-objects/releases/tag/v1.1.6
 [1.1.5]: https://github.com/xmlobjects/xal-objects/releases/tag/v1.1.5
