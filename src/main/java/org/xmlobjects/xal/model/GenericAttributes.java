@@ -5,9 +5,9 @@
 
 package org.xmlobjects.xal.model;
 
-import org.xmlobjects.util.copy.CopyBuilder;
-import org.xmlobjects.util.copy.CopyContext;
-import org.xmlobjects.util.copy.Copyable;
+import org.xmlobjects.copy.CopyContext;
+import org.xmlobjects.copy.CopyMode;
+import org.xmlobjects.copy.Copyable;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
@@ -15,9 +15,18 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
-public class GenericAttributes implements Copyable, Serializable {
-    private final Map<String, Map<String, String>> attributes = new HashMap<>();
+public class GenericAttributes implements Copyable<GenericAttributes>, Serializable {
+    private final Map<String, Map<String, String>> attributes;
+
+    public GenericAttributes() {
+        this(new HashMap<>());
+    }
+
+    private GenericAttributes(Map<String, Map<String, String>> attributes) {
+        this.attributes = Objects.requireNonNull(attributes, "The generic attributes map must not be null.");
+    }
 
     public void add(String namespaceURI, String localName, String value) {
         attributes.computeIfAbsent(namespaceURI, v -> new HashMap<>()).put(localName, value);
@@ -72,9 +81,10 @@ public class GenericAttributes implements Copyable, Serializable {
     }
 
     @Override
-    public GenericAttributes deepCopy(CopyBuilder builder, CopyContext context) {
-        GenericAttributes copy = new GenericAttributes();
-        copy.attributes.putAll(attributes);
-        return copy;
+    public GenericAttributes newInstance(CopyMode mode, CopyContext context) {
+        return switch (mode) {
+            case SHALLOW -> new GenericAttributes(attributes);
+            case DEEP -> new GenericAttributes(new HashMap<>(attributes));
+        };
     }
 }

@@ -6,17 +6,14 @@
 package org.xmlobjects.xal.model;
 
 import org.w3c.dom.Element;
-import org.xmlobjects.util.copy.CopyBuilder;
-import org.xmlobjects.util.copy.CopyContext;
-import org.xmlobjects.util.copy.Copyable;
+import org.xmlobjects.copy.CopyContext;
+import org.xmlobjects.copy.CopyMode;
+import org.xmlobjects.copy.Copyable;
 
 import java.util.Objects;
 
-public class GenericElement extends XALObject implements Copyable {
-    private Element content;
-
-    private GenericElement() {
-    }
+public class GenericElement extends XALObject implements Copyable<GenericElement> {
+    private final Element content;
 
     private GenericElement(Element content) {
         this.content = Objects.requireNonNull(content, "Content must not be null.");
@@ -39,7 +36,10 @@ public class GenericElement extends XALObject implements Copyable {
     }
 
     @Override
-    public Copyable deepCopy(CopyBuilder builder, CopyContext context) {
-        return new GenericElement((Element) content.cloneNode(true));
+    public GenericElement newInstance(CopyMode mode, CopyContext context) {
+        return switch (mode) {
+            case SHALLOW -> new GenericElement(content);
+            case DEEP -> new GenericElement((Element) content.cloneNode(true));
+        };
     }
 }
