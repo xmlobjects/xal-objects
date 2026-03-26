@@ -13,8 +13,8 @@ module org.xmlobjects.xal {
     exports org.xmlobjects.xal.util;
     exports org.xmlobjects.xal.visitor;
 
-    opens org.xmlobjects.xal.model to org.xmlobjects;
-    opens org.xmlobjects.xal.model.deprecated to org.xmlobjects;
-    opens org.xmlobjects.xal.model.deprecated.types to org.xmlobjects;
-    opens org.xmlobjects.xal.model.types to org.xmlobjects;
+    opens org.xmlobjects.xal.model to org.xmlobjects.copy;
+    opens org.xmlobjects.xal.model.deprecated to org.xmlobjects.copy;
+    opens org.xmlobjects.xal.model.deprecated.types to org.xmlobjects.copy;
+    opens org.xmlobjects.xal.model.types to org.xmlobjects.copy;
 }
