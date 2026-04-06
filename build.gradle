@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    api 'org.xmlobjects:xml-objects:2.0.0'
+    api 'org.xmlobjects:xml-objects:2.0.1-SNAPSHOT'
     annotationProcessor 'org.xmlobjects:xml-objects:2.0.0'
 }
 
