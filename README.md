@@ -11,7 +11,7 @@ xal-objects is licensed under the [Apache License, Version 2.0](http://www.apach
 See the `LICENSE` file for more details.
 
 ## Latest release
-The latest stable release of xal-objects is 2.0.0.
+The latest stable release of xal-objects is 2.0.1.
 
 Download the latest xal-objects release binaries [here](https://github.com/xmlobjects/xal-objects/releases/latest).
 Previous releases are available from the [releases section](https://github.com/xmlobjects/xal-objects/releases).
@@ -44,12 +44,12 @@ project with Maven, add the following code to your `pom.xml`. You may need to ad
 <dependency>
   <groupId>org.xmlobjects.xal</groupId>
   <artifactId>xal-objects</artifactId>
-  <version>2.0.0</version>
+  <version>2.0.1</version>
 </dependency>
 ```
 
 Here is how you use xal-objects with your Gradle project:
 
 ```groovy
-implementation 'org.xmlobjects.xal:xal-objects:2.0.0'
+implementation 'org.xmlobjects.xal:xal-objects:2.0.1'
 ```
