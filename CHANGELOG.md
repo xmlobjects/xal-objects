@@ -2,11 +2,16 @@
 
 ## [Unreleased]
 
+### Changed
+- **Breaking:** `XALConstants` now uses the official xAL 2.0 XML schema location from the OASIS schema repository.
+
 ## [2.0.1] - 2026-04-16
+
 ### Changed
 - Updated to xml-objects 2.0.1.
 
 ## [2.0.0] - 2026-03-31
+
 ### Changed
 - **Breaking:** Updated to xml-objects 2.0.0.
   - Removes the `CopyBuilder` class and the entire `org.xmlobjects.util.copy` package in favor of the
@@ -14,6 +19,7 @@
     powerful and flexible copy framework.
 
 ## [1.3.0] - 2025-12-29
+
 ### Changed
 - Replaced the external `Attributes` class with `GenericAttributes` for storing non-xAL attributes, resolving
   serialization issues with `Attributes`. [#4](https://github.com/xmlobjects/xal-objects/issues/4)
@@ -21,53 +27,65 @@
 - Updated xml-objects to 1.3.0.
 
 ## [1.2.0] - 2025-11-20
+
 ### Changed
 - Updated xml-objects to 1.2.0.
 
 ## [1.1.6] - 2025-09-27
+
 ### Changed
 - Updated xml-objects to 1.1.6.
 
 ## [1.1.5] - 2025-03-02
+
 ### Changed
 - Updated xml-objects to 1.1.5.
 
 ## [1.1.4] - 2025-01-19
+
 ### Changed
 - Updated xml-objects to 1.1.4.
 - Updated Gradle to 8.12.
 
 ## [1.1.2] - 2024-12-01
+
 ### Changed
 - Updated xml-objects to 1.1.2.
 
 ## [1.1.1] - 2024-07-15
+
 ### Changed
 - Updated xml-objects to 1.1.1.
 
 ## [1.1.0] - 2024-01-29
+
 ### Changed
 - **Breaking:** Java 17 is now the minimum required version for using xal-objects.
 
 ## [1.0.4] - 2023-11-03
+
 ### Fixed
 - Deep-copying of `AddressObjects` using the `CopyBuilder` from xml-objects failed in case the
   `otherAttributes` field was used for the address object.
 - Fixed `XALWalker` to visit `FreeTextAddress` objects.
 
 ## [1.0.3] - 2023-04-04
+
 ### Changed
 - Updated xml-objects to 1.0.3.
 
 ## [1.0.2] - 2023-02-06
+
 ### Changed
 - Updated xml-objects to 1.0.2.
 
 ## [1.0.1] - 2022-09-08
+
 ### Changed
 - Updated xml-objects to 1.0.1.
 
 ## [1.0.0] - 2022-08-20
+
 This is the initial release of xal-objects.
 
 [Unreleased]: https://github.com/xmlobjects/xal-objects/compare/v2.0.1...HEAD
