@@ -4,6 +4,7 @@
 
 ### Changed
 - **Breaking:** `XALConstants` now uses the official xAL 2.0 XML schema location from the OASIS schema repository.
+- Updated to xml-objects 2.0.2.
 
 ## [2.0.1] - 2026-04-16
 
