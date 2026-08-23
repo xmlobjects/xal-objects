@@ -16,10 +16,9 @@
 ## [2.0.0] - 2026-03-31
 
 ### Changed
-- **Breaking:** Updated to xml-objects 2.0.0.
-  - Removes the `CopyBuilder` class and the entire `org.xmlobjects.util.copy` package in favor of the
-    standalone [object-copier](https://github.com/xmlobjects/object-copier) library, which provides a more
-    powerful and flexible copy framework.
+- **Breaking:** Updated xml-objects to 2.0.0.
+- Removed the `CopyBuilder` class and the entire `org.xmlobjects.util.copy` package in favor of the
+  standalone [object-copier](https://github.com/xmlobjects/object-copier) library, which provides a more powerful and flexible copy framework.
 
 ## [1.3.0] - 2025-12-29
 
