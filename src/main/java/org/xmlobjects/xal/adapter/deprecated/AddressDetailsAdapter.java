@@ -65,7 +65,7 @@ public class AddressDetailsAdapter extends AddressObjectAdapter<Address> {
 
         TextContent validToDate = attributes.getValue("ValidToDate");
         if (validToDate.isDateTime())
-            object.setDateValidFrom(validToDate.getAsDateTime());
+            object.setDateValidTo(validToDate.getAsDateTime());
         else if (validToDate.isPresent())
             object.getOtherAttributes().add("ValidToDate", validToDate.get());
     }

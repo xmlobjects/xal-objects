@@ -76,6 +76,12 @@ public class DependentThoroughfareAdapter extends AddressObjectAdapter<SubThorou
     }
 
     @Override
+    public void initializeElement(Element element, SubThoroughfare object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        super.initializeElement(element, object, namespaces, writer);
+        element.addAttribute("Type", object.getType());
+    }
+
+    @Override
     public void writeChildElements(SubThoroughfare object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         ThoroughfareNamesAndNumbers namesAndNumbers = ThoroughfareNamesAndNumbers.of(object);
 

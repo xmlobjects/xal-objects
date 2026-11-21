@@ -5,6 +5,10 @@
 ### Changed
 - **Breaking:** Java 21 is now the minimum required version for using xal-objects.
 
+### Fixed
+- Fixed reading of the xAL 2.0 `ValidToDate` attribute of `AddressDetails`, which overwrote the valid-from date.
+- The xAL 2.0 `Type` attribute of `DependentThoroughfare` is now written.
+
 ## [2.1.0] - 2026-08-23
 
 ### Changed
