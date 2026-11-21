@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Changed
+- **Breaking:** Java 21 is now the minimum required version for using xal-objects.
+
 ## [2.1.0] - 2026-08-23
 
 ### Changed
