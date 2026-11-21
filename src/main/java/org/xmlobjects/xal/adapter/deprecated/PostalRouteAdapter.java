@@ -50,23 +50,17 @@ public class PostalRouteAdapter extends AddressObjectAdapter<Thoroughfare> {
         if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
             Address address = object.getParent(Address.class);
             switch (name.getLocalPart()) {
-                case "AddressLine":
+                case "AddressLine" -> {
                     if (address != null) {
                         if (address.getFreeTextAddress() == null)
                             address.setFreeTextAddress(new FreeTextAddress());
 
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
-                    break;
-                case "PostalRouteName":
-                    object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(PostalRouteNameAdapter.class)));
-                    break;
-                case "PostalRouteNumber":
-                    object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(PostalRouteNumberAdapter.class)));
-                    break;
-                case "PostBox":
-                    object.getDeprecatedProperties().setPostBox(reader.getObjectUsingBuilder(PostBoxAdapter.class));
-                    break;
+                }
+                case "PostalRouteName" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(PostalRouteNameAdapter.class)));
+                case "PostalRouteNumber" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(PostalRouteNumberAdapter.class)));
+                case "PostBox" -> object.getDeprecatedProperties().setPostBox(reader.getObjectUsingBuilder(PostBoxAdapter.class));
             }
         }
     }

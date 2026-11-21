@@ -52,36 +52,26 @@ public class PostBoxAdapter extends AddressObjectAdapter<PostalDeliveryPoint> {
         if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
             Address address = object.getParent(Address.class);
             switch (name.getLocalPart()) {
-                case "AddressLine":
+                case "AddressLine" -> {
                     if (address != null) {
                         if (address.getFreeTextAddress() == null)
                             address.setFreeTextAddress(new FreeTextAddress());
 
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
-                    break;
-                case "PostBoxNumber":
-                    object.getIdentifiers().add(reader.getObjectUsingBuilder(PostBoxNumberAdapter.class));
-                    break;
-                case "PostBoxNumberPrefix":
-                    object.getIdentifiers().add(reader.getObjectUsingBuilder(PostBoxNumberPrefixAdapter.class));
-                    break;
-                case "PostBoxNumberSuffix":
-                    object.getIdentifiers().add(reader.getObjectUsingBuilder(PostBoxNumberSuffixAdapter.class));
-                    break;
-                case "PostBoxNumberExtension":
-                    object.getIdentifiers().add(reader.getObjectUsingBuilder(PostBoxNumberExtensionAdapter.class));
-                    break;
-                case "Firm":
-                    object.getDeprecatedProperties().setFirm(reader.getObjectUsingBuilder(FirmAdapter.class));
-                    break;
-                case "PostalCode":
+                }
+                case "PostBoxNumber" -> object.getIdentifiers().add(reader.getObjectUsingBuilder(PostBoxNumberAdapter.class));
+                case "PostBoxNumberPrefix" -> object.getIdentifiers().add(reader.getObjectUsingBuilder(PostBoxNumberPrefixAdapter.class));
+                case "PostBoxNumberSuffix" -> object.getIdentifiers().add(reader.getObjectUsingBuilder(PostBoxNumberSuffixAdapter.class));
+                case "PostBoxNumberExtension" -> object.getIdentifiers().add(reader.getObjectUsingBuilder(PostBoxNumberExtensionAdapter.class));
+                case "Firm" -> object.getDeprecatedProperties().setFirm(reader.getObjectUsingBuilder(FirmAdapter.class));
+                case "PostalCode" -> {
                     PostCode postalCode = reader.getObjectUsingBuilder(PostalCodeAdapter.class);
                     if (address != null && address.getPostCode() == null)
                         address.setPostCode(postalCode);
                     else
                         object.getDeprecatedProperties().setPostalCode(postalCode);
-                    break;
+                }
             }
         }
     }
@@ -104,22 +94,22 @@ public class PostBoxAdapter extends AddressObjectAdapter<PostalDeliveryPoint> {
             for (Identifier identifier : object.getIdentifiers()) {
                 IdentifierElementType type = identifier.getType();
                 switch (type != null ? type : IdentifierElementType.NUMBER) {
-                    case PREFIX:
+                    case PREFIX -> {
                         if (prefix == null)
                             prefix = identifier;
-                        break;
-                    case SUFFIX:
+                    }
+                    case SUFFIX -> {
                         if (suffix == null)
                             suffix = identifier;
-                        break;
-                    case EXTENSION:
+                    }
+                    case EXTENSION -> {
                         if (extension == null)
                             extension = identifier;
-                        break;
-                    default:
+                    }
+                    default -> {
                         if (number == null)
                             number = identifier;
-                        break;
+                    }
                 }
             }
         }

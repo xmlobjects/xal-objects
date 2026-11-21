@@ -50,23 +50,17 @@ public class PostalCodeAdapter extends AddressObjectAdapter<PostCode> {
         if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
             Address address = object.getParent(Address.class);
             switch (name.getLocalPart()) {
-                case "AddressLine":
+                case "AddressLine" -> {
                     if (address != null) {
                         if (address.getFreeTextAddress() == null)
                             address.setFreeTextAddress(new FreeTextAddress());
 
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
-                    break;
-                case "PostalCodeNumber":
-                    object.getIdentifiers().add(reader.getObjectUsingBuilder(PostalCodeNumberAdapter.class));
-                    break;
-                case "PostalCodeNumberExtension":
-                    object.getIdentifiers().add(reader.getObjectUsingBuilder(PostalCodeNumberExtensionAdapter.class));
-                    break;
-                case "PostTown":
-                    object.getDeprecatedProperties().setPostTown(reader.getObjectUsingBuilder(PostTownAdapter.class));
-                    break;
+                }
+                case "PostalCodeNumber" -> object.getIdentifiers().add(reader.getObjectUsingBuilder(PostalCodeNumberAdapter.class));
+                case "PostalCodeNumberExtension" -> object.getIdentifiers().add(reader.getObjectUsingBuilder(PostalCodeNumberExtensionAdapter.class));
+                case "PostTown" -> object.getDeprecatedProperties().setPostTown(reader.getObjectUsingBuilder(PostTownAdapter.class));
             }
         }
     }

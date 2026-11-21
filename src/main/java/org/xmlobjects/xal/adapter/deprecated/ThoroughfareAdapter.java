@@ -54,60 +54,38 @@ public class ThoroughfareAdapter extends AddressObjectAdapter<Thoroughfare> {
         if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
             Address address = object.getParent(Address.class);
             switch (name.getLocalPart()) {
-                case "AddressLine":
+                case "AddressLine" -> {
                     if (address != null) {
                         if (address.getFreeTextAddress() == null)
                             address.setFreeTextAddress(new FreeTextAddress());
 
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
-                    break;
-                case "ThoroughfareNumber":
-                    object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberAdapter.class)));
-                    break;
-                case "ThoroughfareNumberRange":
-                    object.getNameElementOrNumber().addAll(reader.getObjectUsingBuilder(ThoroughfareNumberRangeAdapter.class));
-                    break;
-                case "ThoroughfareNumberPrefix":
-                    object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberPrefixAdapter.class)));
-                    break;
-                case "ThoroughfareNumberSuffix":
-                    object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberSuffixAdapter.class)));
-                    break;
-                case "ThoroughfarePreDirection":
-                    object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfarePreDirectionAdapter.class)));
-                    break;
-                case "ThoroughfarePostDirection":
-                    object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfarePostDirectionAdapter.class)));
-                    break;
-                case "ThoroughfareLeadingType":
-                case "ThoroughfareTrailingType":
-                case "ThoroughfareName":
-                    object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNameAdapter.class)));
-                    break;
-                case "DependentThoroughfare":
-                    object.getSubThoroughfares().add(reader.getObjectUsingBuilder(DependentThoroughfareAdapter.class));
-                    break;
-                case "DependentLocality":
-                    object.getDeprecatedProperties().setDependentLocality(reader.getObjectUsingBuilder(DependentLocalityAdapter.class));
-                    break;
-                case "Premise":
+                }
+                case "ThoroughfareNumber" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberAdapter.class)));
+                case "ThoroughfareNumberRange" -> object.getNameElementOrNumber().addAll(reader.getObjectUsingBuilder(ThoroughfareNumberRangeAdapter.class));
+                case "ThoroughfareNumberPrefix" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberPrefixAdapter.class)));
+                case "ThoroughfareNumberSuffix" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberSuffixAdapter.class)));
+                case "ThoroughfarePreDirection" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfarePreDirectionAdapter.class)));
+                case "ThoroughfarePostDirection" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfarePostDirectionAdapter.class)));
+                case "ThoroughfareLeadingType", "ThoroughfareTrailingType", "ThoroughfareName" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNameAdapter.class)));
+                case "DependentThoroughfare" -> object.getSubThoroughfares().add(reader.getObjectUsingBuilder(DependentThoroughfareAdapter.class));
+                case "DependentLocality" -> object.getDeprecatedProperties().setDependentLocality(reader.getObjectUsingBuilder(DependentLocalityAdapter.class));
+                case "Premise" -> {
                     Premises premise = reader.getObjectUsingBuilder(PremiseAdapter.class);
                     if (address != null && address.getPremises() == null)
                         address.setPremises(premise);
                     else
                         object.getDeprecatedProperties().setPremise(premise);
-                    break;
-                case "Firm":
-                    object.getDeprecatedProperties().setFirm(reader.getObjectUsingBuilder(FirmAdapter.class));
-                    break;
-                case "PostalCode":
+                }
+                case "Firm" -> object.getDeprecatedProperties().setFirm(reader.getObjectUsingBuilder(FirmAdapter.class));
+                case "PostalCode" -> {
                     PostCode postalCode = reader.getObjectUsingBuilder(PostalCodeAdapter.class);
                     if (address != null && address.getPostCode() == null)
                         address.setPostCode(postalCode);
                     else
                         object.getDeprecatedProperties().setPostalCode(postalCode);
-                    break;
+                }
             }
         }
     }
@@ -131,10 +109,10 @@ public class ThoroughfareAdapter extends AddressObjectAdapter<Thoroughfare> {
                 null;
 
         for (Object number : namesAndNumbers.getNumbers()) {
-            if (number instanceof Identifier)
-                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfareNumber"), (Identifier) number, ThoroughfareNumberAdapter.class, namespaces);
-            else if (number instanceof NumberRange)
-                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfareNumberRange"), (NumberRange) number, ThoroughfareNumberRangeAdapter.class, namespaces);
+            if (number instanceof Identifier identifier)
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfareNumber"), identifier, ThoroughfareNumberAdapter.class, namespaces);
+            else if (number instanceof NumberRange numberRange)
+                writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfareNumberRange"), numberRange, ThoroughfareNumberRangeAdapter.class, namespaces);
         }
 
         for (Identifier prefix : namesAndNumbers.getPrefixes())
@@ -153,7 +131,7 @@ public class ThoroughfareAdapter extends AddressObjectAdapter<Thoroughfare> {
             writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "ThoroughfarePostDirection"), namesAndNumbers.getPostDirection(), ThoroughfarePostDirectionAdapter.class, namespaces);
 
         if (object.isSetSubThoroughfares())
-            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "DependentThoroughfare"), object.getSubThoroughfares().get(0), DependentThoroughfareAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(XALConstants.XAL_2_0_NAMESPACE, "DependentThoroughfare"), object.getSubThoroughfares().getFirst(), DependentThoroughfareAdapter.class, namespaces);
 
         Premises premise = null;
         if (address != null && address.getPremises() != null) {

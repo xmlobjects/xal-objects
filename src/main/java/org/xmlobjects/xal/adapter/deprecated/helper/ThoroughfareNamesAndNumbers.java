@@ -75,7 +75,7 @@ public class ThoroughfareNamesAndNumbers {
                 numberRange = null;
                 return;
             } else if (number.getType() == IdentifierElementType.SEPARATOR) {
-                numberRange.setSeparator(number.getNumbers().get(0));
+                numberRange.setSeparator(number.getNumbers().getFirst());
                 addPrefixes(number.getPrefixes());
                 addSuffixes(number.getSuffixes());
                 return;

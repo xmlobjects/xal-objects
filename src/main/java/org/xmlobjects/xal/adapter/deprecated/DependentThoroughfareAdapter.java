@@ -51,7 +51,7 @@ public class DependentThoroughfareAdapter extends AddressObjectAdapter<SubThorou
     public void buildChildObject(SubThoroughfare object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
-                case "AddressLine":
+                case "AddressLine" -> {
                     Address address = object.getParent(Address.class);
                     if (address != null) {
                         if (address.getFreeTextAddress() == null)
@@ -59,18 +59,10 @@ public class DependentThoroughfareAdapter extends AddressObjectAdapter<SubThorou
 
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
-                    break;
-                case "ThoroughfarePreDirection":
-                    object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfarePreDirectionAdapter.class)));
-                    break;
-                case "ThoroughfarePostDirection":
-                    object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfarePostDirectionAdapter.class)));
-                    break;
-                case "ThoroughfareLeadingType":
-                case "ThoroughfareTrailingType":
-                case "ThoroughfareName":
-                    object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNameAdapter.class)));
-                    break;
+                }
+                case "ThoroughfarePreDirection" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfarePreDirectionAdapter.class)));
+                case "ThoroughfarePostDirection" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfarePostDirectionAdapter.class)));
+                case "ThoroughfareLeadingType", "ThoroughfareTrailingType", "ThoroughfareName" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNameAdapter.class)));
             }
         }
     }

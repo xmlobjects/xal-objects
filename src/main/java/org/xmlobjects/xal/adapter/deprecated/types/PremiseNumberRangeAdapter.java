@@ -42,12 +42,8 @@ public class PremiseNumberRangeAdapter implements ObjectBuilder<ChildList<Premis
     public void buildChildObject(ChildList<PremisesNameOrNumber> object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
-                case "PremiseNumberRangeFrom":
-                    buildNumber(object, IdentifierElementType.RANGE_FROM, reader);
-                    break;
-                case "PremiseNumberRangeTo":
-                    buildNumber(object, IdentifierElementType.RANGE_TO, reader);
-                    break;
+                case "PremiseNumberRangeFrom" -> buildNumber(object, IdentifierElementType.RANGE_FROM, reader);
+                case "PremiseNumberRangeTo" -> buildNumber(object, IdentifierElementType.RANGE_TO, reader);
             }
         }
     }
@@ -58,7 +54,7 @@ public class PremiseNumberRangeAdapter implements ObjectBuilder<ChildList<Premis
             QName name = reader.getName();
             if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
                 switch (name.getLocalPart()) {
-                    case "AddressLine":
+                    case "AddressLine" -> {
                         Child parent = object.getParent();
                         if (parent != null) {
                             Address address = parent.getParent(Address.class);
@@ -69,18 +65,14 @@ public class PremiseNumberRangeAdapter implements ObjectBuilder<ChildList<Premis
                                 address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                             }
                         }
-                        break;
-                    case "PremiseNumberPrefix":
-                        object.add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberPrefixAdapter.class)));
-                        break;
-                    case "PremiseNumber":
+                    }
+                    case "PremiseNumberPrefix" -> object.add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberPrefixAdapter.class)));
+                    case "PremiseNumber" -> {
                         Identifier number = reader.getObjectUsingBuilder(PremiseNumberAdapter.class);
                         number.setType(type);
                         object.add(new PremisesNameOrNumber(number));
-                        break;
-                    case "PremiseNumberSuffix":
-                        object.add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberSuffixAdapter.class)));
-                        break;
+                    }
+                    case "PremiseNumberSuffix" -> object.add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberSuffixAdapter.class)));
                 }
             }
         }

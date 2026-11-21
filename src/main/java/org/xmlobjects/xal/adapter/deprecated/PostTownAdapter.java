@@ -49,7 +49,7 @@ public class PostTownAdapter extends AddressObjectAdapter<Locality> {
     public void buildChildObject(Locality object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
-                case "AddressLine":
+                case "AddressLine" -> {
                     Address address = object.getParent(Address.class);
                     if (address != null) {
                         if (address.getFreeTextAddress() == null)
@@ -57,13 +57,9 @@ public class PostTownAdapter extends AddressObjectAdapter<Locality> {
 
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
-                    break;
-                case "PostTownName":
-                    object.getNameElements().add(reader.getObjectUsingBuilder(PostTownNameAdapter.class));
-                    break;
-                case "PostTownSuffix":
-                    object.getDeprecatedProperties().setPostTownSuffix(reader.getObjectUsingBuilder(PostTownSuffixAdapter.class));
-                    break;
+                }
+                case "PostTownName" -> object.getNameElements().add(reader.getObjectUsingBuilder(PostTownNameAdapter.class));
+                case "PostTownSuffix" -> object.getDeprecatedProperties().setPostTownSuffix(reader.getObjectUsingBuilder(PostTownSuffixAdapter.class));
             }
         }
     }

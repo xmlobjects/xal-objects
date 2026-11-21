@@ -45,12 +45,8 @@ public class LocationByCoordinatesAdapter extends AddressObjectAdapter<LocationB
     public void buildChildObject(LocationByCoordinates object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (XALConstants.XAL_3_0_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
-                case "Latitude":
-                    object.setLatitude(reader.getObjectUsingBuilder(LatitudeAdapter.class));
-                    break;
-                case "Longitude":
-                    object.setLongitude(reader.getObjectUsingBuilder(LongitudeAdapter.class));
-                    break;
+                case "Latitude" -> object.setLatitude(reader.getObjectUsingBuilder(LatitudeAdapter.class));
+                case "Longitude" -> object.setLongitude(reader.getObjectUsingBuilder(LongitudeAdapter.class));
             }
         }
     }

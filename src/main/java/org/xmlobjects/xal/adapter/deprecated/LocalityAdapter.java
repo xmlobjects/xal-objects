@@ -57,65 +57,59 @@ public class LocalityAdapter extends AddressObjectAdapter<Locality> {
         if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
             Address address = object.getParent(Address.class);
             switch (name.getLocalPart()) {
-                case "AddressLine":
+                case "AddressLine" -> {
                     if (address != null) {
                         if (address.getFreeTextAddress() == null)
                             address.setFreeTextAddress(new FreeTextAddress());
 
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
-                    break;
-                case "LocalityName":
-                    object.getNameElements().add(reader.getObjectUsingBuilder(LocalityNameAdapter.class));
-                    break;
-                case "PostBox":
+                }
+                case "LocalityName" -> object.getNameElements().add(reader.getObjectUsingBuilder(LocalityNameAdapter.class));
+                case "PostBox" -> {
                     PostalDeliveryPoint postBox = reader.getObjectUsingBuilder(PostBoxAdapter.class);
                     if (address != null && address.getPostalDeliveryPoint() == null)
                         address.setPostalDeliveryPoint(postBox);
                     else
                         object.getDeprecatedProperties().setPostBox(postBox);
-                    break;
-                case "LargeMailUser":
+                }
+                case "LargeMailUser" -> {
                     Premises largeMailUser = reader.getObjectUsingBuilder(LargeMailUserAdapter.class);
                     if (address != null && address.getPremises() == null)
                         address.setPremises(largeMailUser);
                     else
                         object.getDeprecatedProperties().setLargeMailUser(largeMailUser);
-                    break;
-                case "PostOffice":
+                }
+                case "PostOffice" -> {
                     PostOffice postOffice = reader.getObjectUsingBuilder(PostOfficeAdapter.class);
                     if (address != null && address.getPostOffice() == null)
                         address.setPostOffice(postOffice);
                     else
                         object.getDeprecatedProperties().setPostOffice(postOffice);
-                    break;
-                case "PostalRoute":
-                    object.getDeprecatedProperties().setPostalRoute(reader.getObjectUsingBuilder(PostalRouteAdapter.class));
-                    break;
-                case "Thoroughfare":
+                }
+                case "PostalRoute" -> object.getDeprecatedProperties().setPostalRoute(reader.getObjectUsingBuilder(PostalRouteAdapter.class));
+                case "Thoroughfare" -> {
                     Thoroughfare thoroughfare = reader.getObjectUsingBuilder(ThoroughfareAdapter.class);
                     if (address != null && address.getThoroughfare() == null)
                         address.setThoroughfare(thoroughfare);
                     else
                         object.getDeprecatedProperties().setThoroughfare(thoroughfare);
-                    break;
-                case "Premise":
+                }
+                case "Premise" -> {
                     Premises premise = reader.getObjectUsingBuilder(PremiseAdapter.class);
                     if (address != null && address.getPremises() == null)
                         address.setPremises(premise);
                     else
                         object.getDeprecatedProperties().setPremise(premise);
-                    break;
-                case "DependentLocality":
-                    object.setSubLocality(reader.getObjectUsingBuilder(DependentLocalityAdapter.class));
-                    break;
-                case "PostalCode":
+                }
+                case "DependentLocality" -> object.setSubLocality(reader.getObjectUsingBuilder(DependentLocalityAdapter.class));
+                case "PostalCode" -> {
                     PostCode postalCode = reader.getObjectUsingBuilder(PostalCodeAdapter.class);
                     if (address != null && address.getPostCode() == null)
                         address.setPostCode(postalCode);
                     else
                         object.getDeprecatedProperties().setPostalCode(postalCode);
-                    break;
+                }
             }
         }
     }

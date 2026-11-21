@@ -37,15 +37,15 @@ public class CountryNameAdapter implements ObjectBuilder<CountryName>, ObjectSer
         XALBuilderHelper.buildOtherAttributes(object::getOtherAttributes, attributes);
 
         switch (name.getLocalPart()) {
-            case "CountryName":
+            case "CountryName" -> {
                 reader.getTextContent().ifPresent(object::setContent);
                 object.setNameType(CountryNameType.NAME);
                 attributes.getValue("Type").ifPresent(v -> object.getOtherAttributes().add("Type", v));
-                break;
-            case "CountryNameCode":
+            }
+            case "CountryNameCode" -> {
                 reader.getTextContent().ifPresent(object::setNameCode);
                 attributes.getValue("Scheme").ifPresent(object::setNameCodeType);
-                break;
+            }
         }
     }
 

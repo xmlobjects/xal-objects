@@ -74,27 +74,13 @@ public class AddressDetailsAdapter extends AddressObjectAdapter<Address> {
     public void buildChildObject(Address object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
-                case "Address":
-                    object.setFreeTextAddress(reader.getObjectUsingBuilder(AddressAdapter.class));
-                    break;
-                case "AddressLines":
-                    object.setFreeTextAddress(reader.getObjectUsingBuilder(AddressLinesAdapter.class));
-                    break;
-                case "Country":
-                    object.setCountry(reader.getObjectUsingBuilder(CountryAdapter.class));
-                    break;
-                case "AdministrativeArea":
-                    object.setAdministrativeArea(reader.getObjectUsingBuilder(AdministrativeAreaAdapter.class));
-                    break;
-                case "Locality":
-                    object.setLocality(reader.getObjectUsingBuilder(LocalityAdapter.class));
-                    break;
-                case "Thoroughfare":
-                    object.setThoroughfare(reader.getObjectUsingBuilder(ThoroughfareAdapter.class));
-                    break;
-                case "PostalServiceElements":
-                    object.getDeprecatedProperties().setPostalServiceElements(reader.getObjectUsingBuilder(PostalServiceElementsAdapter.class));
-                    break;
+                case "Address" -> object.setFreeTextAddress(reader.getObjectUsingBuilder(AddressAdapter.class));
+                case "AddressLines" -> object.setFreeTextAddress(reader.getObjectUsingBuilder(AddressLinesAdapter.class));
+                case "Country" -> object.setCountry(reader.getObjectUsingBuilder(CountryAdapter.class));
+                case "AdministrativeArea" -> object.setAdministrativeArea(reader.getObjectUsingBuilder(AdministrativeAreaAdapter.class));
+                case "Locality" -> object.setLocality(reader.getObjectUsingBuilder(LocalityAdapter.class));
+                case "Thoroughfare" -> object.setThoroughfare(reader.getObjectUsingBuilder(ThoroughfareAdapter.class));
+                case "PostalServiceElements" -> object.getDeprecatedProperties().setPostalServiceElements(reader.getObjectUsingBuilder(PostalServiceElementsAdapter.class));
             }
         }
     }

@@ -40,12 +40,8 @@ public class LocalityAdapter extends AddressObjectAdapter<Locality> {
     public void buildChildObject(Locality object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (XALConstants.XAL_3_0_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
-                case "NameElement":
-                    object.getNameElements().add(reader.getObjectUsingBuilder(LocalityNameAdapter.class));
-                    break;
-                case "SubLocality":
-                    object.setSubLocality(reader.getObjectUsingBuilder(SubLocalityAdapter.class));
-                    break;
+                case "NameElement" -> object.getNameElements().add(reader.getObjectUsingBuilder(LocalityNameAdapter.class));
+                case "SubLocality" -> object.setSubLocality(reader.getObjectUsingBuilder(SubLocalityAdapter.class));
             }
         }
     }

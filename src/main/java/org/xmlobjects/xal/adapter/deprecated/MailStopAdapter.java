@@ -50,7 +50,7 @@ public class MailStopAdapter extends AddressObjectAdapter<PostalDeliveryPoint> {
     public void buildChildObject(PostalDeliveryPoint object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
-                case "AddressLine":
+                case "AddressLine" -> {
                     Address address = object.getParent(Address.class);
                     if (address != null) {
                         if (address.getFreeTextAddress() == null)
@@ -58,13 +58,9 @@ public class MailStopAdapter extends AddressObjectAdapter<PostalDeliveryPoint> {
 
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
-                    break;
-                case "MailStopName":
-                    object.getIdentifiers().add(reader.getObjectUsingBuilder(MailStopNameAdapter.class));
-                    break;
-                case "MailStopNumber":
-                    object.getIdentifiers().add(reader.getObjectUsingBuilder(MailStopNumberAdapter.class));
-                    break;
+                }
+                case "MailStopName" -> object.getIdentifiers().add(reader.getObjectUsingBuilder(MailStopNameAdapter.class));
+                case "MailStopNumber" -> object.getIdentifiers().add(reader.getObjectUsingBuilder(MailStopNumberAdapter.class));
             }
         }
     }

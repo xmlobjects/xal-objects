@@ -45,20 +45,16 @@ public class ThoroughfareNumberRangeAdapter implements ObjectBuilder<ChildList<T
     public void buildChildObject(ChildList<ThoroughfareNameOrNumber> object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
-                case "AddressLine":
-                    buildAddressLine(object, reader);
-                    break;
-                case "ThoroughfareNumberFrom":
-                    buildNumber(object, IdentifierElementType.RANGE_FROM, reader);
-                    break;
-                case "ThoroughfareNumberTo":
+                case "AddressLine" -> buildAddressLine(object, reader);
+                case "ThoroughfareNumberFrom" -> buildNumber(object, IdentifierElementType.RANGE_FROM, reader);
+                case "ThoroughfareNumberTo" -> {
                     if (separator != null) {
                         object.add(new ThoroughfareNameOrNumber(separator));
                         separator = null;
                     }
 
                     buildNumber(object, IdentifierElementType.RANGE_TO, reader);
-                    break;
+                }
             }
         }
     }
@@ -69,20 +65,14 @@ public class ThoroughfareNumberRangeAdapter implements ObjectBuilder<ChildList<T
             QName name = reader.getName();
             if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
                 switch (name.getLocalPart()) {
-                    case "AddressLine":
-                        buildAddressLine(object, reader);
-                        break;
-                    case "ThoroughfareNumberPrefix":
-                        object.add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberPrefixAdapter.class)));
-                        break;
-                    case "ThoroughfareNumber":
+                    case "AddressLine" -> buildAddressLine(object, reader);
+                    case "ThoroughfareNumberPrefix" -> object.add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberPrefixAdapter.class)));
+                    case "ThoroughfareNumber" -> {
                         Identifier number = reader.getObjectUsingBuilder(ThoroughfareNumberAdapter.class);
                         number.setType(type);
                         object.add(new ThoroughfareNameOrNumber(number));
-                        break;
-                    case "ThoroughfareNumberSuffix":
-                        object.add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberSuffixAdapter.class)));
-                        break;
+                    }
+                    case "ThoroughfareNumberSuffix" -> object.add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberSuffixAdapter.class)));
                 }
             }
         }

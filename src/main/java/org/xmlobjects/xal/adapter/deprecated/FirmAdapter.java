@@ -51,26 +51,18 @@ public class FirmAdapter extends AddressObjectAdapter<Premises> {
         if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
             Address address = object.getParent(Address.class);
             switch (name.getLocalPart()) {
-                case "AddressLine":
+                case "AddressLine" -> {
                     if (address != null) {
                         if (address.getFreeTextAddress() == null)
                             address.setFreeTextAddress(new FreeTextAddress());
 
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
-                    break;
-                case "FirmName":
-                    object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(FirmNameAdapter.class)));
-                    break;
-                case "Department":
-                    object.getSubPremises().add(reader.getObjectUsingBuilder(DepartmentAdapter.class));
-                    break;
-                case "MailStop":
-                    object.getDeprecatedProperties().setMailStop(reader.getObjectUsingBuilder(MailStopAdapter.class));
-                    break;
-                case "PostalCode":
-                    object.getDeprecatedProperties().setPostalCode(reader.getObjectUsingBuilder(PostalCodeAdapter.class));
-                    break;
+                }
+                case "FirmName" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(FirmNameAdapter.class)));
+                case "Department" -> object.getSubPremises().add(reader.getObjectUsingBuilder(DepartmentAdapter.class));
+                case "MailStop" -> object.getDeprecatedProperties().setMailStop(reader.getObjectUsingBuilder(MailStopAdapter.class));
+                case "PostalCode" -> object.getDeprecatedProperties().setPostalCode(reader.getObjectUsingBuilder(PostalCodeAdapter.class));
             }
         }
     }

@@ -41,36 +41,16 @@ public class PostalServiceElementsAdapter extends AddressObjectAdapter<PostalSer
     public void buildChildObject(PostalServiceElements object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
-                case "AddressIdentifier":
-                    object.getAddressIdentifiers().add(reader.getObjectUsingBuilder(AddressIdentifierAdapter.class));
-                    break;
-                case "EndorsementLineCode":
-                    object.setEndorsementLineCode(reader.getObjectUsingBuilder(PostalServiceElementAdapter.class));
-                    break;
-                case "KeyLineCode":
-                    object.setKeyLineCode(reader.getObjectUsingBuilder(PostalServiceElementAdapter.class));
-                    break;
-                case "Barcode":
-                    object.setBarCode(reader.getObjectUsingBuilder(PostalServiceElementAdapter.class));
-                    break;
-                case "SortingCode":
-                    object.setSortingCode(reader.getObjectUsingBuilder(PostalServiceElementAdapter.class));
-                    break;
-                case "AddressLatitude":
-                    object.setAddressLatitude(reader.getObjectUsingBuilder(PostalServiceElementAdapter.class));
-                    break;
-                case "AddressLatitudeDirection":
-                    object.setAddressLatitudeDirection(reader.getObjectUsingBuilder(PostalServiceElementAdapter.class));
-                    break;
-                case "AddressLongitude":
-                    object.setAddressLongitude(reader.getObjectUsingBuilder(PostalServiceElementAdapter.class));
-                    break;
-                case "AddressLongitudeDirection":
-                    object.setAddressLongitudeDirection(reader.getObjectUsingBuilder(PostalServiceElementAdapter.class));
-                    break;
-                case "SupplementaryPostalServiceData":
-                    object.getSupplementaryPostalServiceData().add(reader.getObjectUsingBuilder(AddressIdentifierAdapter.class));
-                    break;
+                case "AddressIdentifier" -> object.getAddressIdentifiers().add(reader.getObjectUsingBuilder(AddressIdentifierAdapter.class));
+                case "EndorsementLineCode" -> object.setEndorsementLineCode(reader.getObjectUsingBuilder(PostalServiceElementAdapter.class));
+                case "KeyLineCode" -> object.setKeyLineCode(reader.getObjectUsingBuilder(PostalServiceElementAdapter.class));
+                case "Barcode" -> object.setBarCode(reader.getObjectUsingBuilder(PostalServiceElementAdapter.class));
+                case "SortingCode" -> object.setSortingCode(reader.getObjectUsingBuilder(PostalServiceElementAdapter.class));
+                case "AddressLatitude" -> object.setAddressLatitude(reader.getObjectUsingBuilder(PostalServiceElementAdapter.class));
+                case "AddressLatitudeDirection" -> object.setAddressLatitudeDirection(reader.getObjectUsingBuilder(PostalServiceElementAdapter.class));
+                case "AddressLongitude" -> object.setAddressLongitude(reader.getObjectUsingBuilder(PostalServiceElementAdapter.class));
+                case "AddressLongitudeDirection" -> object.setAddressLongitudeDirection(reader.getObjectUsingBuilder(PostalServiceElementAdapter.class));
+                case "SupplementaryPostalServiceData" -> object.getSupplementaryPostalServiceData().add(reader.getObjectUsingBuilder(AddressIdentifierAdapter.class));
             }
         }
     }

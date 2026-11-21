@@ -53,35 +53,21 @@ public class LargeMailUserAdapter extends AddressObjectAdapter<Premises> {
         if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
             Address address = object.getParent(Address.class);
             switch (name.getLocalPart()) {
-                case "AddressLine":
+                case "AddressLine" -> {
                     if (address != null) {
                         if (address.getFreeTextAddress() == null)
                             address.setFreeTextAddress(new FreeTextAddress());
 
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
-                    break;
-                case "LargeMailUserName":
-                    object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(LargeMailUserNameAdapter.class)));
-                    break;
-                case "LargeMailUserIdentifier":
-                    object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(LargeMailUserIdentifierAdapter.class)));
-                    break;
-                case "BuildingName":
-                    object.getDeprecatedProperties().getBuildingNames().add(reader.getObjectUsingBuilder(BuildingNameAdapter.class));
-                    break;
-                case "Department":
-                    object.getDeprecatedProperties().setDepartment(reader.getObjectUsingBuilder(DepartmentAdapter.class));
-                    break;
-                case "PostBox":
-                    object.getDeprecatedProperties().setPostBox(reader.getObjectUsingBuilder(PostBoxAdapter.class));
-                    break;
-                case "Thoroughfare":
-                    object.getDeprecatedProperties().setThoroughfare(reader.getObjectUsingBuilder(ThoroughfareAdapter.class));
-                    break;
-                case "PostalCode":
-                    object.getDeprecatedProperties().setPostalCode(reader.getObjectUsingBuilder(PostalCodeAdapter.class));
-                    break;
+                }
+                case "LargeMailUserName" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(LargeMailUserNameAdapter.class)));
+                case "LargeMailUserIdentifier" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(LargeMailUserIdentifierAdapter.class)));
+                case "BuildingName" -> object.getDeprecatedProperties().getBuildingNames().add(reader.getObjectUsingBuilder(BuildingNameAdapter.class));
+                case "Department" -> object.getDeprecatedProperties().setDepartment(reader.getObjectUsingBuilder(DepartmentAdapter.class));
+                case "PostBox" -> object.getDeprecatedProperties().setPostBox(reader.getObjectUsingBuilder(PostBoxAdapter.class));
+                case "Thoroughfare" -> object.getDeprecatedProperties().setThoroughfare(reader.getObjectUsingBuilder(ThoroughfareAdapter.class));
+                case "PostalCode" -> object.getDeprecatedProperties().setPostalCode(reader.getObjectUsingBuilder(PostalCodeAdapter.class));
             }
         }
     }

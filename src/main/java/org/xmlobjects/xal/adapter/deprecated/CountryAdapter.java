@@ -41,39 +41,36 @@ public class CountryAdapter extends AddressObjectAdapter<Country> {
         if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
             Address address = object.getParent(Address.class);
             switch (name.getLocalPart()) {
-                case "AddressLine":
+                case "AddressLine" -> {
                     if (address != null) {
                         if (address.getFreeTextAddress() == null)
                             address.setFreeTextAddress(new FreeTextAddress());
 
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
-                    break;
-                case "CountryNameCode":
-                case "CountryName":
-                    object.getNameElements().add(reader.getObjectUsingBuilder(CountryNameAdapter.class));
-                    break;
-                case "AdministrativeArea":
+                }
+                case "CountryNameCode", "CountryName" -> object.getNameElements().add(reader.getObjectUsingBuilder(CountryNameAdapter.class));
+                case "AdministrativeArea" -> {
                     AdministrativeArea administrativeArea = reader.getObjectUsingBuilder(AdministrativeAreaAdapter.class);
                     if (address != null && address.getAdministrativeArea() == null)
                         address.setAdministrativeArea(administrativeArea);
                     else
                         object.getDeprecatedProperties().setAdministrativeArea(administrativeArea);
-                    break;
-                case "Locality":
+                }
+                case "Locality" -> {
                     Locality locality = reader.getObjectUsingBuilder(LocalityAdapter.class);
                     if (address != null && address.getLocality() == null)
                         address.setLocality(locality);
                     else
                         object.getDeprecatedProperties().setLocality(locality);
-                    break;
-                case "Thoroughfare":
+                }
+                case "Thoroughfare" -> {
                     Thoroughfare thoroughfare = reader.getObjectUsingBuilder(ThoroughfareAdapter.class);
                     if (address != null && address.getThoroughfare() == null)
                         address.setThoroughfare(thoroughfare);
                     else
                         object.getDeprecatedProperties().setThoroughfare(thoroughfare);
-                    break;
+                }
             }
         }
     }

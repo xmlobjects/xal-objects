@@ -57,63 +57,45 @@ public class PremiseAdapter extends AddressObjectAdapter<Premises> {
         if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
             Address address = object.getParent(Address.class);
             switch (name.getLocalPart()) {
-                case "AddressLine":
+                case "AddressLine" -> {
                     if (address != null) {
                         if (address.getFreeTextAddress() == null)
                             address.setFreeTextAddress(new FreeTextAddress());
 
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
-                    break;
-                case "PremiseName":
-                    object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNameAdapter.class)));
-                    break;
-                case "PremiseLocation":
-                    object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseLocationAdapter.class)));
-                    break;
-                case "PremiseNumber":
-                    object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberAdapter.class)));
-                    break;
-                case "PremiseNumberRange":
-                    object.getNameElementOrNumber().addAll(reader.getObjectUsingBuilder(PremiseNumberRangeAdapter.class));
-                    break;
-                case "PremiseNumberPrefix":
-                    object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberPrefixAdapter.class)));
-                    break;
-                case "PremiseNumberSuffix":
-                    object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberSuffixAdapter.class)));
-                    break;
-                case "BuildingName":
-                    object.getDeprecatedProperties().getBuildingNames().add(reader.getObjectUsingBuilder(BuildingNameAdapter.class));
-                    break;
-                case "SubPremise":
+                }
+                case "PremiseName" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNameAdapter.class)));
+                case "PremiseLocation" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseLocationAdapter.class)));
+                case "PremiseNumber" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberAdapter.class)));
+                case "PremiseNumberRange" -> object.getNameElementOrNumber().addAll(reader.getObjectUsingBuilder(PremiseNumberRangeAdapter.class));
+                case "PremiseNumberPrefix" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberPrefixAdapter.class)));
+                case "PremiseNumberSuffix" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberSuffixAdapter.class)));
+                case "BuildingName" -> object.getDeprecatedProperties().getBuildingNames().add(reader.getObjectUsingBuilder(BuildingNameAdapter.class));
+                case "SubPremise" -> {
                     SubPremises subPremise = reader.getObjectUsingBuilder(SubPremiseAdapter.class);
                     object.getSubPremises().add(subPremise);
                     while ((subPremise = subPremise.getDeprecatedProperties().getSubPremise()) != null)
                         object.getSubPremises().add(subPremise);
 
                     object.getSubPremises().forEach(v -> v.getDeprecatedProperties().setSubPremise(null));
-                    break;
-                case "Firm":
-                    object.getDeprecatedProperties().setFirm(reader.getObjectUsingBuilder(FirmAdapter.class));
-                    break;
-                case "MailStop":
+                }
+                case "Firm" -> object.getDeprecatedProperties().setFirm(reader.getObjectUsingBuilder(FirmAdapter.class));
+                case "MailStop" -> {
                     PostalDeliveryPoint mailStop = reader.getObjectUsingBuilder(MailStopAdapter.class);
                     if (address != null && address.getPostalDeliveryPoint() == null)
                         address.setPostalDeliveryPoint(mailStop);
                     else
                         object.getDeprecatedProperties().setMailStop(mailStop);
-                    break;
-                case "PostalCode":
+                }
+                case "PostalCode" -> {
                     PostCode postalCode = reader.getObjectUsingBuilder(PostalCodeAdapter.class);
                     if (address != null && address.getPostCode() == null)
                         address.setPostCode(postalCode);
                     else
                         object.getDeprecatedProperties().setPostalCode(postalCode);
-                    break;
-                case "Premise":
-                    object.getDeprecatedProperties().setPremise(reader.getObjectUsingBuilder(PremiseAdapter.class));
-                    break;
+                }
+                case "Premise" -> object.getDeprecatedProperties().setPremise(reader.getObjectUsingBuilder(PremiseAdapter.class));
             }
         }
     }
