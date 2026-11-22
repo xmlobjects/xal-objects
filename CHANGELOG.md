@@ -4,6 +4,8 @@
 
 ### Changed
 - **Breaking:** Java 21 is now the minimum required version for using xal-objects.
+- Modernized adapter code using Java 21 language features.
+- Added JUnit test setup and xAL 2.0 round-trip tests.
 
 ### Fixed
 - Fixed reading of the xAL 2.0 `ValidToDate` attribute of `AddressDetails`, which overwrote the valid-from date.
