@@ -59,8 +59,10 @@ public class MailStopAdapter extends AddressObjectAdapter<PostalDeliveryPoint> {
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
                 }
-                case "MailStopName" -> object.getIdentifiers().add(reader.getObjectUsingBuilder(MailStopNameAdapter.class));
-                case "MailStopNumber" -> object.getIdentifiers().add(reader.getObjectUsingBuilder(MailStopNumberAdapter.class));
+                case "MailStopName" ->
+                        object.getIdentifiers().add(reader.getObjectUsingBuilder(MailStopNameAdapter.class));
+                case "MailStopNumber" ->
+                        object.getIdentifiers().add(reader.getObjectUsingBuilder(MailStopNumberAdapter.class));
             }
         }
     }

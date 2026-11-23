@@ -60,11 +60,16 @@ public class PostBoxAdapter extends AddressObjectAdapter<PostalDeliveryPoint> {
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
                 }
-                case "PostBoxNumber" -> object.getIdentifiers().add(reader.getObjectUsingBuilder(PostBoxNumberAdapter.class));
-                case "PostBoxNumberPrefix" -> object.getIdentifiers().add(reader.getObjectUsingBuilder(PostBoxNumberPrefixAdapter.class));
-                case "PostBoxNumberSuffix" -> object.getIdentifiers().add(reader.getObjectUsingBuilder(PostBoxNumberSuffixAdapter.class));
-                case "PostBoxNumberExtension" -> object.getIdentifiers().add(reader.getObjectUsingBuilder(PostBoxNumberExtensionAdapter.class));
-                case "Firm" -> object.getDeprecatedProperties().setFirm(reader.getObjectUsingBuilder(FirmAdapter.class));
+                case "PostBoxNumber" ->
+                        object.getIdentifiers().add(reader.getObjectUsingBuilder(PostBoxNumberAdapter.class));
+                case "PostBoxNumberPrefix" ->
+                        object.getIdentifiers().add(reader.getObjectUsingBuilder(PostBoxNumberPrefixAdapter.class));
+                case "PostBoxNumberSuffix" ->
+                        object.getIdentifiers().add(reader.getObjectUsingBuilder(PostBoxNumberSuffixAdapter.class));
+                case "PostBoxNumberExtension" ->
+                        object.getIdentifiers().add(reader.getObjectUsingBuilder(PostBoxNumberExtensionAdapter.class));
+                case "Firm" ->
+                        object.getDeprecatedProperties().setFirm(reader.getObjectUsingBuilder(FirmAdapter.class));
                 case "PostalCode" -> {
                     PostCode postalCode = reader.getObjectUsingBuilder(PostalCodeAdapter.class);
                     if (address != null && address.getPostCode() == null)

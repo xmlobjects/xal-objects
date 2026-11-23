@@ -66,13 +66,15 @@ public class ThoroughfareNumberRangeAdapter implements ObjectBuilder<ChildList<T
             if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
                 switch (name.getLocalPart()) {
                     case "AddressLine" -> buildAddressLine(object, reader);
-                    case "ThoroughfareNumberPrefix" -> object.add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberPrefixAdapter.class)));
+                    case "ThoroughfareNumberPrefix" ->
+                            object.add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberPrefixAdapter.class)));
                     case "ThoroughfareNumber" -> {
                         Identifier number = reader.getObjectUsingBuilder(ThoroughfareNumberAdapter.class);
                         number.setType(type);
                         object.add(new ThoroughfareNameOrNumber(number));
                     }
-                    case "ThoroughfareNumberSuffix" -> object.add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberSuffixAdapter.class)));
+                    case "ThoroughfareNumberSuffix" ->
+                            object.add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberSuffixAdapter.class)));
                 }
             }
         }

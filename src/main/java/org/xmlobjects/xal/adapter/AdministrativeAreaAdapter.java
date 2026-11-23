@@ -40,8 +40,10 @@ public class AdministrativeAreaAdapter extends AddressObjectAdapter<Administrati
     public void buildChildObject(AdministrativeArea object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (XALConstants.XAL_3_0_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
-                case "NameElement" -> object.getNameElements().add(reader.getObjectUsingBuilder(AdministrativeAreaNameAdapter.class));
-                case "SubAdministrativeArea" -> object.setSubAdministrativeArea(reader.getObjectUsingBuilder(SubAdministrativeAreaAdapter.class));
+                case "NameElement" ->
+                        object.getNameElements().add(reader.getObjectUsingBuilder(AdministrativeAreaNameAdapter.class));
+                case "SubAdministrativeArea" ->
+                        object.setSubAdministrativeArea(reader.getObjectUsingBuilder(SubAdministrativeAreaAdapter.class));
             }
         }
     }

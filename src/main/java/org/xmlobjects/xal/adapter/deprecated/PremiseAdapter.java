@@ -65,13 +65,20 @@ public class PremiseAdapter extends AddressObjectAdapter<Premises> {
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
                 }
-                case "PremiseName" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNameAdapter.class)));
-                case "PremiseLocation" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseLocationAdapter.class)));
-                case "PremiseNumber" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberAdapter.class)));
-                case "PremiseNumberRange" -> object.getNameElementOrNumber().addAll(reader.getObjectUsingBuilder(PremiseNumberRangeAdapter.class));
-                case "PremiseNumberPrefix" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberPrefixAdapter.class)));
-                case "PremiseNumberSuffix" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberSuffixAdapter.class)));
-                case "BuildingName" -> object.getDeprecatedProperties().getBuildingNames().add(reader.getObjectUsingBuilder(BuildingNameAdapter.class));
+                case "PremiseName" ->
+                        object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNameAdapter.class)));
+                case "PremiseLocation" ->
+                        object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseLocationAdapter.class)));
+                case "PremiseNumber" ->
+                        object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberAdapter.class)));
+                case "PremiseNumberRange" ->
+                        object.getNameElementOrNumber().addAll(reader.getObjectUsingBuilder(PremiseNumberRangeAdapter.class));
+                case "PremiseNumberPrefix" ->
+                        object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberPrefixAdapter.class)));
+                case "PremiseNumberSuffix" ->
+                        object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberSuffixAdapter.class)));
+                case "BuildingName" ->
+                        object.getDeprecatedProperties().getBuildingNames().add(reader.getObjectUsingBuilder(BuildingNameAdapter.class));
                 case "SubPremise" -> {
                     SubPremises subPremise = reader.getObjectUsingBuilder(SubPremiseAdapter.class);
                     object.getSubPremises().add(subPremise);
@@ -80,7 +87,8 @@ public class PremiseAdapter extends AddressObjectAdapter<Premises> {
 
                     object.getSubPremises().forEach(v -> v.getDeprecatedProperties().setSubPremise(null));
                 }
-                case "Firm" -> object.getDeprecatedProperties().setFirm(reader.getObjectUsingBuilder(FirmAdapter.class));
+                case "Firm" ->
+                        object.getDeprecatedProperties().setFirm(reader.getObjectUsingBuilder(FirmAdapter.class));
                 case "MailStop" -> {
                     PostalDeliveryPoint mailStop = reader.getObjectUsingBuilder(MailStopAdapter.class);
                     if (address != null && address.getPostalDeliveryPoint() == null)
@@ -95,7 +103,8 @@ public class PremiseAdapter extends AddressObjectAdapter<Premises> {
                     else
                         object.getDeprecatedProperties().setPostalCode(postalCode);
                 }
-                case "Premise" -> object.getDeprecatedProperties().setPremise(reader.getObjectUsingBuilder(PremiseAdapter.class));
+                case "Premise" ->
+                        object.getDeprecatedProperties().setPremise(reader.getObjectUsingBuilder(PremiseAdapter.class));
             }
         }
     }

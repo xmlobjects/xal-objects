@@ -60,9 +60,12 @@ public class DependentThoroughfareAdapter extends AddressObjectAdapter<SubThorou
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
                 }
-                case "ThoroughfarePreDirection" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfarePreDirectionAdapter.class)));
-                case "ThoroughfarePostDirection" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfarePostDirectionAdapter.class)));
-                case "ThoroughfareLeadingType", "ThoroughfareTrailingType", "ThoroughfareName" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNameAdapter.class)));
+                case "ThoroughfarePreDirection" ->
+                        object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfarePreDirectionAdapter.class)));
+                case "ThoroughfarePostDirection" ->
+                        object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfarePostDirectionAdapter.class)));
+                case "ThoroughfareLeadingType", "ThoroughfareTrailingType", "ThoroughfareName" ->
+                        object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNameAdapter.class)));
             }
         }
     }

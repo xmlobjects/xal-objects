@@ -67,8 +67,10 @@ public class DependentLocalityAdapter extends AddressObjectAdapter<SubLocality> 
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
                 }
-                case "DependentLocalityName" -> object.getNameElements().add(reader.getObjectUsingBuilder(DependentLocalityNameAdapter.class));
-                case "DependentLocalityNumber" -> object.getNameElements().add(reader.getObjectUsingBuilder(DependentLocalityNumberAdapter.class));
+                case "DependentLocalityName" ->
+                        object.getNameElements().add(reader.getObjectUsingBuilder(DependentLocalityNameAdapter.class));
+                case "DependentLocalityNumber" ->
+                        object.getNameElements().add(reader.getObjectUsingBuilder(DependentLocalityNumberAdapter.class));
                 case "PostBox" -> {
                     PostalDeliveryPoint postBox = reader.getObjectUsingBuilder(PostBoxAdapter.class);
                     if (address != null && address.getPostalDeliveryPoint() == null)
@@ -90,7 +92,8 @@ public class DependentLocalityAdapter extends AddressObjectAdapter<SubLocality> 
                     else
                         object.getDeprecatedProperties().setPostOffice(postOffice);
                 }
-                case "PostalRoute" -> object.getDeprecatedProperties().setPostalRoute(reader.getObjectUsingBuilder(PostalRouteAdapter.class));
+                case "PostalRoute" ->
+                        object.getDeprecatedProperties().setPostalRoute(reader.getObjectUsingBuilder(PostalRouteAdapter.class));
                 case "Thoroughfare" -> {
                     Thoroughfare thoroughfare = reader.getObjectUsingBuilder(ThoroughfareAdapter.class);
                     if (address != null && address.getThoroughfare() == null)
@@ -105,7 +108,8 @@ public class DependentLocalityAdapter extends AddressObjectAdapter<SubLocality> 
                     else
                         object.getDeprecatedProperties().setPremise(premise);
                 }
-                case "DependentLocality" -> object.getDeprecatedProperties().setDependentLocality(reader.getObjectUsingBuilder(DependentLocalityAdapter.class));
+                case "DependentLocality" ->
+                        object.getDeprecatedProperties().setDependentLocality(reader.getObjectUsingBuilder(DependentLocalityAdapter.class));
                 case "PostalCode" -> {
                     PostCode postalCode = reader.getObjectUsingBuilder(PostalCodeAdapter.class);
                     if (address != null && address.getPostCode() == null)

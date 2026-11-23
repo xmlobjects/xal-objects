@@ -59,9 +59,12 @@ public class PostOfficeAdapter extends AddressObjectAdapter<PostOffice> {
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
                 }
-                case "PostOfficeName" -> object.getIdentifiers().add(reader.getObjectUsingBuilder(PostOfficeNameAdapter.class));
-                case "PostOfficeNumber" -> object.getIdentifiers().add(reader.getObjectUsingBuilder(PostOfficeNumberAdapter.class));
-                case "PostalRoute" -> object.getDeprecatedProperties().setPostalRoute(reader.getObjectUsingBuilder(PostalRouteAdapter.class));
+                case "PostOfficeName" ->
+                        object.getIdentifiers().add(reader.getObjectUsingBuilder(PostOfficeNameAdapter.class));
+                case "PostOfficeNumber" ->
+                        object.getIdentifiers().add(reader.getObjectUsingBuilder(PostOfficeNumberAdapter.class));
+                case "PostalRoute" ->
+                        object.getDeprecatedProperties().setPostalRoute(reader.getObjectUsingBuilder(PostalRouteAdapter.class));
                 case "PostBox" -> {
                     PostalDeliveryPoint postBox = reader.getObjectUsingBuilder(PostBoxAdapter.class);
                     if (address != null && address.getPostalDeliveryPoint() == null)

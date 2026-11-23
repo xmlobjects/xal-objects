@@ -75,12 +75,15 @@ public class AddressDetailsAdapter extends AddressObjectAdapter<Address> {
         if (XALConstants.XAL_2_0_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "Address" -> object.setFreeTextAddress(reader.getObjectUsingBuilder(AddressAdapter.class));
-                case "AddressLines" -> object.setFreeTextAddress(reader.getObjectUsingBuilder(AddressLinesAdapter.class));
+                case "AddressLines" ->
+                        object.setFreeTextAddress(reader.getObjectUsingBuilder(AddressLinesAdapter.class));
                 case "Country" -> object.setCountry(reader.getObjectUsingBuilder(CountryAdapter.class));
-                case "AdministrativeArea" -> object.setAdministrativeArea(reader.getObjectUsingBuilder(AdministrativeAreaAdapter.class));
+                case "AdministrativeArea" ->
+                        object.setAdministrativeArea(reader.getObjectUsingBuilder(AdministrativeAreaAdapter.class));
                 case "Locality" -> object.setLocality(reader.getObjectUsingBuilder(LocalityAdapter.class));
                 case "Thoroughfare" -> object.setThoroughfare(reader.getObjectUsingBuilder(ThoroughfareAdapter.class));
-                case "PostalServiceElements" -> object.getDeprecatedProperties().setPostalServiceElements(reader.getObjectUsingBuilder(PostalServiceElementsAdapter.class));
+                case "PostalServiceElements" ->
+                        object.getDeprecatedProperties().setPostalServiceElements(reader.getObjectUsingBuilder(PostalServiceElementsAdapter.class));
             }
         }
     }

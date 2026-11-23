@@ -62,15 +62,24 @@ public class ThoroughfareAdapter extends AddressObjectAdapter<Thoroughfare> {
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
                 }
-                case "ThoroughfareNumber" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberAdapter.class)));
-                case "ThoroughfareNumberRange" -> object.getNameElementOrNumber().addAll(reader.getObjectUsingBuilder(ThoroughfareNumberRangeAdapter.class));
-                case "ThoroughfareNumberPrefix" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberPrefixAdapter.class)));
-                case "ThoroughfareNumberSuffix" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberSuffixAdapter.class)));
-                case "ThoroughfarePreDirection" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfarePreDirectionAdapter.class)));
-                case "ThoroughfarePostDirection" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfarePostDirectionAdapter.class)));
-                case "ThoroughfareLeadingType", "ThoroughfareTrailingType", "ThoroughfareName" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNameAdapter.class)));
-                case "DependentThoroughfare" -> object.getSubThoroughfares().add(reader.getObjectUsingBuilder(DependentThoroughfareAdapter.class));
-                case "DependentLocality" -> object.getDeprecatedProperties().setDependentLocality(reader.getObjectUsingBuilder(DependentLocalityAdapter.class));
+                case "ThoroughfareNumber" ->
+                        object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberAdapter.class)));
+                case "ThoroughfareNumberRange" ->
+                        object.getNameElementOrNumber().addAll(reader.getObjectUsingBuilder(ThoroughfareNumberRangeAdapter.class));
+                case "ThoroughfareNumberPrefix" ->
+                        object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberPrefixAdapter.class)));
+                case "ThoroughfareNumberSuffix" ->
+                        object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNumberSuffixAdapter.class)));
+                case "ThoroughfarePreDirection" ->
+                        object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfarePreDirectionAdapter.class)));
+                case "ThoroughfarePostDirection" ->
+                        object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfarePostDirectionAdapter.class)));
+                case "ThoroughfareLeadingType", "ThoroughfareTrailingType", "ThoroughfareName" ->
+                        object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(ThoroughfareNameAdapter.class)));
+                case "DependentThoroughfare" ->
+                        object.getSubThoroughfares().add(reader.getObjectUsingBuilder(DependentThoroughfareAdapter.class));
+                case "DependentLocality" ->
+                        object.getDeprecatedProperties().setDependentLocality(reader.getObjectUsingBuilder(DependentLocalityAdapter.class));
                 case "Premise" -> {
                     Premises premise = reader.getObjectUsingBuilder(PremiseAdapter.class);
                     if (address != null && address.getPremises() == null)
@@ -78,7 +87,8 @@ public class ThoroughfareAdapter extends AddressObjectAdapter<Thoroughfare> {
                     else
                         object.getDeprecatedProperties().setPremise(premise);
                 }
-                case "Firm" -> object.getDeprecatedProperties().setFirm(reader.getObjectUsingBuilder(FirmAdapter.class));
+                case "Firm" ->
+                        object.getDeprecatedProperties().setFirm(reader.getObjectUsingBuilder(FirmAdapter.class));
                 case "PostalCode" -> {
                     PostCode postalCode = reader.getObjectUsingBuilder(PostalCodeAdapter.class);
                     if (address != null && address.getPostCode() == null)

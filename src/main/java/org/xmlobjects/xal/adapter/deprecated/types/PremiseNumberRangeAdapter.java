@@ -66,13 +66,15 @@ public class PremiseNumberRangeAdapter implements ObjectBuilder<ChildList<Premis
                             }
                         }
                     }
-                    case "PremiseNumberPrefix" -> object.add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberPrefixAdapter.class)));
+                    case "PremiseNumberPrefix" ->
+                            object.add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberPrefixAdapter.class)));
                     case "PremiseNumber" -> {
                         Identifier number = reader.getObjectUsingBuilder(PremiseNumberAdapter.class);
                         number.setType(type);
                         object.add(new PremisesNameOrNumber(number));
                     }
-                    case "PremiseNumberSuffix" -> object.add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberSuffixAdapter.class)));
+                    case "PremiseNumberSuffix" ->
+                            object.add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremiseNumberSuffixAdapter.class)));
                 }
             }
         }

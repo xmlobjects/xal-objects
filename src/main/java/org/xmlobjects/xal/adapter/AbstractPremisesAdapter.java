@@ -35,8 +35,10 @@ public abstract class AbstractPremisesAdapter<T extends AbstractPremises> extend
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (XALConstants.XAL_3_0_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
-                case "NameElement" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremisesNameAdapter.class)));
-                case "Number" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(IdentifierAdapter.class)));
+                case "NameElement" ->
+                        object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(PremisesNameAdapter.class)));
+                case "Number" ->
+                        object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(IdentifierAdapter.class)));
             }
         }
     }

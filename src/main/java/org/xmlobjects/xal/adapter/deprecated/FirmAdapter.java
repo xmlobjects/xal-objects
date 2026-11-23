@@ -59,10 +59,13 @@ public class FirmAdapter extends AddressObjectAdapter<Premises> {
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
                 }
-                case "FirmName" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(FirmNameAdapter.class)));
+                case "FirmName" ->
+                        object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(FirmNameAdapter.class)));
                 case "Department" -> object.getSubPremises().add(reader.getObjectUsingBuilder(DepartmentAdapter.class));
-                case "MailStop" -> object.getDeprecatedProperties().setMailStop(reader.getObjectUsingBuilder(MailStopAdapter.class));
-                case "PostalCode" -> object.getDeprecatedProperties().setPostalCode(reader.getObjectUsingBuilder(PostalCodeAdapter.class));
+                case "MailStop" ->
+                        object.getDeprecatedProperties().setMailStop(reader.getObjectUsingBuilder(MailStopAdapter.class));
+                case "PostalCode" ->
+                        object.getDeprecatedProperties().setPostalCode(reader.getObjectUsingBuilder(PostalCodeAdapter.class));
             }
         }
     }

@@ -64,13 +64,20 @@ public class SubPremiseAdapter extends AddressObjectAdapter<SubPremises> {
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
                 }
-                case "SubPremiseName" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(SubPremiseNameAdapter.class)));
-                case "SubPremiseLocation" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(SubPremiseLocationAdapter.class)));
-                case "SubPremiseNumber" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(SubPremiseNumberAdapter.class)));
-                case "SubPremiseNumberPrefix" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(SubPremiseNumberPrefixAdapter.class)));
-                case "SubPremiseNumberSuffix" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(SubPremiseNumberSuffixAdapter.class)));
-                case "BuildingName" -> object.getDeprecatedProperties().getBuildingNames().add(reader.getObjectUsingBuilder(BuildingNameAdapter.class));
-                case "Firm" -> object.getDeprecatedProperties().setFirm(reader.getObjectUsingBuilder(FirmAdapter.class));
+                case "SubPremiseName" ->
+                        object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(SubPremiseNameAdapter.class)));
+                case "SubPremiseLocation" ->
+                        object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(SubPremiseLocationAdapter.class)));
+                case "SubPremiseNumber" ->
+                        object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(SubPremiseNumberAdapter.class)));
+                case "SubPremiseNumberPrefix" ->
+                        object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(SubPremiseNumberPrefixAdapter.class)));
+                case "SubPremiseNumberSuffix" ->
+                        object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(SubPremiseNumberSuffixAdapter.class)));
+                case "BuildingName" ->
+                        object.getDeprecatedProperties().getBuildingNames().add(reader.getObjectUsingBuilder(BuildingNameAdapter.class));
+                case "Firm" ->
+                        object.getDeprecatedProperties().setFirm(reader.getObjectUsingBuilder(FirmAdapter.class));
                 case "MailStop" -> {
                     PostalDeliveryPoint mailStop = reader.getObjectUsingBuilder(MailStopAdapter.class);
                     if (address != null && address.getPostalDeliveryPoint() == null)
@@ -85,7 +92,8 @@ public class SubPremiseAdapter extends AddressObjectAdapter<SubPremises> {
                     else
                         object.getDeprecatedProperties().setPostalCode(postalCode);
                 }
-                case "SubPremise" -> object.getDeprecatedProperties().setSubPremise(reader.getObjectUsingBuilder(SubPremiseAdapter.class));
+                case "SubPremise" ->
+                        object.getDeprecatedProperties().setSubPremise(reader.getObjectUsingBuilder(SubPremiseAdapter.class));
             }
         }
     }

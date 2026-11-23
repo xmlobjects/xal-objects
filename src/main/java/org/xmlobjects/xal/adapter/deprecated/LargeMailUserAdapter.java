@@ -61,13 +61,20 @@ public class LargeMailUserAdapter extends AddressObjectAdapter<Premises> {
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
                 }
-                case "LargeMailUserName" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(LargeMailUserNameAdapter.class)));
-                case "LargeMailUserIdentifier" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(LargeMailUserIdentifierAdapter.class)));
-                case "BuildingName" -> object.getDeprecatedProperties().getBuildingNames().add(reader.getObjectUsingBuilder(BuildingNameAdapter.class));
-                case "Department" -> object.getDeprecatedProperties().setDepartment(reader.getObjectUsingBuilder(DepartmentAdapter.class));
-                case "PostBox" -> object.getDeprecatedProperties().setPostBox(reader.getObjectUsingBuilder(PostBoxAdapter.class));
-                case "Thoroughfare" -> object.getDeprecatedProperties().setThoroughfare(reader.getObjectUsingBuilder(ThoroughfareAdapter.class));
-                case "PostalCode" -> object.getDeprecatedProperties().setPostalCode(reader.getObjectUsingBuilder(PostalCodeAdapter.class));
+                case "LargeMailUserName" ->
+                        object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(LargeMailUserNameAdapter.class)));
+                case "LargeMailUserIdentifier" ->
+                        object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(LargeMailUserIdentifierAdapter.class)));
+                case "BuildingName" ->
+                        object.getDeprecatedProperties().getBuildingNames().add(reader.getObjectUsingBuilder(BuildingNameAdapter.class));
+                case "Department" ->
+                        object.getDeprecatedProperties().setDepartment(reader.getObjectUsingBuilder(DepartmentAdapter.class));
+                case "PostBox" ->
+                        object.getDeprecatedProperties().setPostBox(reader.getObjectUsingBuilder(PostBoxAdapter.class));
+                case "Thoroughfare" ->
+                        object.getDeprecatedProperties().setThoroughfare(reader.getObjectUsingBuilder(ThoroughfareAdapter.class));
+                case "PostalCode" ->
+                        object.getDeprecatedProperties().setPostalCode(reader.getObjectUsingBuilder(PostalCodeAdapter.class));
             }
         }
     }

@@ -49,7 +49,8 @@ public class CountryAdapter extends AddressObjectAdapter<Country> {
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
                 }
-                case "CountryNameCode", "CountryName" -> object.getNameElements().add(reader.getObjectUsingBuilder(CountryNameAdapter.class));
+                case "CountryNameCode", "CountryName" ->
+                        object.getNameElements().add(reader.getObjectUsingBuilder(CountryNameAdapter.class));
                 case "AdministrativeArea" -> {
                     AdministrativeArea administrativeArea = reader.getObjectUsingBuilder(AdministrativeAreaAdapter.class);
                     if (address != null && address.getAdministrativeArea() == null)

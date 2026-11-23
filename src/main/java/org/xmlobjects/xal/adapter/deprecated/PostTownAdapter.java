@@ -58,8 +58,10 @@ public class PostTownAdapter extends AddressObjectAdapter<Locality> {
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
                 }
-                case "PostTownName" -> object.getNameElements().add(reader.getObjectUsingBuilder(PostTownNameAdapter.class));
-                case "PostTownSuffix" -> object.getDeprecatedProperties().setPostTownSuffix(reader.getObjectUsingBuilder(PostTownSuffixAdapter.class));
+                case "PostTownName" ->
+                        object.getNameElements().add(reader.getObjectUsingBuilder(PostTownNameAdapter.class));
+                case "PostTownSuffix" ->
+                        object.getDeprecatedProperties().setPostTownSuffix(reader.getObjectUsingBuilder(PostTownSuffixAdapter.class));
             }
         }
     }

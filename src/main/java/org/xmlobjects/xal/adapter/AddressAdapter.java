@@ -56,18 +56,23 @@ public class AddressAdapter extends AddressObjectAdapter<Address> {
     public void buildChildObject(Address object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (XALConstants.XAL_3_0_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
-                case "FreeTextAddress" -> object.setFreeTextAddress(reader.getObjectUsingBuilder(FreeTextAddressAdapter.class));
+                case "FreeTextAddress" ->
+                        object.setFreeTextAddress(reader.getObjectUsingBuilder(FreeTextAddressAdapter.class));
                 case "Country" -> object.setCountry(reader.getObjectUsingBuilder(CountryAdapter.class));
-                case "AdministrativeArea" -> object.setAdministrativeArea(reader.getObjectUsingBuilder(AdministrativeAreaAdapter.class));
+                case "AdministrativeArea" ->
+                        object.setAdministrativeArea(reader.getObjectUsingBuilder(AdministrativeAreaAdapter.class));
                 case "Locality" -> object.setLocality(reader.getObjectUsingBuilder(LocalityAdapter.class));
                 case "Thoroughfare" -> object.setThoroughfare(reader.getObjectUsingBuilder(ThoroughfareAdapter.class));
                 case "Premises" -> object.setPremises(reader.getObjectUsingBuilder(PremisesAdapter.class));
                 case "PostCode" -> object.setPostCode(reader.getObjectUsingBuilder(PostCodeAdapter.class));
-                case "RuralDelivery" -> object.setRuralDelivery(reader.getObjectUsingBuilder(RuralDeliveryAdapter.class));
-                case "PostalDeliveryPoint" -> object.setPostalDeliveryPoint(reader.getObjectUsingBuilder(PostalDeliveryPointAdapter.class));
+                case "RuralDelivery" ->
+                        object.setRuralDelivery(reader.getObjectUsingBuilder(RuralDeliveryAdapter.class));
+                case "PostalDeliveryPoint" ->
+                        object.setPostalDeliveryPoint(reader.getObjectUsingBuilder(PostalDeliveryPointAdapter.class));
                 case "PostOffice" -> object.setPostOffice(reader.getObjectUsingBuilder(PostOfficeAdapter.class));
                 case "GeoRSS" -> object.setGeoRSS(reader.getObjectUsingBuilder(GeoRSSAdapter.class));
-                case "LocationByCoordinates" -> object.setLocationByCoordinates(reader.getObjectUsingBuilder(LocationByCoordinatesAdapter.class));
+                case "LocationByCoordinates" ->
+                        object.setLocationByCoordinates(reader.getObjectUsingBuilder(LocationByCoordinatesAdapter.class));
             }
         }
     }

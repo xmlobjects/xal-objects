@@ -57,9 +57,12 @@ public class DepartmentAdapter extends AddressObjectAdapter<SubPremises> {
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
                 }
-                case "DepartmentName" -> object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(DepartmentNameAdapter.class)));
-                case "MailStop" -> object.getDeprecatedProperties().setMailStop(reader.getObjectUsingBuilder(MailStopAdapter.class));
-                case "PostalCode" -> object.getDeprecatedProperties().setPostalCode(reader.getObjectUsingBuilder(PostalCodeAdapter.class));
+                case "DepartmentName" ->
+                        object.getNameElementOrNumber().add(new PremisesNameOrNumber(reader.getObjectUsingBuilder(DepartmentNameAdapter.class)));
+                case "MailStop" ->
+                        object.getDeprecatedProperties().setMailStop(reader.getObjectUsingBuilder(MailStopAdapter.class));
+                case "PostalCode" ->
+                        object.getDeprecatedProperties().setPostalCode(reader.getObjectUsingBuilder(PostalCodeAdapter.class));
             }
         }
     }

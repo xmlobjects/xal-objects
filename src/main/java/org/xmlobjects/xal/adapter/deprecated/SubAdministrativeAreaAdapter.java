@@ -64,7 +64,8 @@ public class SubAdministrativeAreaAdapter extends AddressObjectAdapter<SubAdmini
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
                 }
-                case "SubAdministrativeAreaName" -> object.getNameElements().add(reader.getObjectUsingBuilder(SubAdministrativeAreaNameAdapter.class));
+                case "SubAdministrativeAreaName" ->
+                        object.getNameElements().add(reader.getObjectUsingBuilder(SubAdministrativeAreaNameAdapter.class));
                 case "Locality" -> {
                     Locality locality = reader.getObjectUsingBuilder(LocalityAdapter.class);
                     if (address != null && address.getLocality() == null)

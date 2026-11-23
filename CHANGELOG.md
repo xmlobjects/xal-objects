@@ -2,10 +2,10 @@
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-11-23
+
 ### Changed
 - **Breaking:** Java 21 is now the minimum required version for using xal-objects.
-- Modernized adapter code using Java 21 language features.
-- Added JUnit test setup and xAL 2.0 round-trip tests.
 
 ### Fixed
 - Fixed reading of the xAL 2.0 `ValidToDate` attribute of `AddressDetails`, which overwrote the valid-from date.
@@ -99,7 +99,8 @@
 
 This is the initial release of xal-objects.
 
-[Unreleased]: https://github.com/xmlobjects/xal-objects/compare/v2.1.0...HEAD
+[Unreleased]: https://github.com/xmlobjects/xal-objects/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/xmlobjects/xal-objects/releases/tag/v3.0.0
 [2.1.0]: https://github.com/xmlobjects/xal-objects/releases/tag/v2.1.0
 [2.0.1]: https://github.com/xmlobjects/xal-objects/releases/tag/v2.0.1
 [2.0.0]: https://github.com/xmlobjects/xal-objects/releases/tag/v2.0.0

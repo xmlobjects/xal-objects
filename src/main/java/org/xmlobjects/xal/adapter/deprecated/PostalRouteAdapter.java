@@ -58,9 +58,12 @@ public class PostalRouteAdapter extends AddressObjectAdapter<Thoroughfare> {
                         address.getFreeTextAddress().getAddressLines().add(reader.getObjectUsingBuilder(AddressLineAdapter.class));
                     }
                 }
-                case "PostalRouteName" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(PostalRouteNameAdapter.class)));
-                case "PostalRouteNumber" -> object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(PostalRouteNumberAdapter.class)));
-                case "PostBox" -> object.getDeprecatedProperties().setPostBox(reader.getObjectUsingBuilder(PostBoxAdapter.class));
+                case "PostalRouteName" ->
+                        object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(PostalRouteNameAdapter.class)));
+                case "PostalRouteNumber" ->
+                        object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(reader.getObjectUsingBuilder(PostalRouteNumberAdapter.class)));
+                case "PostBox" ->
+                        object.getDeprecatedProperties().setPostBox(reader.getObjectUsingBuilder(PostBoxAdapter.class));
             }
         }
     }
